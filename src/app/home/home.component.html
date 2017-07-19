@@ -1,0 +1,72 @@
+<section class="content">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5>
+                <i class="fa fa-reorder"></i>
+                home!!!
+            </h5>
+        </div>
+        <div class="panel-body" style="padding-top: 0">
+            <div class="row" style="margin-bottom: 15px">
+                <form class="form-inline top-handle" style="margin:0">
+                    <div class="input-group">
+                        <input type="text" class="form-control text-search" id="text-search" placeholder="名称">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" (click)="quickSearch()">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <!--  <ng-select model="is_test_account" source="constants.Site" placeholder="站点"></ng-select>-->
+                    <div class="form-group">
+                        <field-check-box [datafields]="dataFields" [fieldshow]="fieldShow"></field-check-box>
+                    </div>
+                    <div class="form-group pull-right">
+                        <button class="btn btn-primary" (click)="create()">
+                            <i class="fa fa-plus-circle"></i>新增
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                <tr>
+                    <ng-container *ngFor="let th of dataFields">
+                        <ng-container *ngIf="th.use && fieldShow[th.fieldName]">
+                            <th >
+                                {{th.name}}
+                            </th>
+                        </ng-container>
+                    </ng-container>
+                    <th id="handle">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngIf="objectList.length == 0">
+                    <td colspan="30">
+                        <div class="alert alert-info">
+                            <h4><i class="icon fa fa-warning"></i>没有数据</h4>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngFor="let obj of objectList;trackBy:trackByFn">
+                    <ng-container *ngFor="let item of dataFields">
+                        <ng-container *ngIf="item.use && fieldShow[item.fieldName]">
+                            <td>
+                                {{obj[item.fieldName] | addStr}}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                    <td class="handle">
+                        <button class="btn btn-primary btn-xs" (click)="edit()">编辑</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <input [formControl]="term" type="text">
+        </div>
+        <div class="panel-footer">
+            <h1 beauty [bgc]="'yellow'">你好</h1>
+        </div>
+    </div>
+</section>

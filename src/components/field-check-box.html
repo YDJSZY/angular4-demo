@@ -1,0 +1,19 @@
+<div class="mySelectBox">
+    <div class="openBtn">
+        <button class="btn" (click)="openbindclick($event)"><i class="fa fa-eye"></i></button>
+    </div>
+    <div class="selectPanel" tabindex="1" id="selectPanel" (click)="selectField($event)" [ngClass]="{'show':showPanel}">
+        <ng-container *ngFor="let item of datafields">
+            <ng-container *ngIf="item.use">
+                <dl (click)="selectField($event,item.fieldName)" class="field_dl">
+                    <dd style="padding-top:10px">
+                        <span class="myCheckBox" [ngClass]="{'selectSpan':fieldshow[item.fieldName]}">✔</span>
+                    </dd>
+                    <dt>
+                        <label [for]="item.fieldName">{{item.name}}</label>
+                    </dt>
+                </dl>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
