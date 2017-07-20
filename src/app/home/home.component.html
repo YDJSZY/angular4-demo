@@ -71,9 +71,10 @@
                 </tbody>
             </table>
             <input [formControl]="term" type="text">
+            <h1 beauty [bgc]="'yellow'">你好</h1>
         </div>
         <div class="panel-footer">
-            <h1 beauty [bgc]="'yellow'">你好</h1>
+            <pagination [paginationMessage]="paginationMessage" (loadData)="loadData($event)"></pagination>
         </div>
     </div>
 </section>

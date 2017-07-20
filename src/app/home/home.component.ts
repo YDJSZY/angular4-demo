@@ -4,7 +4,6 @@ import {dataFields} from './home.dataFields';
 import { MyPipe } from '../../pipes/pipes';
 import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
-const uiPagination = require("../../utils/ui-pagination");
 
 @Component({
     selector: 'home',
@@ -19,6 +18,7 @@ export class HomeComponent implements OnChanges,OnInit{
     dataFields:Object
     fieldShow:Object
     currentRepeatObj:Object
+    paginationMessage:Object
     bgc:string
     bbb:string
     term = new FormControl();
@@ -28,6 +28,7 @@ export class HomeComponent implements OnChanges,OnInit{
         this.fieldShow = dataFields.fieldShow;
         this.bgc = "black";
         this.bbb = new MyPipe().transform("sw");
+        this.paginationMessage = {totalRecords:2,totalPages:10,currentPage:1,pageSize:200}
     }
 
     ngOnChanges(changes:SimpleChanges){
@@ -71,6 +72,10 @@ export class HomeComponent implements OnChanges,OnInit{
 
     toggleDetail(obj){
         return obj.showDetail = !obj.showDetail;
+    }
+    
+    loadData(params){
+        console.log(params)
     }
 
     quickSearch(){}
