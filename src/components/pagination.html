@@ -1,0 +1,10 @@
+<ng-container>
+    <div class="pull-left">
+        <span>一共{{paginationMessage.totalRecords}}条数据，分为{{paginationMessage.totalPages }}页，当前{{paginationMessage.currentPage}}页。</span>
+        <span set-page-size go-to-page="loadFirstPage(params)"></span>
+    </div>
+    <div class="pull-right">
+        <span set-pagination="paginationMessage['totalPages']" current-page="paginationMessage.currentPage" go-to-page="loadObjects(params)" reset="paginationMessage.currentTimestamp"></span>
+    </div>
+    <div style="clear: both"></div>
+</ng-container>

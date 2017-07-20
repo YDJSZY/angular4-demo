@@ -24,6 +24,9 @@ var dataFields = {
             "validate": function (obj) {
                 if(!obj.hasOwnProperty("origin") || !obj["origin"]) return "required";
             },
+            "render":function (value) {
+                return `<a href="#" style="color: #337ab7;">${value}</a>`
+            }
         },
         {
             "name": "总收益",
@@ -33,6 +36,9 @@ var dataFields = {
             "editShow":true,
             "model":"editingObject.total",
             "inputType":"text",
+            "render":function (value) {
+                return "¥"+value;
+            }
         }
     ],
     fieldShow : {

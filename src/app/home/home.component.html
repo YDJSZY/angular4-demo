@@ -49,18 +49,25 @@
                         </div>
                     </td>
                 </tr>
-                <tr *ngFor="let obj of objectList;trackBy:trackByFn">
-                    <ng-container *ngFor="let item of dataFields">
-                        <ng-container *ngIf="item.use && fieldShow[item.fieldName]">
-                            <td>
-                                {{obj[item.fieldName] | addStr}}
-                            </td>
+                <ng-container *ngFor="let obj of objectList;trackBy:trackByFn">
+                    <tr>
+                        <ng-container *ngFor="let item of dataFields">
+                            <ng-container *ngIf="item.use && fieldShow[item.fieldName]" init [init]="renderData" [params]="[item,obj]" #results="andy">
+                                <td [innerHtml]="results.newData | safeHtml">
+                                </td>
+                            </ng-container>
                         </ng-container>
-                    </ng-container>
-                    <td class="handle">
-                        <button class="btn btn-primary btn-xs" (click)="edit()">编辑</button>
-                    </td>
-                </tr>
+                        <td class="handle">
+                            <button class="btn btn-primary btn-xs" (click)="edit()">编辑</button>
+                            <button class="btn btn-primary btn-xs" (click)="toggleDetail(obj)">详情</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="obj.showDetail">
+                        <td colspan="4">
+                            <span>hello</span>
+                        </td>
+                    </tr>
+                </ng-container>
                 </tbody>
             </table>
             <input [formControl]="term" type="text">

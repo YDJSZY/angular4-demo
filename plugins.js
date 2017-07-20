@@ -6,7 +6,6 @@ var plugins = {
         './node_modules/core-js/client/shim.min.js',
         './node_modules/zone.js/dist/zone.js',
         './node_modules/reflect-metadata/Reflect.js',
-        //'./node_modules/@angular/core/index.d.ts'
     ],
     css:[
         './node_modules/font-awesome/css/font-awesome.min.css',

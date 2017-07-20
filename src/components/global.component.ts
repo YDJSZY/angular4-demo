@@ -7,7 +7,6 @@ import { Component,OnInit,Input } from '@angular/core';
     selector: 'field-check-box',
     templateUrl: './field-check-box.html',
 })
-
 export class FieldCheckBoxComponent implements OnInit {
     @Input() datafields:any
     @Input() fieldshow:any
@@ -38,5 +37,19 @@ export class FieldCheckBoxComponent implements OnInit {
         event.stopPropagation() || event.cancelBubble;
         if(!name) return;
         this.fieldshow[name] = !this.fieldshow[name];
+    }
+}
+
+@Component({
+    selector: 'pagination',
+    templateUrl: './pagination.html',
+})
+export class paginationComponent implements OnInit {
+    constructor() {
+
+    }
+
+    ngOnInit() {
+
     }
 }

@@ -4,6 +4,7 @@ import {dataFields} from './home.dataFields';
 import { MyPipe } from '../../pipes/pipes';
 import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
+const uiPagination = require("../../utils/ui-pagination");
 
 @Component({
     selector: 'home',
@@ -17,11 +18,12 @@ export class HomeComponent implements OnChanges,OnInit{
     title:Object
     dataFields:Object
     fieldShow:Object
+    currentRepeatObj:Object
     bgc:string
     bbb:string
     term = new FormControl();
     constructor(public homeService:HomeService){
-        this.objectList = [{id:1,origin_name:"小明",total:1200}];
+        this.objectList = [{id:1,origin_name:"小明",total:1200},{id:2,origin_name:"小黄",total:3400}];
         this.dataFields = dataFields.fields;
         this.fieldShow = dataFields.fieldShow;
         this.bgc = "black";
@@ -42,15 +44,18 @@ export class HomeComponent implements OnChanges,OnInit{
         })
     }
 
-    renderData(e){
-        console.log(1)
-        return "11";
-    }
-
-    renderDatas(){
-        console.log(2);
-        return "22";
-    }
+    renderData(params){
+        var renderData = function (params){
+            var fieldObj = params[0],singleData = params[1]
+            this.currentRepeatObj = singleData;
+            var key = fieldObj["fieldName"];
+            if(fieldObj["render"]){
+                return fieldObj["render"].apply(this,[singleData[key]])
+            }
+            return singleData[key];
+        }.bind(this)
+        return renderData(params)
+    }/*对后端返回的数据进行合适的转换以供前端展示*/
 
     trackByFn(index,item){
         return item.id;
@@ -62,6 +67,10 @@ export class HomeComponent implements OnChanges,OnInit{
     
     edit(){
         
+    }
+
+    toggleDetail(obj){
+        return obj.showDetail = !obj.showDetail;
     }
 
     quickSearch(){}

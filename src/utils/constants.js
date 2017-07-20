@@ -1,0 +1,32 @@
+/**
+ * Created by luwenwe on 2017/4/24.
+ */
+module.exports = {
+    "rechargeRecord":{
+        "dateRangeName":"今天"
+    },
+    "buyRecords":{
+        "dateRangeName":"今天"
+    },
+    "incomes":{
+        "dateRangeName":"今天"
+    },
+    "novelStatistics":{
+        "dateRangeName":"昨天"
+    },
+    "readersStatistics":{
+        "dateRangeName":"昨天"
+    },
+    "channelsStatistics":{
+        "dateRangeName":"昨天"
+    },
+    "readersFeedback":{
+        "dateRangeName":"今天"
+    },
+    "readRecords":{
+        "dateRangeName":"今天"
+    },
+    "readersCoinLog":{
+        "dateRangeName":"今天"
+    }
+}
