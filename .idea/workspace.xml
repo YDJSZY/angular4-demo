@@ -1,48 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7150c65-8acd-4ac0-8c41-00d407146c14" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/pagination.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/$crud.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/commonMethods.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/commons.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/constants.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/crud.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/make_default.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/rootScopeFn.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/ui-pagination.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/active-title.service.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/app.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/app.home.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/app.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/app.myApp.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/highlight.directive.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/main.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/rxjs-operators.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/vendor.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/app_css.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/0.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/1.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/2.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/7.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/angular.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/app_css.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/bootstrap.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/polyfill.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/client/js/thirdparty.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/index.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/fieldCheckBox.ts" afterPath="$PROJECT_DIR$/src/components/global.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins.js" afterPath="$PROJECT_DIR$/plugins.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/home/home.component.html" afterPath="$PROJECT_DIR$/src/app/home/home.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/home/home.component.ts" afterPath="$PROJECT_DIR$/src/app/home/home.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/home/home.dataFields.ts" afterPath="$PROJECT_DIR$/src/app/home/home.dataFields.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/home/home.module.ts" afterPath="$PROJECT_DIR$/src/app/home/home.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directives/directives.ts" afterPath="$PROJECT_DIR$/src/directives/directives.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pipes/pipes.ts" afterPath="$PROJECT_DIR$/src/pipes/pipes.ts" />
-    </list>
+    <list default="true" id="d7150c65-8acd-4ac0-8c41-00d407146c14" name="Default" comment="" />
     <ignored path="angular2.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -373,14 +332,25 @@
       <updated>1500472334639</updated>
 <<<<<<< Updated upstream
       <workItem from="1500472339752" duration="2387000" />
+<<<<<<< HEAD
+      <workItem from="1500515195101" duration="13131000" />
+=======
       <workItem from="1500515195101" duration="13039000" />
 =======
       <workItem from="1500472339752" duration="2495000" />
 >>>>>>> Stashed changes
+>>>>>>> b9ce9792bd1c765636fc9fb71b32a5e7e42d858f
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="15518000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <editor active="true" />
+=======
 <<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="15426000" />
   </component>
@@ -393,8 +363,9 @@
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
 >>>>>>> Stashed changes
     <editor active="false" />
+>>>>>>> b9ce9792bd1c765636fc9fb71b32a5e7e42d858f
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19957873" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19957873" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
