@@ -6,5 +6,7 @@ import { Router, Event, NavigationEnd } from '@angular/router';
     templateUrl:'./app.html'
 })
 export class AppComponent {
+    constructor(){
 
+    }
 };

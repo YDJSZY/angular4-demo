@@ -6,9 +6,9 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from './app.component';
 import { ApplicationRef } from '@angular/core';
-//import {FieldCheckBoxComponent} from '../directives/fieldCheckBox';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-
+import 'hammerjs';
 // 定义常量 路由
 const appRoutes: Routes = [
     {
@@ -28,7 +28,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [BrowserModule, SharkModule,FormsModule, RouterModule.forRoot(appRoutes, { useHash: true })],
+    imports: [BrowserModule,BrowserAnimationsModule, SharkModule,FormsModule, RouterModule.forRoot(appRoutes, { useHash: true })],
     declarations: [AppComponent],
     bootstrap: [AppComponent]
 })
