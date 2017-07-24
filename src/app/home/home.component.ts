@@ -2,9 +2,9 @@ import { Component ,OnInit, OnChanges,SimpleChanges} from '@angular/core';
 import {HomeService} from './home.service';
 import {dataFields} from './home.dataFields';
 import { MyPipe } from '../../pipes/pipes';
-import { FormControl } from '@angular/forms';
+import { FormControl,Validators } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
-
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 @Component({
     selector: 'home',
     templateUrl: './home.component.html',
@@ -21,14 +21,24 @@ export class HomeComponent implements OnChanges,OnInit{
     paginationMessage:Object
     bgc:string
     bbb:string
+    myEmail:string
     term = new FormControl();
+    emailFormControl = new FormControl('', [
+        Validators.required,
+        Validators.pattern(EMAIL_REGEX)]);
     constructor(public homeService:HomeService){
         this.objectList = [{id:1,origin_name:"小明",total:1200},{id:2,origin_name:"小黄",total:3400}];
         this.dataFields = dataFields.fields;
         this.fieldShow = dataFields.fieldShow;
         this.bgc = "black";
         this.bbb = new MyPipe().transform("sw");
-        this.paginationMessage = {totalRecords:2,totalPages:10,currentPage:1,pageSize:200}
+        this.paginationMessage = {totalRecords:2,totalPages:10,currentPage:1,pageSize:200,currentTimestamp:null}
+    }
+
+    myErrorStateMatcher(control: FormControl){
+        var value = this.value;
+        if(value > 1 || value < 0) return true;
+        return false;
     }
 
     ngOnChanges(){
@@ -67,7 +77,13 @@ export class HomeComponent implements OnChanges,OnInit{
     }
     
     edit(){
+<<<<<<< HEAD
         this.paginationMessage.currentTimestamp = new Date().getTime();
+=======
+        this.paginationMessage.totalPages = 20;
+        this.paginationMessage.currentTimestamp = new Date().getTime();
+        console.log(this.paginationMessage)
+>>>>>>> aa217375fb006a3f34539fa481b1cbce51fe06e1
     }
 
     toggleDetail(obj){

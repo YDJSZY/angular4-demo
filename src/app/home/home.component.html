@@ -70,11 +70,21 @@
                 </ng-container>
                 </tbody>
             </table>
-            <input [formControl]="term" type="text">
+            <form class="example-form" role="form">
+                <md-input-container class="example-full-width">
+                    <input mdInput placeholder="Email" required [formControl]="emailFormControl" [(ngModel)]="myEmail">
+                    <!--<md-error *ngIf="emailFormControl.hasError('pattern')">
+                        Please enter a valid email address
+                    </md-error>-->
+                    <md-error *ngIf="emailFormControl.hasError('sb')">
+                        <strong>0~1之间</strong>
+                    </md-error>
+                </md-input-container>
+            </form>
             <h1 beauty [bgc]="'yellow'">你好</h1>
         </div>
         <div class="panel-footer">
-            <pagination [paginationMessage]="paginationMessage" (loadData)="loadData($event)"></pagination>
+            <pagination [paginationMessage]="paginationMessage" [currentTimestamp]="paginationMessage.currentTimestamp" (loadData)="loadData($event)"></pagination>
         </div>
     </div>
 </section>

@@ -7,16 +7,17 @@ import { CommonModule} from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { HomeComponent } from './home.component';
 import { routing } from './home.routing';
-import { FieldCheckBoxComponent,paginationComponent } from '../../components/global.component';
 import { BeautyDirective,InitDirective } from '../../directives/directives'
 import { MyPipe,SafeHtmlPipe } from '../../pipes/pipes';
 import { HttpModule }    from '@angular/http';
 import { AuthInterceptor } from '../../providers/httpInterceptor';
 import { HTTP_INTERCEPTORS,HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from  '../../components/shared.modules';
+import { MdInputModule  } from '@angular/material';
 @NgModule({
-    imports: [SharkModule,ReactiveFormsModule,CommonModule,FormsModule,routing,HttpModule,HttpClientModule],
-    declarations: [HomeComponent,BeautyDirective,InitDirective,FieldCheckBoxComponent,paginationComponent,MyPipe,SafeHtmlPipe],
+    imports: [SharkModule,SharedModule,MdInputModule,ReactiveFormsModule,CommonModule,FormsModule,routing,HttpModule,HttpClientModule],
+    declarations: [HomeComponent,BeautyDirective,InitDirective,MyPipe,SafeHtmlPipe],
     providers:[ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]
 })
 export class HomeModule { }
