@@ -1,0 +1,29 @@
+<form class="example-form" role="form" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+    <ng-container *ngFor="let field of dataFields">
+        <ng-container *ngIf="field.edit">
+            <ng-container [ngSwitch]="field.inputType">
+                <div class="col-sm-6 col-md-6" *ngSwitchCase="'text'">
+                    <md-input-container class="example-full-width" style="width: 100%;">
+                        <input mdInput [placeholder]="field.name" type="text" [name]="field.fieldName" [formControl]="myForm.controls[field.fieldName]">
+                        <md-error *ngFor="let error of field.validators">
+                            <strong *ngIf="myForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                        </md-error>
+                    </md-input-container>
+                </div>
+                <div class="col-sm-6 col-md-6" *ngSwitchCase="'password'">
+                    <md-input-container class="example-full-width" style="width: 100%;">
+                        <input mdInput [placeholder]="field.name" type="password" [name]="field.fieldName" [formControl]="myForm.controls[field.fieldName]">
+                        <md-error *ngFor="let error of field.validators">
+                            <strong *ngIf="myForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                        </md-error>
+                    </md-input-container>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+    <span class="pull-right">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
+    </span>
+    <div style="clear: both;"></div>
+</form>

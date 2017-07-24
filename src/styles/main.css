@@ -896,6 +896,14 @@ li.more-handle-li a:focus {
     background-color: #f5f5f5;
 }
 
+.cdk-overlay-container{
+    z-index: 10000;
+}
+
+.edit-input{
+    padding: 15px;
+}
+
 
 
 

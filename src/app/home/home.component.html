@@ -70,17 +70,6 @@
                 </ng-container>
                 </tbody>
             </table>
-            <form class="example-form" role="form">
-                <md-input-container class="example-full-width">
-                    <input mdInput placeholder="Email" required [formControl]="emailFormControl" [(ngModel)]="myEmail">
-                    <!--<md-error *ngIf="emailFormControl.hasError('pattern')">
-                        Please enter a valid email address
-                    </md-error>-->
-                    <md-error *ngIf="emailFormControl.hasError('sb')">
-                        <strong>0~1之间</strong>
-                    </md-error>
-                </md-input-container>
-            </form>
             <h1 beauty [bgc]="'yellow'">你好</h1>
         </div>
         <div class="panel-footer">
@@ -88,3 +77,62 @@
         </div>
     </div>
 </section>
+<div class="modal fade" data-show="false" data-backdrop="static" effect="zoom" tabindex="-1" role="dialog" id="editModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <form class="example-form" role="form" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+                            <ng-container *ngFor="let field of dataFields">
+                                <ng-container *ngIf="field.edit">
+                                    <ng-container [ngSwitch]="field.inputType">
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'text'">
+                                            <md-input-container class="example-full-width" style="width: 100%;">
+                                                <input mdInput [placeholder]="field.name" type="text" [name]="field.fieldName" [formControl]="myForm.controls[field.fieldName]">
+                                                <md-error *ngFor="let error of field.validators">
+                                                    <strong *ngIf="myForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                                                </md-error>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'password'">
+                                            <md-input-container class="example-full-width" style="width: 100%;">
+                                                <input mdInput [placeholder]="field.name" type="password" [name]="field.fieldName" [formControl]="myForm.controls[field.fieldName]">
+                                                <md-error *ngFor="let error of field.validators">
+                                                    <strong *ngIf="myForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                                                </md-error>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'select'">
+                                            <ng-container>
+                                                <md-select [placeholder]="field.name" [formControl]="myForm.controls[field.fieldName]">
+                                                    <md-option *ngFor="let item of field.source" [value]="item.code">{{item.name}}</md-option>
+                                                </md-select>
+                                                <md-error *ngFor="let error of field.validators">
+                                                    <strong *ngIf="myForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                                                </md-error>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <span class="pull-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
+                            </span>
+                            <div style="clear: both;"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

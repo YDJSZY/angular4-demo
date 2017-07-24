@@ -14,9 +14,9 @@ import { AuthInterceptor } from '../../providers/httpInterceptor';
 import { HTTP_INTERCEPTORS,HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from  '../../components/shared.modules';
-import { MdInputModule  } from '@angular/material';
+import { MdInputModule,MdSelectModule  } from '@angular/material';
 @NgModule({
-    imports: [SharkModule,SharedModule,MdInputModule,ReactiveFormsModule,CommonModule,FormsModule,routing,HttpModule,HttpClientModule],
+    imports: [SharkModule,SharedModule,MdInputModule,MdSelectModule,ReactiveFormsModule,CommonModule,FormsModule,routing,HttpModule,HttpClientModule],
     declarations: [HomeComponent,BeautyDirective,InitDirective,MyPipe,SafeHtmlPipe],
     providers:[ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]
 })

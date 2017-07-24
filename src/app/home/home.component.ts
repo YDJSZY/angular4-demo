@@ -2,9 +2,10 @@ import { Component ,OnInit, OnChanges,SimpleChanges} from '@angular/core';
 import {HomeService} from './home.service';
 import {dataFields} from './home.dataFields';
 import { MyPipe } from '../../pipes/pipes';
-import { FormControl,Validators } from '@angular/forms';
+import { FormControl,Validators,FormGroup,FormBuilder } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 @Component({
     selector: 'home',
     templateUrl: './home.component.html',
@@ -23,22 +24,41 @@ export class HomeComponent implements OnChanges,OnInit{
     bbb:string
     myEmail:string
     term = new FormControl();
+    myForm: FormGroup;
     emailFormControl = new FormControl('', [
-        Validators.required,
-        Validators.pattern(EMAIL_REGEX)]);
-    constructor(public homeService:HomeService){
+        Validators.required]);
+    constructor(public homeService:HomeService,public fb:FormBuilder){
         this.objectList = [{id:1,origin_name:"小明",total:1200},{id:2,origin_name:"小黄",total:3400}];
         this.dataFields = dataFields.fields;
         this.fieldShow = dataFields.fieldShow;
         this.bgc = "black";
         this.bbb = new MyPipe().transform("sw");
+        this.fb = fb;
+        this.createForm();
+        this.selectData = [{code: '1', name: '篮球'},{code: '2', name: '音乐'},{code: '3', name: '跑步'}];
         this.paginationMessage = {totalRecords:2,totalPages:10,currentPage:1,pageSize:200,currentTimestamp:null}
+    }
+    
+    createForm(){
+        var obj = {},validators = [];
+        for(var field of this.dataFields){
+            if(!field.edit) continue;
+            obj[field.fieldName] = [field.defaultValue || ''];
+            if(!field.validators) continue;
+            for(var error of field.validators){
+                validators.push(Validators[error.name] || error[error.name]);
+            }
+            obj[field.fieldName][1] = Validators.compose(validators);
+        }
+        this.myForm = this.fb.group(obj);
+    }
+
+    onSubmit(value) {
+        console.log(value)
     }
 
     myErrorStateMatcher(control: FormControl){
-        var value = this.value;
-        if(value > 1 || value < 0) return true;
-        return false;
+        return true;
     }
 
     ngOnChanges(){
@@ -73,17 +93,14 @@ export class HomeComponent implements OnChanges,OnInit{
     }
 
     create(){
-
+        this.createForm();
+        $("#editModal").modal("show");
     }
     
     edit(){
-<<<<<<< HEAD
-        this.paginationMessage.currentTimestamp = new Date().getTime();
-=======
-        this.paginationMessage.totalPages = 20;
-        this.paginationMessage.currentTimestamp = new Date().getTime();
-        console.log(this.paginationMessage)
->>>>>>> aa217375fb006a3f34539fa481b1cbce51fe06e1
+        this.myForm.controls.username.setValue("lww");
+        $("#editModal").modal("show");
+        console.log(this.myForm.controls.username.value)
     }
 
     toggleDetail(obj){
