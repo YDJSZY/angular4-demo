@@ -31,8 +31,8 @@ export class HomeComponent implements OnChanges,OnInit{
         this.paginationMessage = {totalRecords:2,totalPages:10,currentPage:1,pageSize:200}
     }
 
-    ngOnChanges(changes:SimpleChanges){
-        console.log(changes)
+    ngOnChanges(){
+
     }
 
     ngOnInit() {
@@ -41,7 +41,7 @@ export class HomeComponent implements OnChanges,OnInit{
             })
         var promise = this.homeService.getData();
         promise.subscribe(function (res){
-            console.log(res)
+            //console.log(res)
         })
     }
 
@@ -67,7 +67,7 @@ export class HomeComponent implements OnChanges,OnInit{
     }
     
     edit(){
-        
+        this.paginationMessage.currentTimestamp = new Date().getTime();
     }
 
     toggleDetail(obj){

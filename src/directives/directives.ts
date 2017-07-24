@@ -13,7 +13,7 @@ class BeautyDirective{
     }
 
     ngOnInit() {
-        console.log(this.bgc)
+        //console.log(this.bgc)
         this.el.nativeElement.style.backgroundColor = this.bgc;
     }
 
@@ -36,7 +36,7 @@ class InitDirective{
 
     ngOnInit() {
         this.newData = this.init(this.params);
-        console.log(this.newData)
+        //console.log(this.newData)
     }
 }
 

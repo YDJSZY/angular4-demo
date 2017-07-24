@@ -1,7 +1,7 @@
 /**
  * Created by luwenwe on 2017/7/12.
  */
-import { Component,OnInit,OnChanges,Input,Output,ElementRef,EventEmitter,ViewChild,AfterViewInit} from '@angular/core';
+import { Component,OnInit,OnChanges,Input,Output,ElementRef,EventEmitter,ViewChild,AfterViewInit,DoCheck} from '@angular/core';
 const UiPagination = require("../utils/ui-pagination");
 @Component({
     selector: 'field-check-box',
@@ -44,7 +44,7 @@ export class FieldCheckBoxComponent implements OnInit {
     selector: 'pagination',
     templateUrl: './pagination.html',
 })
-export class paginationComponent implements OnInit,AfterViewInit,OnChanges {
+export class paginationComponent implements OnInit,AfterViewInit,DoCheck {
     @Input() paginationMessage={totalRecords:0,totalPages:0,currentPage:0,pageSize:20}
     @Output() loadData = new EventEmitter<any>();
     @ViewChild("pagination")
@@ -69,5 +69,9 @@ export class paginationComponent implements OnInit,AfterViewInit,OnChanges {
             this.params.page = currentPage;
             this.loadData.emit(this.params);
         }.bind(this))
+    }
+
+    ngDoCheck(){
+        console.log(this.paginationMessage)
     }
 }
