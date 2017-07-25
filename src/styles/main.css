@@ -901,7 +901,14 @@ li.more-handle-li a:focus {
 }
 
 .edit-input{
-    padding: 15px;
+    padding: 15px 30px;
+    height: 92px;
+}
+
+.mat-focused .mat-input-placeholder.mat-float, .mat-input-placeholder.mat-float:not(.mat-empty){
+    transform: translateY(-1.28125em) scale(.9) perspective(100px) translateZ(.001px);
+    -moz-transform: translateY(-1.28125em) scale(.9) perspective(100px) translateZ(.001px);
+    -webkit-transform: translateY(-1.28125em) scale(.9) perspective(100px) translateZ(.001px);
 }
 
 

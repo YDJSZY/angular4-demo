@@ -19,7 +19,7 @@ var dataFields = {
             "model":"editingObject.username",
             "inputType":"text",
             "placeholder":"必填",
-            "dataSource":"origins",
+            "hint":"请填写用户名",
             "required": true,
             "validators":[{
                 "name":"required",
@@ -38,6 +38,7 @@ var dataFields = {
             "edit":true,
             "model":"editingObject.password",
             "inputType":"password",
+            "hint":"请填写密码",
             "validators":[{
                 "name":"required",
                 "required":"required",
@@ -56,6 +57,24 @@ var dataFields = {
             }
         },
         {
+            "name": "选择日期",
+            "fieldName": "myDate",
+            "show": true,
+            "use": true,
+            "edit":true,
+            "hint":"请选择日期",
+            "model":"editingObject.myDate",
+            "inputType":"date",
+            "validators":[{
+                "name":"required",
+                "required":"required",
+                "description":"必选"
+            }],
+            "render":function (value) {
+                return "¥"+value;
+            }
+        },
+        {
             "name": "爱好",
             "fieldName": "hobby",
             "show": true,
@@ -63,6 +82,7 @@ var dataFields = {
             "edit":true,
             "model":"editingObject.hobby",
             "inputType":"select",
+            "hint":"请选择爱好",
             "source":"selectData",
             "validators":[{
                 "name":"required",
@@ -72,13 +92,40 @@ var dataFields = {
             "render":function (value) {
                 return "¥"+value;
             }
-        }
+        },
+        {
+            "name": "确定",
+            "fieldName": "confirm",
+            "show": true,
+            "use": true,
+            "edit":true,
+            "model":"editingObject.confirm",
+            "inputType":"checkbox",
+            "render":function (value) {
+                return "¥"+value;
+            }
+        },
+        {
+            "name": "启用",
+            "fieldName": "enabled",
+            "show": true,
+            "use": true,
+            "edit":true,
+            "model":"editingObject.enabled",
+            "inputType":"slide",
+            "render":function (value) {
+                return "¥"+value;
+            }
+        },
     ],
     fieldShow : {
         id: true,
         username:true,
         password:true,
-        hobby:true
+        hobby:true,
+        checkbox:true,
+        myDate:true,
+        enabled:true
     }
 }
 

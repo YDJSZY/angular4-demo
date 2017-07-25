@@ -3,11 +3,12 @@
  */
 import { NgModule} from '@angular/core';
 import { CommonModule} from '@angular/common';
-import { FormsModule } from "@angular/forms";
-import {FieldCheckBoxComponent,PaginationComponent} from './global.component';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import {FieldCheckBoxComponent,PaginationComponent,EditModalComponent} from './global.component';
+import { MdInputModule,MdSelectModule,MdCheckboxModule,MdDatepickerModule,MdNativeDateModule,MdSlideToggleModule } from '@angular/material';
 @NgModule({
-    imports:[CommonModule,FormsModule],
-    declarations: [ FieldCheckBoxComponent,PaginationComponent ],
-    exports: [ FieldCheckBoxComponent,PaginationComponent,CommonModule,FormsModule ]
+    imports:[CommonModule,FormsModule,ReactiveFormsModule,MdInputModule,MdSelectModule,MdCheckboxModule,MdDatepickerModule,MdNativeDateModule,MdSlideToggleModule],
+    declarations: [ FieldCheckBoxComponent,PaginationComponent,EditModalComponent ],
+    exports: [ FieldCheckBoxComponent,PaginationComponent,EditModalComponent,CommonModule,FormsModule ]
 })
 export class SharedModule {}

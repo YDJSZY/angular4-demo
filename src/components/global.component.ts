@@ -2,8 +2,7 @@
  * Created by luwenwe on 2017/7/12.
  */
 import { Component,OnInit,OnChanges,Input,Output,ElementRef,EventEmitter,ViewChild,AfterViewInit,DoCheck} from '@angular/core';
-import { CommonModule} from '@angular/common';
-import { FormsModule } from "@angular/forms";
+import { FormControl,Validators,FormGroup,FormBuilder } from '@angular/forms';
 const UiPagination = require("../utils/ui-pagination");
 
 @Component({
@@ -90,5 +89,28 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
 
     ngDoCheck(){
         
+    }
+}
+
+@Component({
+    selector: 'edit-modal',
+    templateUrl: './edit-modal.html',
+})
+
+export class EditModalComponent implements OnInit,AfterViewInit,OnChanges {
+    @Input() dataFields
+    @Input() editForm
+    @Input() selectSources
+    @Output() saveForm = new EventEmitter<any>();
+    constructor(){
+        
+    }
+
+    ngOnInit() {
+      
+    }
+
+    onSubmit(value){
+        this.saveForm.emit(value)
     }
 }

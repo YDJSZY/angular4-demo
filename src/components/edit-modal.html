@@ -1,0 +1,89 @@
+<div class="modal fade" data-show="false" data-backdrop="static" effect="zoom" tabindex="-1" role="dialog" id="editModal">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form class="example-form" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">编辑</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <ng-container *ngFor="let field of dataFields">
+                                <ng-container *ngIf="field.edit">
+                                    <ng-container [ngSwitch]="field.inputType">
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'text'">
+                                            <md-input-container class="example-full-width" style="width: 100%;">
+                                                <input mdInput [placeholder]="field.name" type="text" [name]="field.fieldName" [formControl]="editForm.controls[field.fieldName]">
+                                                <md-error *ngFor="let error of field.validators">
+                                                    <strong *ngIf="editForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                                                </md-error>
+                                                <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'password'">
+                                            <md-input-container class="example-full-width" style="width: 100%;">
+                                                <input mdInput [placeholder]="field.name" type="password" [name]="field.fieldName" [formControl]="editForm.controls[field.fieldName]">
+                                                <md-error *ngFor="let error of field.validators">
+                                                    <strong *ngIf="editForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                                                </md-error>
+                                                <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'select'">
+                                            <ng-container>
+                                                <md-select [placeholder]="field.name" [formControl]="editForm.controls[field.fieldName]">
+                                                    <md-option *ngFor="let item of selectSources[field.source]" [value]="item.code">{{item.name}}</md-option>
+                                                </md-select>
+                                                <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
+                                            </ng-container>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'checkbox'" style="line-height: 46px">
+                                            <ng-container>
+                                                <md-checkbox [formControl]="editForm.controls[field.fieldName]">{{field.name}}</md-checkbox>
+                                                <md-error *ngFor="let error of field.validators">
+                                                    <strong *ngIf="editForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                                                </md-error>
+                                                <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
+                                            </ng-container>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'date'">
+                                            <ng-container>
+                                                <md-input-container>
+                                                    <input mdInput [mdDatepicker]="picker" [placeholder]="field.name" [formControl]="editForm.controls[field.fieldName]">
+                                                    <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                                                    <md-error *ngFor="let error of field.validators">
+                                                        <strong *ngIf="editForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                                                    </md-error>
+                                                    <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
+                                                </md-input-container>
+                                                <md-datepicker #picker></md-datepicker>
+                                            </ng-container>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'slide'" style="line-height: 60px">
+                                            <ng-container>
+                                                <md-slide-toggle [color]="'primary'" [formControl]="editForm.controls[field.fieldName]">{{field.name}}</md-slide-toggle>
+                                                <md-error *ngFor="let error of field.validators">
+                                                    <strong *ngIf="editForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
+                                                </md-error>
+                                                <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <span class="pull-right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>保存</button>
+                        </span>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

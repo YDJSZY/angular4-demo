@@ -35,7 +35,9 @@ export class HomeComponent implements OnChanges,OnInit{
         this.bbb = new MyPipe().transform("sw");
         this.fb = fb;
         this.createForm();
-        this.selectData = [{code: '1', name: '篮球'},{code: '2', name: '音乐'},{code: '3', name: '跑步'}];
+        this.selectSources = {
+            selectData:[{code: '1', name: '篮球'},{code: '2', name: '音乐'},{code: '3', name: '跑步'}]
+        }
         this.paginationMessage = {totalRecords:2,totalPages:10,currentPage:1,pageSize:200,currentTimestamp:null}
     }
     
@@ -52,8 +54,8 @@ export class HomeComponent implements OnChanges,OnInit{
         }
         this.myForm = this.fb.group(obj);
     }
-
-    onSubmit(value) {
+    
+    saveForm(value) {
         console.log(value)
     }
 
