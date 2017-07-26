@@ -11,6 +11,7 @@ var plugins = {
         './node_modules/font-awesome/css/font-awesome.min.css',
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         './src/styles/app.css',
+        './src/packages/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
         './src/styles/main.css'
     ]
 }

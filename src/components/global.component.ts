@@ -2,7 +2,6 @@
  * Created by luwenwe on 2017/7/12.
  */
 import { Component,OnInit,OnChanges,Input,Output,ElementRef,EventEmitter,ViewChild,AfterViewInit,DoCheck} from '@angular/core';
-import { FormControl,Validators,FormGroup,FormBuilder } from '@angular/forms';
 const UiPagination = require("../utils/ui-pagination");
 
 @Component({
@@ -20,7 +19,7 @@ export class FieldCheckBoxComponent implements OnInit {
     ngOnInit() {
         var self = this;
         document.onclick = function (e) {
-            var event = e || window.e;
+            var event = e || window.event;
             event.stopPropagation() || event.cancelBubble;
             self.showPanel = false;
             //$(element).find(".selectPanel").hide();
@@ -28,14 +27,14 @@ export class FieldCheckBoxComponent implements OnInit {
     }
     
     openbindclick(e){
-        var event = e || window.e;
+        var event = e || window.event;
         event.stopPropagation() || event.cancelBubble;
         this.showPanel = !this.showPanel;
         
     }
 
     selectField(e,name){
-        var event = e || window.e;
+        var event = e || window.event;
         event.stopPropagation() || event.cancelBubble;
         if(!name) return;
         this.fieldshow[name] = !this.fieldshow[name];
@@ -96,8 +95,7 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
     selector: 'edit-modal',
     templateUrl: './edit-modal.html',
 })
-
-export class EditModalComponent implements OnInit,AfterViewInit,OnChanges {
+export class EditModalComponent implements OnInit{
     @Input() dataFields
     @Input() editForm
     @Input() selectSources
@@ -112,5 +110,50 @@ export class EditModalComponent implements OnInit,AfterViewInit,OnChanges {
 
     onSubmit(value){
         this.saveForm.emit(value)
+    }
+}
+
+var dateRangeSelectorTemplate = "<select class='form-control' id='dateSelect'>{options}</select>";
+dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dateRangeBegin txtSetDate' name='begin_date' type='text' disabled='disabled'/>-";
+dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dateRangeEnd txtSetDate' name='end_date' type='text' disabled='disabled'/>";
+dateRangeSelectorTemplate += "<button type='button' class='btn btn-info' style='display:none'>转到</button>";
+@Component({
+    selector: 'daterange',
+    template:'<span></span>'
+})
+export class DateRangeComponent implements OnInit{
+    @Input() dateRangeConfig
+    @Output() dateChangeFunc = new EventEmitter<any>();
+    constructor(el:ElementRef){
+        this.el = el;
+    }
+
+    ngOnInit() {
+        var self = this;
+        var cfg = {
+            template:dateRangeSelectorTemplate,
+            minView:2,
+            dateRangeName:"今天"
+        }
+        cfg = Object.assign(cfg,this.config || {});
+        var func = function (event, begin, end, dateRangeName) {
+            self.dateChangeFunc.emit({beginDate:begin,endDate:end,dateRangeName:dateRangeName},true);
+        }
+        console.log(this.el)
+        var ctl = $(this.el.nativeElement).dateRange(func.bind(this),cfg).get(0);
+        this.dateChangeFunc.emit(ctl);
+        $('input.txtSetDate').each(function (index, item) {
+            $(item).datetimepicker({
+                format: "yyyy-mm-dd",
+                weekStart: 1,
+                todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                showMeridian: 1,
+                minView:2,
+            });
+        });
     }
 }

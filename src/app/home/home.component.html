@@ -9,6 +9,9 @@
         <div class="panel-body" style="padding-top: 0">
             <div class="row" style="margin-bottom: 15px">
                 <form class="form-inline top-handle" style="margin:0">
+                    <div class="form-group">
+                        <daterange [dateRangeConfig]="dateRangeConfig" (dateChangeFunc)="dateChangeFunc($event)"></daterange>
+                    </div>
                     <div class="input-group">
                         <input type="text" class="form-control text-search" id="text-search" placeholder="名称">
                         <span class="input-group-btn">
@@ -71,6 +74,7 @@
                 </tbody>
             </table>
             <h1 beauty [bgc]="'yellow'">你好</h1>
+            <input datepicker class="form-control" [(ngModel)]="myTime">
         </div>
         <div class="panel-footer">
             <pagination [paginationMessage]="paginationMessage" [currentTimestamp]="paginationMessage.currentTimestamp" (loadData)="loadData($event)"></pagination>

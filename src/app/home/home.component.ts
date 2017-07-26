@@ -25,6 +25,8 @@ export class HomeComponent implements OnChanges,OnInit{
     myEmail:string
     term = new FormControl();
     myForm: FormGroup;
+    myTime:any
+    dateRangeConfig:Object={}
     emailFormControl = new FormControl('', [
         Validators.required]);
     constructor(public homeService:HomeService,public fb:FormBuilder){
@@ -114,4 +116,8 @@ export class HomeComponent implements OnChanges,OnInit{
     }
 
     quickSearch(){}
+
+    dateChangeFunc(date){
+        console.log(date)
+    }
 };

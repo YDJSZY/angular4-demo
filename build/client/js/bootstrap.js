@@ -1,13 +1,13 @@
-webpackJsonp([4],{
+webpackJsonp([7],{
 
-/***/ 114:
+/***/ 119:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 115:
+/***/ 120:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -2658,15 +2658,325 @@ if (true) {
 
 /***/ }),
 
-/***/ 136:
+/***/ 142:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(64);
+module.exports = __webpack_require__(63);
 
 
 /***/ }),
 
-/***/ 21:
+/***/ 145:
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function() {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		var result = [];
+		for(var i = 0; i < this.length; i++) {
+			var item = this[i];
+			if(item[2]) {
+				result.push("@media " + item[2] + "{" + item[1] + "}");
+			} else {
+				result.push(item[1]);
+			}
+		}
+		return result.join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+
+/***/ }),
+
+/***/ 146:
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+var stylesInDom = {},
+	memoize = function(fn) {
+		var memo;
+		return function () {
+			if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+			return memo;
+		};
+	},
+	isOldIE = memoize(function() {
+		return /msie [6-9]\b/.test(self.navigator.userAgent.toLowerCase());
+	}),
+	getHeadElement = memoize(function () {
+		return document.head || document.getElementsByTagName("head")[0];
+	}),
+	singletonElement = null,
+	singletonCounter = 0,
+	styleElementsInsertedAtTop = [];
+
+module.exports = function(list, options) {
+	if(typeof DEBUG !== "undefined" && DEBUG) {
+		if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the bottom of <head>.
+	if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+	var styles = listToStyles(list);
+	addStylesToDom(styles, options);
+
+	return function update(newList) {
+		var mayRemove = [];
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+		if(newList) {
+			var newStyles = listToStyles(newList);
+			addStylesToDom(newStyles, options);
+		}
+		for(var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+			if(domStyle.refs === 0) {
+				for(var j = 0; j < domStyle.parts.length; j++)
+					domStyle.parts[j]();
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+}
+
+function addStylesToDom(styles, options) {
+	for(var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+		if(domStyle) {
+			domStyle.refs++;
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles(list) {
+	var styles = [];
+	var newStyles = {};
+	for(var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+		if(!newStyles[id])
+			styles.push(newStyles[id] = {id: id, parts: [part]});
+		else
+			newStyles[id].parts.push(part);
+	}
+	return styles;
+}
+
+function insertStyleElement(options, styleElement) {
+	var head = getHeadElement();
+	var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+	if (options.insertAt === "top") {
+		if(!lastStyleElementInsertedAtTop) {
+			head.insertBefore(styleElement, head.firstChild);
+		} else if(lastStyleElementInsertedAtTop.nextSibling) {
+			head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			head.appendChild(styleElement);
+		}
+		styleElementsInsertedAtTop.push(styleElement);
+	} else if (options.insertAt === "bottom") {
+		head.appendChild(styleElement);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement(styleElement) {
+	styleElement.parentNode.removeChild(styleElement);
+	var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+	if(idx >= 0) {
+		styleElementsInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement(options) {
+	var styleElement = document.createElement("style");
+	styleElement.type = "text/css";
+	insertStyleElement(options, styleElement);
+	return styleElement;
+}
+
+function createLinkElement(options) {
+	var linkElement = document.createElement("link");
+	linkElement.rel = "stylesheet";
+	insertStyleElement(options, linkElement);
+	return linkElement;
+}
+
+function addStyle(obj, options) {
+	var styleElement, update, remove;
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+		styleElement = singletonElement || (singletonElement = createStyleElement(options));
+		update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+	} else if(obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function") {
+		styleElement = createLinkElement(options);
+		update = updateLink.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+			if(styleElement.href)
+				URL.revokeObjectURL(styleElement.href);
+		};
+	} else {
+		styleElement = createStyleElement(options);
+		update = applyToTag.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle(newObj) {
+		if(newObj) {
+			if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+				return;
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag(styleElement, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = styleElement.childNodes;
+		if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+		if (childNodes.length) {
+			styleElement.insertBefore(cssNode, childNodes[index]);
+		} else {
+			styleElement.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag(styleElement, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		styleElement.setAttribute("media", media)
+	}
+
+	if(styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = css;
+	} else {
+		while(styleElement.firstChild) {
+			styleElement.removeChild(styleElement.firstChild);
+		}
+		styleElement.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink(linkElement, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	if(sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = linkElement.href;
+
+	linkElement.href = URL.createObjectURL(blob);
+
+	if(oldSrc)
+		URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ 23:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2690,7 +3000,7 @@ module.exports = __webpack_require__(64);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return AnimationGroupPlayer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ɵPRE_STYLE; });
 /**
- * @license Angular v4.3.0-rc.0
+ * @license Angular v4.3.1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3934,6 +4244,16 @@ var AnimationGroupPlayer = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    AnimationGroupPlayer.prototype.beforeDestroy = function () {
+        this.players.forEach(function (player) {
+            if (player.beforeDestroy) {
+                player.beforeDestroy();
+            }
+        });
+    };
     return AnimationGroupPlayer;
 }());
 /**
@@ -3977,12 +4297,10 @@ var ɵPRE_STYLE = '!';
 
 /***/ }),
 
-/***/ 52:
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_animations__ = __webpack_require__(21);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimationDriver; });
 /* unused harmony export ɵAnimation */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AnimationStyleNormalizer; });
@@ -3993,9 +4311,11 @@ var ɵPRE_STYLE = '!';
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return WebAnimationsDriver; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return supportsWebAnimations; });
 /* unused harmony export ɵWebAnimationsPlayer */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_animations__ = __webpack_require__(23);
 
 /**
- * @license Angular v4.3.0-rc.0
+ * @license Angular v4.3.1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4031,15 +4351,20 @@ function normalizeKeyframes(driver, normalizer, element, keyframes, preStyles, p
         Object.keys(kf).forEach(function (prop) {
             var normalizedProp = prop;
             var normalizedValue = kf[prop];
-            if (normalizedValue == __WEBPACK_IMPORTED_MODULE_1__angular_animations__["k" /* ɵPRE_STYLE */]) {
-                normalizedValue = preStyles[prop];
-            }
-            else if (normalizedValue == __WEBPACK_IMPORTED_MODULE_1__angular_animations__["l" /* AUTO_STYLE */]) {
-                normalizedValue = postStyles[prop];
-            }
-            else if (prop != 'offset') {
-                normalizedProp = normalizer.normalizePropertyName(prop, errors);
-                normalizedValue = normalizer.normalizeStyleValue(prop, normalizedProp, kf[prop], errors);
+            if (prop !== 'offset') {
+                normalizedProp = normalizer.normalizePropertyName(normalizedProp, errors);
+                switch (normalizedValue) {
+                    case __WEBPACK_IMPORTED_MODULE_1__angular_animations__["k" /* ɵPRE_STYLE */]:
+                        normalizedValue = preStyles[prop];
+                        break;
+                    case __WEBPACK_IMPORTED_MODULE_1__angular_animations__["l" /* AUTO_STYLE */]:
+                        normalizedValue = postStyles[prop];
+                        break;
+                    default:
+                        normalizedValue =
+                            normalizer.normalizeStyleValue(prop, normalizedProp, normalizedValue, errors);
+                        break;
+                }
             }
             normalizedKeyframe[normalizedProp] = normalizedValue;
         });
@@ -8065,7 +8390,7 @@ var TransitionAnimationEngine = (function () {
             if (details && details.removedBeforeQueried)
                 return new __WEBPACK_IMPORTED_MODULE_1__angular_animations__["i" /* NoopAnimationPlayer */]();
             var /** @type {?} */ isQueriedElement = element !== rootElement;
-            var /** @type {?} */ previousPlayers = (allPreviousPlayersMap.get(element) || EMPTY_PLAYER_ARRAY).map(function (p) { return p.getRealPlayer(); });
+            var /** @type {?} */ previousPlayers = flattenGroupPlayers((allPreviousPlayersMap.get(element) || EMPTY_PLAYER_ARRAY).map(function (p) { return p.getRealPlayer(); }));
             var /** @type {?} */ preStyles = preStylesMap.get(element);
             var /** @type {?} */ postStyles = postStylesMap.get(element);
             var /** @type {?} */ keyframes = normalizeKeyframes(_this.driver, _this._normalizer, element, timelineInstruction.keyframes, preStyles, postStyles);
@@ -8445,6 +8770,31 @@ function removeNodesAfterAnimationDone(engine, element, players) {
     optimizeGroupPlayer(players).onDone(function () { return engine.processLeaveNode(element); });
 }
 /**
+ * @param {?} players
+ * @return {?}
+ */
+function flattenGroupPlayers(players) {
+    var /** @type {?} */ finalPlayers = [];
+    _flattenGroupPlayersRecur(players, finalPlayers);
+    return finalPlayers;
+}
+/**
+ * @param {?} players
+ * @param {?} finalPlayers
+ * @return {?}
+ */
+function _flattenGroupPlayersRecur(players, finalPlayers) {
+    for (var /** @type {?} */ i = 0; i < players.length; i++) {
+        var /** @type {?} */ player = players[i];
+        if (player instanceof __WEBPACK_IMPORTED_MODULE_1__angular_animations__["j" /* ɵAnimationGroupPlayer */]) {
+            _flattenGroupPlayersRecur(player.players, finalPlayers);
+        }
+        else {
+            finalPlayers.push(/** @type {?} */ (player));
+        }
+    }
+}
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -8523,6 +8873,14 @@ var AnimationEngine = (function () {
         this._transitionEngine.removeNode(namespaceId, element, context);
     };
     /**
+     * @param {?} element
+     * @param {?} disable
+     * @return {?}
+     */
+    AnimationEngine.prototype.disableAnimations = function (element, disable) {
+        this._transitionEngine.markElementAsDisabled(element, disable);
+    };
+    /**
      * @param {?} namespaceId
      * @param {?} element
      * @param {?} property
@@ -8530,19 +8888,13 @@ var AnimationEngine = (function () {
      * @return {?}
      */
     AnimationEngine.prototype.process = function (namespaceId, element, property, value) {
-        switch (property.charAt(0)) {
-            case '.':
-                if (property == '.disabled') {
-                    this._transitionEngine.markElementAsDisabled(element, !!value);
-                }
-                return false;
-            case '@':
-                var _a = parseTimelineCommand(property), id = _a[0], action = _a[1];
-                var /** @type {?} */ args = (value);
-                this._timelineEngine.command(id, element, action, args);
-                return false;
-            default:
-                return this._transitionEngine.trigger(namespaceId, element, property, value);
+        if (property.charAt(0) == '@') {
+            var _a = parseTimelineCommand(property), id = _a[0], action = _a[1];
+            var /** @type {?} */ args = (value);
+            this._timelineEngine.command(id, element, action, args);
+        }
+        else {
+            this._transitionEngine.trigger(namespaceId, element, property, value);
         }
     };
     /**
@@ -8950,7 +9302,7 @@ function supportsWebAnimations() {
 
 /***/ }),
 
-/***/ 53:
+/***/ 54:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8967,41 +9319,41 @@ var AppComponent = (function () {
 
 /***/ }),
 
-/***/ 64:
+/***/ 63:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_material_prebuilt_themes_indigo_pink_css__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_material_prebuilt_themes_indigo_pink_css__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_material_prebuilt_themes_indigo_pink_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_material_prebuilt_themes_indigo_pink_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__aot_src_app_app_app_module_ngfactory__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__aot_src_app_app_app_module_ngfactory__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(9);
 // global css
 /*import "./styles/app.css";
 import "../../../node_modules/font-awesome/css/font-awesome.min.css";*/
 
 
 
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["platformBrowser"])().bootstrapModuleFactory(__WEBPACK_IMPORTED_MODULE_2__aot_src_app_app_app_module_ngfactory__["a" /* AppModuleNgFactory */]);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["platformBrowser"])().bootstrapModuleFactory(__WEBPACK_IMPORTED_MODULE_1__aot_src_app_app_app_module_ngfactory__["a" /* AppModuleNgFactory */]);
 //# sourceMappingURL=bootstrap.js.map
 
 /***/ }),
 
-/***/ 72:
+/***/ 74:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_pipes__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_pipes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_pipes__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal__);
 /* unused harmony export RenderType_SharkModalDialog */
 /* unused harmony export View_SharkModalDialog_0 */
 /* unused harmony export View_SharkModalDialog_Host_0 */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SharkModalDialogNgFactory; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_pipes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_pipes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_pipes__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal__);
 /**
  * @fileoverview This file is generated by the Angular template compiler.
  * Do not edit.
@@ -9094,15 +9446,10 @@ var SharkModalDialogNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵc
 
 /***/ }),
 
-/***/ 83:
+/***/ 88:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_animations__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_animations_browser__ = __webpack_require__(52);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return BrowserAnimationsModule; });
 /* unused harmony export NoopAnimationsModule */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return BrowserAnimationBuilder; });
@@ -9116,9 +9463,14 @@ var SharkModalDialogNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵc
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return instantiateDefaultStyleNormalizer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return instantiateRendererFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return instantiateSupportedAnimationDriver; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_animations__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_animations_browser__ = __webpack_require__(53);
 
 /**
- * @license Angular v4.3.0-rc.0
+ * @license Angular v4.3.1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9309,6 +9661,8 @@ function issueAnimationCommand(renderer, element, id, command, args) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var ANIMATION_PREFIX = '@';
+var DISABLE_ANIMATIONS_FLAG = '@.disabled';
 var AnimationRendererFactory = (function () {
     /**
      * @param {?} delegate
@@ -9323,6 +9677,7 @@ var AnimationRendererFactory = (function () {
         this._microtaskId = 1;
         this._animationCallbacksBuffer = [];
         this._rendererCache = new Map();
+        this._cdRecurDepth = 0;
         engine.onRemovalComplete = function (element, delegate) {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -9365,6 +9720,7 @@ var AnimationRendererFactory = (function () {
      * @return {?}
      */
     AnimationRendererFactory.prototype.begin = function () {
+        this._cdRecurDepth++;
         if (this.delegate.begin) {
             this.delegate.begin();
         }
@@ -9406,10 +9762,15 @@ var AnimationRendererFactory = (function () {
      */
     AnimationRendererFactory.prototype.end = function () {
         var _this = this;
-        this._zone.runOutsideAngular(function () {
-            _this._scheduleCountTask();
-            _this.engine.flush(_this._microtaskId);
-        });
+        this._cdRecurDepth--;
+        // this is to prevent animations from running twice when an inner
+        // component does CD when a parent component insted has inserted it
+        if (this._cdRecurDepth == 0) {
+            this._zone.runOutsideAngular(function () {
+                _this._scheduleCountTask();
+                _this.engine.flush(_this._microtaskId);
+            });
+        }
         if (this.delegate.end) {
             this.delegate.end();
         }
@@ -9575,7 +9936,12 @@ var BaseAnimationRenderer = (function () {
      * @return {?}
      */
     BaseAnimationRenderer.prototype.setProperty = function (el, name, value) {
-        this.delegate.setProperty(el, name, value);
+        if (name.charAt(0) == ANIMATION_PREFIX && name == DISABLE_ANIMATIONS_FLAG) {
+            this.disableAnimations(el, !!value);
+        }
+        else {
+            this.delegate.setProperty(el, name, value);
+        }
     };
     /**
      * @param {?} node
@@ -9591,6 +9957,14 @@ var BaseAnimationRenderer = (function () {
      */
     BaseAnimationRenderer.prototype.listen = function (target, eventName, callback) {
         return this.delegate.listen(target, eventName, callback);
+    };
+    /**
+     * @param {?} element
+     * @param {?} value
+     * @return {?}
+     */
+    BaseAnimationRenderer.prototype.disableAnimations = function (element, value) {
+        this.engine.disableAnimations(element, value);
     };
     return BaseAnimationRenderer;
 }());
@@ -9615,9 +9989,13 @@ var AnimationRenderer = (function (_super) {
      * @return {?}
      */
     AnimationRenderer.prototype.setProperty = function (el, name, value) {
-        if (name.charAt(0) == '@') {
-            name = name.substr(1);
-            this.engine.process(this.namespaceId, el, name, value);
+        if (name.charAt(0) == ANIMATION_PREFIX) {
+            if (name.charAt(1) == '.' && name == DISABLE_ANIMATIONS_FLAG) {
+                this.disableAnimations(el, !!value);
+            }
+            else {
+                this.engine.process(this.namespaceId, el, name.substr(1), value);
+            }
         }
         else {
             this.delegate.setProperty(el, name, value);
@@ -9631,11 +10009,13 @@ var AnimationRenderer = (function (_super) {
      */
     AnimationRenderer.prototype.listen = function (target, eventName, callback) {
         var _this = this;
-        if (eventName.charAt(0) == '@') {
+        if (eventName.charAt(0) == ANIMATION_PREFIX) {
             var /** @type {?} */ element = resolveElementFromTarget(target);
             var /** @type {?} */ name = eventName.substr(1);
             var /** @type {?} */ phase = '';
-            if (name.charAt(0) != '@') {
+            // @listener.phase is for trigger animation callbacks
+            // @@listener is for animation builder callbacks
+            if (name.charAt(0) != ANIMATION_PREFIX) {
                 _a = parseTriggerCallbackName(name), name = _a[0], phase = _a[1];
             }
             return this.engine.listen(this.namespaceId, element, name, phase, function (event) {
@@ -9830,7 +10210,7 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 
 /***/ }),
 
-/***/ 84:
+/***/ 89:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9902,7 +10282,7 @@ exports.createInputTransfer = createInputTransfer;
 
 /***/ }),
 
-/***/ 85:
+/***/ 90:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9911,23 +10291,23 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 // Hot Module Replacement
-__export(__webpack_require__(84));
+__export(__webpack_require__(89));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ 86:
+/***/ 91:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_app_app_app_component__ = __webpack_require__(53);
 /* unused harmony export RenderType_AppComponent */
 /* unused harmony export View_AppComponent_0 */
 /* unused harmony export View_AppComponent_Host_0 */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponentNgFactory; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_app_app_app_component__ = __webpack_require__(54);
 /**
  * @fileoverview This file is generated by the Angular template compiler.
  * Do not edit.
@@ -10064,53 +10444,53 @@ var AppComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵccf"]
 
 /***/ }),
 
-/***/ 87:
+/***/ 92:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_app_app_app_module__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_app_app_app_component__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal_ngfactory__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component_ngfactory__ = __webpack_require__(86);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModuleNgFactory; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_app_app_app_module__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_app_app_app_component__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal_ngfactory__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component_ngfactory__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_animations_browser__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_animations__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_animations_browser__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_animations__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ntesmail_shark_angular2_src_main_webapp_script_components_common_config_service__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ntesmail_shark_angular2_src_main_webapp_script_components_common_config_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__ntesmail_shark_angular2_src_main_webapp_script_components_common_config_service__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_service__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_service__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_service__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_service__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ntesmail_shark_angular2_src_main_webapp_script_components_toastr_toastr_service__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ntesmail_shark_angular2_src_main_webapp_script_components_toastr_toastr_service__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ntesmail_shark_angular2_src_main_webapp_script_components_toastr_toastr_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__ntesmail_shark_angular2_src_main_webapp_script_components_toastr_toastr_service__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__angular_forms__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_router__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_router__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ntesmail_shark_angular2_src_main_webapp_script_components_autocomplete_autocomplete_module__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ntesmail_shark_angular2_src_main_webapp_script_components_autocomplete_autocomplete_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__ntesmail_shark_angular2_src_main_webapp_script_components_autocomplete_autocomplete_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ntesmail_shark_angular2_src_main_webapp_script_components_dropdown_dropdown_module__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ntesmail_shark_angular2_src_main_webapp_script_components_dropdown_dropdown_module__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ntesmail_shark_angular2_src_main_webapp_script_components_dropdown_dropdown_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__ntesmail_shark_angular2_src_main_webapp_script_components_dropdown_dropdown_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ntesmail_shark_angular2_src_main_webapp_script_components_fileupload_fileupload_module__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ntesmail_shark_angular2_src_main_webapp_script_components_fileupload_fileupload_module__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ntesmail_shark_angular2_src_main_webapp_script_components_fileupload_fileupload_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__ntesmail_shark_angular2_src_main_webapp_script_components_fileupload_fileupload_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_module__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_module__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ntesmail_shark_angular2_src_main_webapp_script_components_pager_pager_module__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ntesmail_shark_angular2_src_main_webapp_script_components_pager_pager_module__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ntesmail_shark_angular2_src_main_webapp_script_components_pager_pager_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__ntesmail_shark_angular2_src_main_webapp_script_components_pager_pager_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ntesmail_shark_angular2_src_main_webapp_script_components_popover_popover_module__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ntesmail_shark_angular2_src_main_webapp_script_components_popover_popover_module__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ntesmail_shark_angular2_src_main_webapp_script_components_popover_popover_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__ntesmail_shark_angular2_src_main_webapp_script_components_popover_popover_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ntesmail_shark_angular2_src_main_webapp_script_components_selecter_selecter_module__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ntesmail_shark_angular2_src_main_webapp_script_components_selecter_selecter_module__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ntesmail_shark_angular2_src_main_webapp_script_components_selecter_selecter_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__ntesmail_shark_angular2_src_main_webapp_script_components_selecter_selecter_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ntesmail_shark_angular2_src_main_webapp_script_components_tabs_tabs_module__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ntesmail_shark_angular2_src_main_webapp_script_components_tabs_tabs_module__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ntesmail_shark_angular2_src_main_webapp_script_components_tabs_tabs_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__ntesmail_shark_angular2_src_main_webapp_script_components_tabs_tabs_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ntesmail_shark_angular2_src_main_webapp_script_components_tooltip_tooltip_module__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ntesmail_shark_angular2_src_main_webapp_script_components_tooltip_tooltip_module__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ntesmail_shark_angular2_src_main_webapp_script_components_tooltip_tooltip_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__ntesmail_shark_angular2_src_main_webapp_script_components_tooltip_tooltip_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ntesmail_shark_angular2_src_main_webapp_script_components_tree_tree_module__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ntesmail_shark_angular2_src_main_webapp_script_components_tree_tree_module__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ntesmail_shark_angular2_src_main_webapp_script_components_tree_tree_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__ntesmail_shark_angular2_src_main_webapp_script_components_tree_tree_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ntesmail_shark_angular2_src_main_webapp_script_components_shark_module__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ntesmail_shark_angular2_src_main_webapp_script_components_shark_module__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ntesmail_shark_angular2_src_main_webapp_script_components_shark_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__ntesmail_shark_angular2_src_main_webapp_script_components_shark_module__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModuleNgFactory; });
 /**
  * @fileoverview This file is generated by the Angular template compiler.
  * Do not edit.
@@ -10180,9 +10560,9 @@ var AppModuleNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵcmf"](__
             __WEBPACK_IMPORTED_MODULE_15__angular_router__["ROUTER_CONFIGURATION"]]), __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](512, __WEBPACK_IMPORTED_MODULE_5__angular_common__["Location"], __WEBPACK_IMPORTED_MODULE_5__angular_common__["Location"], [__WEBPACK_IMPORTED_MODULE_5__angular_common__["LocationStrategy"]]),
         __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](512, __WEBPACK_IMPORTED_MODULE_0__angular_core__["Compiler"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Compiler"], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](512, __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModuleFactoryLoader"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["SystemJsNgModuleLoader"], [__WEBPACK_IMPORTED_MODULE_0__angular_core__["Compiler"], [2, __WEBPACK_IMPORTED_MODULE_0__angular_core__["SystemJsNgModuleLoaderConfig"]]]),
         __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](1024, __WEBPACK_IMPORTED_MODULE_15__angular_router__["ROUTES"], function () {
-            return [[{ path: '', redirectTo: '/home', pathMatch: 'full' }, { path: 'home', loadChildren: '../home/home.module#HomeModule' },
-                    { path: 'main', loadChildren: '../main/main.module#MainModule' }, { path: 'detail',
-                        loadChildren: '../detail/detail.module#DetailModule' }]];
+            return [[{ path: '', redirectTo: '/home', pathMatch: 'full' }, { path: 'home', loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* require.ensure */(3).then((function (require) { resolve(__webpack_require__(85)['HomeModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } },
+                    { path: 'main', loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* require.ensure */(4).then((function (require) { resolve(__webpack_require__(86)['MainModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } }, { path: 'detail',
+                        loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* require.ensure */(5).then((function (require) { resolve(__webpack_require__(84)['DetailModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } }]];
         }, []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](1024, __WEBPACK_IMPORTED_MODULE_15__angular_router__["Router"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["ɵe"], [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["UrlSerializer"],
             __WEBPACK_IMPORTED_MODULE_15__angular_router__["ChildrenOutletContexts"], __WEBPACK_IMPORTED_MODULE_5__angular_common__["Location"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModuleFactoryLoader"],
             __WEBPACK_IMPORTED_MODULE_0__angular_core__["Compiler"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["ROUTES"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["ROUTER_CONFIGURATION"], [2, __WEBPACK_IMPORTED_MODULE_15__angular_router__["UrlHandlingStrategy"]],
@@ -10193,16 +10573,16 @@ var AppModuleNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵcmf"](__
 
 /***/ }),
 
-/***/ 88:
+/***/ 93:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angularclass_hmr__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angularclass_hmr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angularclass_hmr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hammerjs__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hammerjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_hammerjs__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angularclass_hmr__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angularclass_hmr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angularclass_hmr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hammerjs__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hammerjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_hammerjs__);
 
 
 
@@ -10215,12 +10595,12 @@ var appRoutes = [
     },
     {
         path: 'home',
-        loadChildren: '../home/home.module#HomeModule'
+        loadChildren: function () { return new Promise(function (resolve) { new Promise(function(resolve) { resolve(); }).then((function (require) { resolve(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../home/home.module.ngfactory\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))['HomeModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); }
     },
-    { path: 'main', loadChildren: '../main/main.module#MainModule' },
+    { path: 'main', loadChildren: function () { return new Promise(function (resolve) { new Promise(function(resolve) { resolve(); }).then((function (require) { resolve(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../main/main.module.ngfactory\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))['MainModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } },
     {
         path: 'detail',
-        loadChildren: '../detail/detail.module#DetailModule'
+        loadChildren: function () { return new Promise(function (resolve) { new Promise(function(resolve) { resolve(); }).then((function (require) { resolve(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../detail/detail.module.ngfactory\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))['DetailModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); }
     }
 ];
 var AppModule = (function () {
@@ -10246,4 +10626,4 @@ var AppModule = (function () {
 
 /***/ })
 
-},[136]);
+},[142]);
