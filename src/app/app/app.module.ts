@@ -21,10 +21,10 @@ const appRoutes: Routes = [
         loadChildren:'../home/home.module#HomeModule'
     },
     { path: 'main', loadChildren: '../main/main.module#MainModule' }
-    , {
+    /*, {
         path: 'detail',
         loadChildren: '../detail/detail.module#DetailModule'
-    }
+    }*/
 ];
 
 @NgModule({

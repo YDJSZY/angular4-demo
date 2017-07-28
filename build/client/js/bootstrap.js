@@ -1,13 +1,13 @@
-webpackJsonp([7],{
+webpackJsonp([5],{
 
-/***/ 119:
+/***/ 118:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 120:
+/***/ 119:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -2658,15 +2658,15 @@ if (true) {
 
 /***/ }),
 
-/***/ 142:
+/***/ 141:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(63);
+module.exports = __webpack_require__(62);
 
 
 /***/ }),
 
-/***/ 145:
+/***/ 144:
 /***/ (function(module, exports) {
 
 /*
@@ -2723,7 +2723,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 146:
+/***/ 145:
 /***/ (function(module, exports) {
 
 /*
@@ -2976,7 +2976,7 @@ function updateLink(linkElement, obj) {
 
 /***/ }),
 
-/***/ 23:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4297,7 +4297,7 @@ var ɵPRE_STYLE = '!';
 
 /***/ }),
 
-/***/ 53:
+/***/ 52:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4312,7 +4312,7 @@ var ɵPRE_STYLE = '!';
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return supportsWebAnimations; });
 /* unused harmony export ɵWebAnimationsPlayer */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_animations__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_animations__ = __webpack_require__(22);
 
 /**
  * @license Angular v4.3.1
@@ -9302,7 +9302,7 @@ function supportsWebAnimations() {
 
 /***/ }),
 
-/***/ 54:
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9319,14 +9319,14 @@ var AppComponent = (function () {
 
 /***/ }),
 
-/***/ 63:
+/***/ 62:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_material_prebuilt_themes_indigo_pink_css__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_material_prebuilt_themes_indigo_pink_css__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_material_prebuilt_themes_indigo_pink_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_material_prebuilt_themes_indigo_pink_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__aot_src_app_app_app_module_ngfactory__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__aot_src_app_app_app_module_ngfactory__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(9);
 // global css
 /*import "./styles/app.css";
@@ -9339,7 +9339,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["p
 
 /***/ }),
 
-/***/ 74:
+/***/ 75:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9446,7 +9446,7 @@ var SharkModalDialogNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵc
 
 /***/ }),
 
-/***/ 88:
+/***/ 87:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9466,8 +9466,8 @@ var SharkModalDialogNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵc
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_animations__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_animations_browser__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_animations__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_animations_browser__ = __webpack_require__(52);
 
 /**
  * @license Angular v4.3.1
@@ -10210,7 +10210,7 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 
 /***/ }),
 
-/***/ 89:
+/***/ 88:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10282,7 +10282,7 @@ exports.createInputTransfer = createInputTransfer;
 
 /***/ }),
 
-/***/ 90:
+/***/ 89:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10291,12 +10291,12 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 // Hot Module Replacement
-__export(__webpack_require__(89));
+__export(__webpack_require__(88));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ 91:
+/***/ 90:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10307,7 +10307,7 @@ __export(__webpack_require__(89));
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_app_app_app_component__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_app_app_app_component__ = __webpack_require__(53);
 /**
  * @fileoverview This file is generated by the Angular template compiler.
  * Do not edit.
@@ -10444,52 +10444,52 @@ var AppComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵccf"]
 
 /***/ }),
 
-/***/ 92:
+/***/ 91:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModuleNgFactory; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_app_app_app_module__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_app_app_app_component__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal_ngfactory__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component_ngfactory__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_app_app_app_module__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_app_app_app_component__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_ntesmail_shark_angular2_src_main_webapp_script_components_modal_sharkmodal_ngfactory__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component_ngfactory__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_platform_browser__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_animations_browser__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_animations__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_animations_browser__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_animations__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ntesmail_shark_angular2_src_main_webapp_script_components_common_config_service__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ntesmail_shark_angular2_src_main_webapp_script_components_common_config_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__ntesmail_shark_angular2_src_main_webapp_script_components_common_config_service__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_service__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__ntesmail_shark_angular2_src_main_webapp_script_components_common_common_service__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_service__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_service__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_service__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ntesmail_shark_angular2_src_main_webapp_script_components_toastr_toastr_service__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ntesmail_shark_angular2_src_main_webapp_script_components_toastr_toastr_service__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ntesmail_shark_angular2_src_main_webapp_script_components_toastr_toastr_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__ntesmail_shark_angular2_src_main_webapp_script_components_toastr_toastr_service__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__angular_forms__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_router__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ntesmail_shark_angular2_src_main_webapp_script_components_autocomplete_autocomplete_module__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ntesmail_shark_angular2_src_main_webapp_script_components_autocomplete_autocomplete_module__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ntesmail_shark_angular2_src_main_webapp_script_components_autocomplete_autocomplete_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__ntesmail_shark_angular2_src_main_webapp_script_components_autocomplete_autocomplete_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ntesmail_shark_angular2_src_main_webapp_script_components_dropdown_dropdown_module__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ntesmail_shark_angular2_src_main_webapp_script_components_dropdown_dropdown_module__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ntesmail_shark_angular2_src_main_webapp_script_components_dropdown_dropdown_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__ntesmail_shark_angular2_src_main_webapp_script_components_dropdown_dropdown_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ntesmail_shark_angular2_src_main_webapp_script_components_fileupload_fileupload_module__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ntesmail_shark_angular2_src_main_webapp_script_components_fileupload_fileupload_module__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ntesmail_shark_angular2_src_main_webapp_script_components_fileupload_fileupload_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__ntesmail_shark_angular2_src_main_webapp_script_components_fileupload_fileupload_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_module__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_module__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__ntesmail_shark_angular2_src_main_webapp_script_components_modal_modal_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ntesmail_shark_angular2_src_main_webapp_script_components_pager_pager_module__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ntesmail_shark_angular2_src_main_webapp_script_components_pager_pager_module__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ntesmail_shark_angular2_src_main_webapp_script_components_pager_pager_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__ntesmail_shark_angular2_src_main_webapp_script_components_pager_pager_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ntesmail_shark_angular2_src_main_webapp_script_components_popover_popover_module__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ntesmail_shark_angular2_src_main_webapp_script_components_popover_popover_module__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ntesmail_shark_angular2_src_main_webapp_script_components_popover_popover_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__ntesmail_shark_angular2_src_main_webapp_script_components_popover_popover_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ntesmail_shark_angular2_src_main_webapp_script_components_selecter_selecter_module__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ntesmail_shark_angular2_src_main_webapp_script_components_selecter_selecter_module__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ntesmail_shark_angular2_src_main_webapp_script_components_selecter_selecter_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__ntesmail_shark_angular2_src_main_webapp_script_components_selecter_selecter_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ntesmail_shark_angular2_src_main_webapp_script_components_tabs_tabs_module__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ntesmail_shark_angular2_src_main_webapp_script_components_tabs_tabs_module__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ntesmail_shark_angular2_src_main_webapp_script_components_tabs_tabs_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__ntesmail_shark_angular2_src_main_webapp_script_components_tabs_tabs_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ntesmail_shark_angular2_src_main_webapp_script_components_tooltip_tooltip_module__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ntesmail_shark_angular2_src_main_webapp_script_components_tooltip_tooltip_module__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ntesmail_shark_angular2_src_main_webapp_script_components_tooltip_tooltip_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__ntesmail_shark_angular2_src_main_webapp_script_components_tooltip_tooltip_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ntesmail_shark_angular2_src_main_webapp_script_components_tree_tree_module__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ntesmail_shark_angular2_src_main_webapp_script_components_tree_tree_module__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ntesmail_shark_angular2_src_main_webapp_script_components_tree_tree_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__ntesmail_shark_angular2_src_main_webapp_script_components_tree_tree_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ntesmail_shark_angular2_src_main_webapp_script_components_shark_module__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ntesmail_shark_angular2_src_main_webapp_script_components_shark_module__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ntesmail_shark_angular2_src_main_webapp_script_components_shark_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__ntesmail_shark_angular2_src_main_webapp_script_components_shark_module__);
 /**
  * @fileoverview This file is generated by the Angular template compiler.
@@ -10560,28 +10560,27 @@ var AppModuleNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵcmf"](__
             __WEBPACK_IMPORTED_MODULE_15__angular_router__["ROUTER_CONFIGURATION"]]), __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](512, __WEBPACK_IMPORTED_MODULE_5__angular_common__["Location"], __WEBPACK_IMPORTED_MODULE_5__angular_common__["Location"], [__WEBPACK_IMPORTED_MODULE_5__angular_common__["LocationStrategy"]]),
         __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](512, __WEBPACK_IMPORTED_MODULE_0__angular_core__["Compiler"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Compiler"], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](512, __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModuleFactoryLoader"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["SystemJsNgModuleLoader"], [__WEBPACK_IMPORTED_MODULE_0__angular_core__["Compiler"], [2, __WEBPACK_IMPORTED_MODULE_0__angular_core__["SystemJsNgModuleLoaderConfig"]]]),
         __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](1024, __WEBPACK_IMPORTED_MODULE_15__angular_router__["ROUTES"], function () {
-            return [[{ path: '', redirectTo: '/home', pathMatch: 'full' }, { path: 'home', loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* require.ensure */(3).then((function (require) { resolve(__webpack_require__(85)['HomeModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } },
-                    { path: 'main', loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* require.ensure */(4).then((function (require) { resolve(__webpack_require__(86)['MainModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } }, { path: 'detail',
-                        loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* require.ensure */(5).then((function (require) { resolve(__webpack_require__(84)['DetailModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } }]];
+            return [[{ path: '', redirectTo: '/home', pathMatch: 'full' }, { path: 'home', loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* require.ensure */(2).then((function (require) { resolve(__webpack_require__(84)['HomeModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } },
+                    { path: 'main', loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* require.ensure */(3).then((function (require) { resolve(__webpack_require__(85)['MainModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } }]];
         }, []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](1024, __WEBPACK_IMPORTED_MODULE_15__angular_router__["Router"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["ɵe"], [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["UrlSerializer"],
             __WEBPACK_IMPORTED_MODULE_15__angular_router__["ChildrenOutletContexts"], __WEBPACK_IMPORTED_MODULE_5__angular_common__["Location"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModuleFactoryLoader"],
             __WEBPACK_IMPORTED_MODULE_0__angular_core__["Compiler"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["ROUTES"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["ROUTER_CONFIGURATION"], [2, __WEBPACK_IMPORTED_MODULE_15__angular_router__["UrlHandlingStrategy"]],
             [2, __WEBPACK_IMPORTED_MODULE_15__angular_router__["RouteReuseStrategy"]]]), __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](512, __WEBPACK_IMPORTED_MODULE_15__angular_router__["RouterModule"], __WEBPACK_IMPORTED_MODULE_15__angular_router__["RouterModule"], [[2, __WEBPACK_IMPORTED_MODULE_15__angular_router__["ɵa"]], [2, __WEBPACK_IMPORTED_MODULE_15__angular_router__["Router"]]]), __WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵmpd"](512, __WEBPACK_IMPORTED_MODULE_1__src_app_app_app_module__["a" /* AppModule */], __WEBPACK_IMPORTED_MODULE_1__src_app_app_app_module__["a" /* AppModule */], [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"]])]);
 });
-//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1VzZXJzL2x1d2Vud2UvZ2l0aHViUHJvamVjdHMvYW5ndWxhcjQtZGVtby9zcmMvYXBwL2FwcC9hcHAubW9kdWxlLm5nZmFjdG9yeS50cyIsInZlcnNpb24iOjMsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIm5nOi8vL1VzZXJzL2x1d2Vud2UvZ2l0aHViUHJvamVjdHMvYW5ndWxhcjQtZGVtby9zcmMvYXBwL2FwcC9hcHAubW9kdWxlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIiAiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OyJ9
+//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1VzZXJzL2x1d2Vud2UvZ2l0aHViUHJvamVjdHMvYW5ndWxhcjQtZGVtby9zcmMvYXBwL2FwcC9hcHAubW9kdWxlLm5nZmFjdG9yeS50cyIsInZlcnNpb24iOjMsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIm5nOi8vL1VzZXJzL2x1d2Vud2UvZ2l0aHViUHJvamVjdHMvYW5ndWxhcjQtZGVtby9zcmMvYXBwL2FwcC9hcHAubW9kdWxlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIiAiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7In0=
 //# sourceMappingURL=app.module.ngfactory.js.map
 
 /***/ }),
 
-/***/ 93:
+/***/ 92:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angularclass_hmr__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angularclass_hmr__ = __webpack_require__(89);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angularclass_hmr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angularclass_hmr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hammerjs__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hammerjs__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hammerjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_hammerjs__);
 
 
@@ -10597,11 +10596,11 @@ var appRoutes = [
         path: 'home',
         loadChildren: function () { return new Promise(function (resolve) { new Promise(function(resolve) { resolve(); }).then((function (require) { resolve(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../home/home.module.ngfactory\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))['HomeModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); }
     },
-    { path: 'main', loadChildren: function () { return new Promise(function (resolve) { new Promise(function(resolve) { resolve(); }).then((function (require) { resolve(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../main/main.module.ngfactory\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))['MainModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } },
-    {
+    { path: 'main', loadChildren: function () { return new Promise(function (resolve) { new Promise(function(resolve) { resolve(); }).then((function (require) { resolve(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../main/main.module.ngfactory\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))['MainModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); } }
+    /*, {
         path: 'detail',
-        loadChildren: function () { return new Promise(function (resolve) { new Promise(function(resolve) { resolve(); }).then((function (require) { resolve(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../detail/detail.module.ngfactory\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))['DetailModuleNgFactory']); }).bind(null, __webpack_require__)).catch(__webpack_require__.oe); }); }
-    }
+        loadChildren: () => new Promise(function (resolve) {  (require as any).ensure([], function (require: any) {    resolve(require('../../../detail/detail.module.ngfactory')['DetailModuleNgFactory']);  });})
+    }*/
 ];
 var AppModule = (function () {
     function AppModule(appRef) {
@@ -10626,4 +10625,4 @@ var AppModule = (function () {
 
 /***/ })
 
-},[142]);
+},[141]);

@@ -6,7 +6,6 @@ import { SharkModule } from '@ntesmail/shark-angular2';
 import { CommonModule} from '@angular/common';
 import { HomeComponent } from './home.component';
 import { routing } from './home.routing';
-import { BeautyDirective,InitDirective,DatepickerDirective } from '../../directives/directives'
 import { MyPipe,SafeHtmlPipe } from '../../pipes/pipes';
 import { HttpModule }    from '@angular/http';
 import { AuthInterceptor } from '../../providers/httpInterceptor';
@@ -14,7 +13,7 @@ import { HTTP_INTERCEPTORS,HttpClientModule } from "@angular/common/http";
 import { SharedModule } from  '../../components/shared.modules';
 @NgModule({
     imports: [SharkModule,SharedModule,CommonModule,routing,HttpModule,HttpClientModule],
-    declarations: [HomeComponent,BeautyDirective,InitDirective,DatepickerDirective,MyPipe,SafeHtmlPipe],
+    declarations: [HomeComponent,MyPipe,SafeHtmlPipe],
     providers:[ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]
 })
 export class HomeModule { }

@@ -63,6 +63,8 @@ var dataFields = {
             "use": true,
             "edit":true,
             "hint":"请选择日期",
+            "placeholder":"开始时间",
+            "required":true,
             "model":"editingObject.myDate",
             "inputType":"date",
             "validators":[{
@@ -70,6 +72,18 @@ var dataFields = {
                 "required":"required",
                 "description":"必选"
             }],
+            "render":function (value) {
+                return "¥"+value;
+            }
+        },
+        {
+            "name": "描述",
+            "fieldName": "description",
+            "show": true,
+            "use": true,
+            "edit":true,
+            "model":"editingObject.enabled",
+            "inputType":"textarea",
             "render":function (value) {
                 return "¥"+value;
             }
@@ -112,7 +126,8 @@ var dataFields = {
             "use": true,
             "edit":true,
             "model":"editingObject.enabled",
-            "inputType":"slide",
+            "inputType":"switch",
+            "hint":"开关",
             "render":function (value) {
                 return "¥"+value;
             }

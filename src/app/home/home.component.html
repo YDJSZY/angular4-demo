@@ -74,7 +74,7 @@
                 </tbody>
             </table>
             <h1 beauty [bgc]="'yellow'">你好</h1>
-            <input datepicker class="form-control" [(ngModel)]="myTime">
+            <input datepicker class="form-control" [(ngModel)]="myTime" [minView]="0">
         </div>
         <div class="panel-footer">
             <pagination [paginationMessage]="paginationMessage" [currentTimestamp]="paginationMessage.currentTimestamp" (loadData)="loadData($event)"></pagination>

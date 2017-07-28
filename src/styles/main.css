@@ -901,8 +901,7 @@ li.more-handle-li a:focus {
 }
 
 .edit-input{
-    padding: 15px 30px;
-    height: 92px;
+    height:60px;
 }
 
 .mat-focused .mat-input-placeholder.mat-float, .mat-input-placeholder.mat-float:not(.mat-empty){

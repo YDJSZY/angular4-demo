@@ -44,6 +44,7 @@ class InitDirective{
     selector:'[datepicker]'
 })
 class DatepickerDirective{
+    @Input() dateModel:any
     @Input() dateFormat:any
     @Input() minView:any;/*它之所以称为输入属性，是因为数据流是从绑定表达式流向指令内部的。 如果没有这个元数据，Angular就会拒绝绑定*/
     constructor(private el:ElementRef){
@@ -52,7 +53,9 @@ class DatepickerDirective{
 
     ngOnInit() {
         var format = this.dateFormat;
-        var minView = this.minView;
+        var minView = parseInt(this.minView || 2);
+        var self = this;
+        console.log(minView)
         var datepicker = $(this.el.nativeElement).datetimepicker({
             format: format || "yyyy-mm-dd",
             weekStart: 1,
@@ -62,8 +65,17 @@ class DatepickerDirective{
             startView: 2,
             forceParse: 0,
             showMeridian: 1,
-            minView:minView || 2,
+            minView:minView,
         });
+        datepicker.on("changeDate", function (e) {
+            if(self.dateModel){
+                if(self.dateModel.setValue){
+                    self.dateModel.setValue(e.currentTarget.value)
+                }else{
+                    self.dateModel = e.currentTarget.value;
+                }
+            }
+        })
     }
 }
 

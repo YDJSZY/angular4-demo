@@ -93,7 +93,7 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
 
 @Component({
     selector: 'edit-modal',
-    templateUrl: './edit-modal.html',
+    templateUrl: './edit-modal.html'
 })
 export class EditModalComponent implements OnInit{
     @Input() dataFields
@@ -116,7 +116,7 @@ export class EditModalComponent implements OnInit{
 var dateRangeSelectorTemplate = "<select class='form-control' id='dateSelect'>{options}</select>";
 dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dateRangeBegin txtSetDate' name='begin_date' type='text' disabled='disabled'/>-";
 dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dateRangeEnd txtSetDate' name='end_date' type='text' disabled='disabled'/>";
-dateRangeSelectorTemplate += "<button type='button' class='btn btn-info' style='display:none'>转到</button>";
+dateRangeSelectorTemplate += "<button type='button' class='btn btn-info' style='display:none;margin-left: 1px'>转到</button>";
 @Component({
     selector: 'daterange',
     template:'<span></span>'
