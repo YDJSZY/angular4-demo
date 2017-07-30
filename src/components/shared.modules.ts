@@ -8,9 +8,10 @@ import { FieldCheckBoxComponent,PaginationComponent,EditModalComponent,DateRange
 import { DatepickerDirective,BeautyDirective,InitDirective } from '../directives/directives'
 import { MdInputModule,MdSelectModule,MdCheckboxModule,MdDatepickerModule,MdNativeDateModule,MdSlideToggleModule } from '@angular/material';
 import { UiSwitchModule } from '../../node_modules/angular2-ui-switch/src';
+import { SelectModule } from 'ng2-select';
 @NgModule({
-    imports:[CommonModule,UiSwitchModule,FormsModule,ReactiveFormsModule,MdInputModule,MdSelectModule,MdCheckboxModule,MdDatepickerModule,MdNativeDateModule,MdSlideToggleModule],
+    imports:[CommonModule,UiSwitchModule,SelectModule,FormsModule,ReactiveFormsModule,MdInputModule,MdSelectModule,MdCheckboxModule,MdDatepickerModule,MdNativeDateModule,MdSlideToggleModule],
     declarations: [ DatepickerDirective,BeautyDirective,InitDirective,FieldCheckBoxComponent,PaginationComponent,EditModalComponent,DateRangeComponent ],
-    exports: [ DatepickerDirective,UiSwitchModule,BeautyDirective,InitDirective,FieldCheckBoxComponent,PaginationComponent,EditModalComponent,DateRangeComponent,CommonModule,FormsModule ]
+    exports: [ DatepickerDirective,UiSwitchModule,SelectModule,BeautyDirective,InitDirective,FieldCheckBoxComponent,PaginationComponent,EditModalComponent,DateRangeComponent,CommonModule,FormsModule ]
 })
 export class SharedModule {}

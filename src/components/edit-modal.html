@@ -1,7 +1,7 @@
 <div class="modal fade" data-show="false" data-backdrop="static" effect="zoom" tabindex="-1" role="dialog" id="editModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm)">
+            <form class="form-horizontal" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -79,10 +79,15 @@
                                             <div class="form-group">
                                                 <label [for]="'id_'+field.fieldName" class="col-sm-3 col-md-3 col-xs-3 control-label">{{field.name}}</label>
                                                 <div class="col-sm-8 col-md-8 col-xs-8">
-                                                    <select class="form-control" [id]="'id_'+field.fieldName"
+                                                    <!--<select class="form-control" [id]="'id_'+field.fieldName"
                                                             [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}" [formControl]="editForm.controls[field.fieldName]" [name]="field.fieldName">
                                                         <option *ngFor="let item of selectSources[field.source]" [value]="item.code">{{item.name}}</option>
-                                                    </select>
+                                                    </select>-->
+                                                    <ng-select [allowClear]="true"
+                                                               [items]="selectSources[field.source]"
+                                                               [placeholder]="field.placeholder || ''"
+                                                               [formControl]="editForm.controls[field.fieldName]">
+                                                    </ng-select>
                                                     <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
                                                 </div>
                                             </div>

@@ -96,7 +96,8 @@ var dataFields = {
             "edit":true,
             "model":"editingObject.hobby",
             "inputType":"select",
-            "hint":"请选择爱好",
+            "placeholder":"请选择爱好",
+            "hint":"这是你的爱好",
             "source":"selectData",
             "validators":[{
                 "name":"required",
