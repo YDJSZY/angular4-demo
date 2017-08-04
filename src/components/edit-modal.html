@@ -1,7 +1,7 @@
 <div class="modal fade" data-show="false" data-backdrop="static" effect="zoom" tabindex="-1" role="dialog" id="editModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+            <form class="form-horizontal" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm)">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -57,20 +57,13 @@
                                                 <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
                                             </md-input-container>-->
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 edit-input" *ngSwitchCase="'password'">
-                                            <!--<md-input-container class="example-full-width" style="width: 100%;">
-                                                <input mdInput [placeholder]="field.name" type="password" [name]="field.fieldName" [formControl]="editForm.controls[field.fieldName]">
-                                                <md-error *ngFor="let error of field.validators">
-                                                    <strong *ngIf="editForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
-                                                </md-error>
-                                                <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
-                                            </md-input-container>-->
                                             <div class="form-group">
                                                 <label [for]="'id_'+field.fieldName" class="col-sm-3 col-md-3 col-xs-3 control-label">{{field.name}}</label>
                                                 <div class="col-sm-8 col-md-8 col-xs-8">
-                                                    <input type="password" [id]="'id_'+field.fieldName" [name]="field.fieldName" [placeholder]="field.placeholder || ''" class="form-control" [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}" [formControl]="editForm.controls[field.fieldName]">
+                                                    <input type="password" [id]="'id'+field.fieldName" [name]="field.fieldName" [placeholder]="field.placeholder || ''" class="form-control" [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}" [formControl]="editForm.controls[field.fieldName]">
                                                     <md-error *ngFor="let error of field.validators">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
-                                                    </md-error>
+                                                    </md-error>1
                                                     <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
                                                 </div>
                                             </div>
@@ -88,6 +81,9 @@
                                                                [placeholder]="field.placeholder || ''"
                                                                [formControl]="editForm.controls[field.fieldName]">
                                                     </ng-select>
+                                                    <md-error *ngFor="let error of field.validators">
+                                                        <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
+                                                    </md-error>
                                                     <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
                                                 </div>
                                             </div>
@@ -102,17 +98,6 @@
                                             </ng-container>
                                         </div>-->
                                         <div class="col-sm-6 col-md-6 edit-input" *ngSwitchCase="'date'">
-                                            <!--<ng-container>
-                                                <md-input-container>
-                                                    <input mdInput [mdDatepicker]="picker" [placeholder]="field.name" [formControl]="editForm.controls[field.fieldName]">
-                                                    <button mdSuffix [mdDatepickerToggle]="picker"></button>
-                                                    <md-error *ngFor="let error of field.validators">
-                                                        <strong *ngIf="editForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
-                                                    </md-error>
-                                                    <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
-                                                </md-input-container>
-                                                <md-datepicker #picker></md-datepicker>
-                                            </ng-container>-->
                                             <div class="form-group">
                                                 <label [for]="'id_'+field.fieldName" class="col-sm-3 col-md-3 col-xs-3 control-label">{{field.name}}</label>
                                                 <div class="col-sm-8 col-md-8 col-xs-8">
@@ -124,6 +109,10 @@
                                                                [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}"
                                                                [dateFormat]="'yyyy-mm-dd hh:mm:ss'" [minView]="'0'" [dateModel]="editForm.controls[field.fieldName]">
                                                     </div>
+                                                    <md-error *ngFor="let error of field.validators">
+                                                        <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
+                                                    </md-error>
+                                                    <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
                                                 </div>
                                             </div>
                                         </div>

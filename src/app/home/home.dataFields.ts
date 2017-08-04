@@ -25,7 +25,7 @@ var dataFields = {
                 "name":"required",
                 "required":"required",
                 "description":"必填"
-            }],
+            },],
             "render":function (value) {
                 return `<a href="#" style="color: #337ab7;">${value}</a>`
             }
@@ -39,6 +39,7 @@ var dataFields = {
             "model":"editingObject.password",
             "inputType":"password",
             "hint":"请填写密码",
+            "required": true,
             "validators":[{
                 "name":"required",
                 "required":"required",
@@ -99,11 +100,11 @@ var dataFields = {
             "placeholder":"请选择爱好",
             "hint":"这是你的爱好",
             "source":"selectData",
-            "validators":[{
+            /*"validators":[{
                 "name":"required",
                 "required":"required",
                 "description":"必选"
-            }],
+            }],*/
             "render":function (value) {
                 return "¥"+value;
             }
@@ -115,7 +116,7 @@ var dataFields = {
             "use": true,
             "edit":true,
             "model":"editingObject.confirm",
-            "inputType":"checkbox",
+            "inputType":"switch",
             "render":function (value) {
                 return "¥"+value;
             }

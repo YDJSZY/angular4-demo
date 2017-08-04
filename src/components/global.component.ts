@@ -105,11 +105,24 @@ export class EditModalComponent implements OnInit{
     }
 
     ngOnInit() {
-      
+        this.editForm.controls.username.setValue("loo");
+        console.log(this.editForm.controls.username)
     }
 
-    onSubmit(value){
-        this.saveForm.emit(value)
+    onSubmit(form){
+        form._valid = true;
+        for(var control in form.controls){
+            if(!form.controls[control].valid){
+                console.log(form.controls[control])
+                form._valid = false
+            }
+        }
+        console.log(form)
+        this.saveForm.emit(form)
+    }
+
+    uiSelected(e,fieldName) {
+        
     }
 }
 

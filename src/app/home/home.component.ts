@@ -38,7 +38,15 @@ export class HomeComponent implements OnChanges,OnInit{
         this.fb = fb;
         this.createForm();
         this.selectSources = {
-            selectData:[{id: '1', text: '篮球'},{id: '2', text: '音乐'},{id: '3', text: '跑步'}]
+            selectData:[{id: '1', text: '篮球'},{id: '2', text: '音乐'},{id: '3', text: '跑步'}],
+            translate:function (source,name) {
+                if(this[name]) return this[name];
+                var array = [];
+                for(var item of source){
+                    array.push({id:item.code,name:item.description})
+                }
+                return this[name] = array;
+            }
         }
         this.paginationMessage = {totalRecords:2,totalPages:10,currentPage:1,pageSize:200,currentTimestamp:null}
     }
@@ -57,8 +65,8 @@ export class HomeComponent implements OnChanges,OnInit{
         this.myForm = this.fb.group(obj);
     }
     
-    saveForm(value) {
-        console.log(value)
+    saveForm(form) {
+        console.log(form._valid)
     }
 
     myErrorStateMatcher(control: FormControl){
@@ -103,8 +111,17 @@ export class HomeComponent implements OnChanges,OnInit{
     
     edit(){
         this.myForm.controls.username.setValue("lww");
+        this.myForm.controls.hobby.setValue([{id: '2', text: '音乐'}]);
         $("#editModal").modal("show");
         console.log(this.myForm.controls.username.value)
+    }
+    
+    beforeSave(data) {
+        
+    }
+    
+    save(data){
+        console.log(data)
     }
 
     toggleDetail(obj){
@@ -119,5 +136,9 @@ export class HomeComponent implements OnChanges,OnInit{
 
     dateChangeFunc(date){
         console.log(date)
+    }
+
+    uiSelected(e) {
+        console.log(e)
     }
 };
