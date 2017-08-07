@@ -19,13 +19,15 @@ var dataFields = {
             "model":"editingObject.username",
             "inputType":"text",
             "placeholder":"必填",
-            "hint":"请填写用户名",
             "required": true,
             "validators":[{
                 "name":"required",
                 "required":"required",
                 "description":"必填"
-            },],
+            }],
+            "validateFunc":function (formValue){
+                if(!formValue.hasOwnProperty(this.fieldName) || !formValue[this.fieldName]) return "required";
+            },
             "render":function (value) {
                 return `<a href="#" style="color: #337ab7;">${value}</a>`
             }
@@ -38,8 +40,8 @@ var dataFields = {
             "edit":true,
             "model":"editingObject.password",
             "inputType":"password",
-            "hint":"请填写密码",
             "required": true,
+            "placeholder":"必填",
             "validators":[{
                 "name":"required",
                 "required":"required",
@@ -63,8 +65,7 @@ var dataFields = {
             "show": true,
             "use": true,
             "edit":true,
-            "hint":"请选择日期",
-            "placeholder":"开始时间",
+            "placeholder":"必选",
             "required":true,
             "model":"editingObject.myDate",
             "inputType":"date",
@@ -97,14 +98,15 @@ var dataFields = {
             "edit":true,
             "model":"editingObject.hobby",
             "inputType":"select",
-            "placeholder":"请选择爱好",
-            "hint":"这是你的爱好",
+            "placeholder":"必选",
+            "multiple":false,
             "source":"selectData",
-            /*"validators":[{
+            "required":true,
+            "validators":[{
                 "name":"required",
                 "required":"required",
                 "description":"必选"
-            }],*/
+            }],
             "render":function (value) {
                 return "¥"+value;
             }
@@ -129,7 +131,6 @@ var dataFields = {
             "edit":true,
             "model":"editingObject.enabled",
             "inputType":"switch",
-            "hint":"开关",
             "render":function (value) {
                 return "¥"+value;
             }

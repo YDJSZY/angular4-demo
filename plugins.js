@@ -12,6 +12,7 @@ var plugins = {
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         './src/styles/app.css',
         './src/packages/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
+        './node_modules/angular2-toaster/toaster.css',
         './src/styles/main.css'
     ]
 }

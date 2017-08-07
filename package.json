@@ -28,6 +28,7 @@
     "@ntesmail/shark-angular2": "^1.2.1",
     "@types/core-js": "^0.9.41",
     "@types/node": "^6.0.46",
+    "angular2-toaster": "^4.0.1",
     "angular2-ui-switch": "^1.2.0",
     "bootstrap": "3.3.7",
     "core-js": "^2.4.1",

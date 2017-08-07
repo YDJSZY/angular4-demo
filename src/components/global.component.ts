@@ -2,6 +2,7 @@
  * Created by luwenwe on 2017/7/12.
  */
 import { Component,OnInit,OnChanges,Input,Output,ElementRef,EventEmitter,ViewChild,AfterViewInit,DoCheck} from '@angular/core';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular2-toaster';
 const UiPagination = require("../utils/ui-pagination");
 
 @Component({
@@ -100,29 +101,55 @@ export class EditModalComponent implements OnInit{
     @Input() editForm
     @Input() selectSources
     @Output() saveForm = new EventEmitter<any>();
-    constructor(){
-        
+    private toasterService: ToasterService;
+    constructor(toasterService: ToasterService){
+        this.toasterService = toasterService;
     }
 
     ngOnInit() {
-        this.editForm.controls.username.setValue("loo");
-        console.log(this.editForm.controls.username)
+
     }
 
     onSubmit(form){
-        form._valid = true;
-        for(var control in form.controls){
-            if(!form.controls[control].valid){
-                console.log(form.controls[control])
-                form._valid = false
-            }
+        if(!this.validateForm(form)){
+            this.toasterService.pop('error', '', '表单填写有误');
+            return;
         }
-        console.log(form)
         this.saveForm.emit(form)
     }
 
-    uiSelected(e,fieldName) {
-        
+    validateForm(form){
+        var errorList = [],required = false,toasterMessage = [];
+        this.validatePass = false;
+        for(var control in form.controls){
+            if(!form.controls[control].valid){
+                var result = this.runValidate(control)
+                if(!result) return false;
+            }
+        }
+        return true;
+    }
+
+    runValidate(control){
+        for(var field of this.dataFields){
+            if(field.fieldName == control){
+                if(!field.validators) continue;
+                for(var validator of field.validators){
+                    var value = this.editForm.controls[control].value;
+                    if(validator.name == "required"){
+                        if((!value && parseInt(value)!=0) || value.length==0) return false;
+                    }else{
+                        return validator[validator.name](value);
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    uiSelected(e,control) {
+        control.setErrors(null);
+        console.log(control)
     }
 }
 
