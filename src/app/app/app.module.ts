@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ApplicationRef } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
 import 'hammerjs';
 // 定义常量 路由
 const appRoutes: Routes = [
@@ -28,9 +29,10 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [BrowserModule,BrowserAnimationsModule, SharkModule,FormsModule, RouterModule.forRoot(appRoutes, { useHash: true })],
+    imports: [BrowserModule,ToasterModule,BrowserAnimationsModule, SharkModule,FormsModule, RouterModule.forRoot(appRoutes, { useHash: true })],
     declarations: [AppComponent],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    providers:[ToasterService]
 })
 export class AppModule {
     constructor(public appRef: ApplicationRef) { }

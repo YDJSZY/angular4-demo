@@ -4,6 +4,7 @@ import {dataFields} from './home.dataFields';
 import { MyPipe } from '../../pipes/pipes';
 import { FormControl,Validators,FormGroup,FormBuilder } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
+import { DataTable } from '../../base_class/data_table';
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
@@ -13,7 +14,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
     //directives:[FieldCheckBox]
     //styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnChanges,OnInit{
+export class HomeComponent extends DataTable implements OnChanges,OnInit{
     objectList:any[]
     title:Object
     dataFields:Object
@@ -30,6 +31,7 @@ export class HomeComponent implements OnChanges,OnInit{
     emailFormControl = new FormControl('', [
         Validators.required]);
     constructor(public homeService:HomeService,public fb:FormBuilder){
+        super();
         this.objectList = [{id:1,origin_name:"小明",total:1200},{id:2,origin_name:"小黄",total:3400}];
         this.dataFields = dataFields.fields;
         this.fieldShow = dataFields.fieldShow;
@@ -48,6 +50,7 @@ export class HomeComponent implements OnChanges,OnInit{
                 return this[name] = array;
             }
         }
+        console.log(this)
         this.paginationMessage = {totalRecords:2,totalPages:10,currentPage:1,pageSize:200,currentTimestamp:null}
     }
     
