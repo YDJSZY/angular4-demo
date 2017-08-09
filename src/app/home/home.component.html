@@ -75,6 +75,7 @@
             </table>
         </div>
         <div class="panel-footer">
+            <dp-date-picker [(ngModel)]="selectedDate" [placeholder]="'日期'" [mode]="'daytime'" [config]="datePickerConfig"></dp-date-picker>
             <pagination [paginationMessage]="paginationMessage" [currentTimestamp]="paginationMessage.currentTimestamp" (loadData)="loadData($event)"></pagination>
         </div>
     </div>
