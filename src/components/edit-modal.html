@@ -90,7 +90,8 @@
                                                         </span>
                                                         <input datepicker [id]="'id_'+field.fieldName" [name]="field.fieldName" [placeholder]="field.placeholder || ''" class="form-control input-append date form_datetime"
                                                                [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}"
-                                                               [dateFormat]="'yyyy-mm-dd hh:mm:ss'" [minView]="'0'" [dateModel]="editForm.controls[field.fieldName]">
+                                                               [dateFormat]="field.format || 'yyyy-mm-dd'" [minView]="field.minView || '2'"
+                                                               [dateModel]="editForm.controls[field.fieldName]">
                                                     </div>
                                                     <md-error *ngFor="let error of field.validators">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
