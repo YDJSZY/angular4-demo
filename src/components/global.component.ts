@@ -48,7 +48,7 @@ export class FieldCheckBoxComponent implements OnInit {
 })
 
 export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
-    @Input() paginationMessage={totalRecords:0,totalPages:0,currentPage:0,pageSize:20}
+    @Input() paginationMessage={totalRecords:0,totalPages:0,currentPage:0,page_size:20}
     @Input() currentTimestamp
     @Output() loadData = new EventEmitter<any>();
     @ViewChild("pagination")
@@ -58,7 +58,7 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
     }
 
     everyPageSize(){
-        this.params.page_size = this.paginationMessage.pageSize;
+        this.params.page_size = this.paginationMessage.page_size;
         this.loadData.emit(this.params);
     }
     
@@ -70,11 +70,11 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
         this.gotoPage();
     }
 
-    ngOnInit() {
+    ngOnInit() {/*在第一轮 ngOnChanges 完成之后调用。 ( 译注：也就是说当每个输入属性的值都被触发了一次 ngOnChanges 之后才会调用 ngOnInit ，此时所有输入属性都已经有了正确的初始绑定值 )*/
 
     }
 
-    ngAfterViewInit(){
+    ngAfterViewInit(){/*初始化完组件视图及其子视图之后调用。*/
         this.uiPagination = new UiPagination(this.paginationMessage.totalPages,this.paginationEle.nativeElement)
         this.uiPagination.init();
         this.gotoPage();
@@ -115,6 +115,7 @@ export class EditModalComponent implements OnInit{
             this.toasterService.pop('error', '', '表单填写有误');
             return;
         }
+        console.log(form)
         this.saveForm.emit(form)
     }
 
@@ -179,7 +180,6 @@ export class DateRangeComponent implements OnInit{
         var func = function (event, begin, end, dateRangeName) {
             self.dateChangeFunc.emit({beginDate:begin,endDate:end,dateRangeName:dateRangeName},true);
         }
-        console.log(this.el)
         var ctl = $(this.el.nativeElement).dateRange(func.bind(this),cfg).get(0);
         this.dateChangeFunc.emit(ctl);
         $('input.txtSetDate').each(function (index, item) {

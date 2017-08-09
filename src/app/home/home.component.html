@@ -25,7 +25,7 @@
                         <field-check-box [datafields]="dataFields" [fieldshow]="fieldShow"></field-check-box>
                     </div>
                     <div class="form-group pull-right">
-                        <button class="btn btn-primary" (click)="create()">
+                        <button class="btn btn-primary" (click)="createTable()">
                             <i class="fa fa-plus-circle"></i>新增
                         </button>
                     </div>
@@ -45,7 +45,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngIf="objectList.length == 0">
+                <tr *ngIf="objectList && objectList.length == 0">
                     <td colspan="30">
                         <div class="alert alert-info">
                             <h4><i class="icon fa fa-warning"></i>没有数据</h4>
@@ -61,7 +61,7 @@
                             </ng-container>
                         </ng-container>
                         <td class="handle">
-                            <button class="btn btn-primary btn-xs" (click)="edit()">编辑</button>
+                            <button class="btn btn-primary btn-xs" (click)="edit(obj)">编辑</button>
                             <button class="btn btn-primary btn-xs" (click)="toggleDetail(obj)">详情</button>
                         </td>
                     </tr>
@@ -73,8 +73,6 @@
                 </ng-container>
                 </tbody>
             </table>
-            <h1 beauty [bgc]="'yellow'">你好</h1>
-            <input datepicker class="form-control" [(ngModel)]="myTime" [minView]="0">
         </div>
         <div class="panel-footer">
             <pagination [paginationMessage]="paginationMessage" [currentTimestamp]="paginationMessage.currentTimestamp" (loadData)="loadData($event)"></pagination>
@@ -82,4 +80,4 @@
     </div>
 </section>
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
-<edit-modal [editForm]="myForm" [dataFields]="dataFields" [selectSources]="selectSources" (saveForm)="saveForm($event)"></edit-modal>
+<edit-modal [editForm]="tableForm" [dataFields]="dataFields" [selectSources]="selectSources" (saveForm)="saveForm($event)"></edit-modal>

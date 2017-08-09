@@ -56,7 +56,7 @@ var dataFields = {
                 "description":"6~16"
             }],
             "render":function (value) {
-                return "¥"+value;
+                return value;
             }
         },
         {
@@ -69,13 +69,15 @@ var dataFields = {
             "required":true,
             "model":"editingObject.myDate",
             "inputType":"date",
+            /*"format":"yyyy-mm-dd hh:mm:ss",
+            "minView":"0",*/
             "validators":[{
                 "name":"required",
                 "required":"required",
                 "description":"必选"
             }],
             "render":function (value) {
-                return "¥"+value;
+                return value;
             }
         },
         {
@@ -84,10 +86,10 @@ var dataFields = {
             "show": true,
             "use": true,
             "edit":true,
-            "model":"editingObject.enabled",
+            "model":"editingObject.description",
             "inputType":"textarea",
             "render":function (value) {
-                return "¥"+value;
+                return value;
             }
         },
         {
@@ -108,7 +110,7 @@ var dataFields = {
                 "description":"必选"
             }],
             "render":function (value) {
-                return "¥"+value;
+                return value;
             }
         },
         {
@@ -120,7 +122,7 @@ var dataFields = {
             "model":"editingObject.confirm",
             "inputType":"switch",
             "render":function (value) {
-                return "¥"+value;
+                return value;
             }
         },
         {
@@ -132,7 +134,7 @@ var dataFields = {
             "model":"editingObject.enabled",
             "inputType":"switch",
             "render":function (value) {
-                return "¥"+value;
+                return value;
             }
         },
     ],
@@ -141,9 +143,10 @@ var dataFields = {
         username:true,
         password:true,
         hobby:true,
-        checkbox:true,
         myDate:true,
-        enabled:true
+        confirm:true,
+        enabled:true,
+        description:true
     }
 }
 
