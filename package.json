@@ -10,7 +10,7 @@
     "clean": "rimraf build",
     "dll": "webpack --config webpack.dll.config.js"
   },
-  "author": "sweetyx",
+  "author": "lww",
   "dependencies": {
     "@angular/animations": "^4.3.0-rc.0",
     "@angular/cdk": "^2.0.0-beta.8",
