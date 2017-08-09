@@ -1,15 +1,27 @@
 webpackJsonp([5],{
 
+<<<<<<< HEAD
+/***/ 141:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(72);
+module.exports = __webpack_require__(71);
+=======
 /***/ 151:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(78);
 module.exports = __webpack_require__(77);
+>>>>>>> origin/master
 
 
 /***/ }),
 
+<<<<<<< HEAD
+/***/ 19:
+=======
 /***/ 21:
+>>>>>>> origin/master
 /***/ (function(module, exports) {
 
 var g;
@@ -37,7 +49,11 @@ module.exports = g;
 
 /***/ }),
 
+<<<<<<< HEAD
+/***/ 54:
+=======
 /***/ 59:
+>>>>>>> origin/master
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -224,7 +240,11 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+<<<<<<< HEAD
+/***/ 71:
+=======
 /***/ 77:
+>>>>>>> origin/master
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {/*! *****************************************************************************
@@ -1352,11 +1372,19 @@ var Reflect;
             Function("return this;")());
 })(Reflect || (Reflect = {}));
 //# sourceMappingURL=Reflect.js.map
+<<<<<<< HEAD
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(54), __webpack_require__(19)))
+
+/***/ }),
+
+/***/ 72:
+=======
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59), __webpack_require__(21)))
 
 /***/ }),
 
 /***/ 78:
+>>>>>>> origin/master
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {/**
@@ -2645,6 +2673,7 @@ function attachRegisteredEvent(target, eventTask, isPrepend) {
     }
     else {
         eventTasks.push(eventTask);
+<<<<<<< HEAD
     }
 }
 var defaultListenerMetaCreator = function (self, args) {
@@ -2768,6 +2797,131 @@ function patchEventTargetMethods(obj, addFnName, removeFnName, metaCreator) {
         return false;
     }
 }
+=======
+    }
+}
+var defaultListenerMetaCreator = function (self, args) {
+    return {
+        useCapturing: args[2],
+        eventName: args[0],
+        handler: args[1],
+        target: self || _global$1,
+        name: args[0],
+        invokeAddFunc: function (addFnSymbol, delegate) {
+            if (delegate && delegate.invoke) {
+                return this.target[addFnSymbol](this.eventName, delegate.invoke, this.useCapturing);
+            }
+            else {
+                return this.target[addFnSymbol](this.eventName, delegate, this.useCapturing);
+            }
+        },
+        invokeRemoveFunc: function (removeFnSymbol, delegate) {
+            if (delegate && delegate.invoke) {
+                return this.target[removeFnSymbol](this.eventName, delegate.invoke, this.useCapturing);
+            }
+            else {
+                return this.target[removeFnSymbol](this.eventName, delegate, this.useCapturing);
+            }
+        }
+    };
+};
+function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, allowDuplicates, isPrepend, metaCreator) {
+    if (useCapturingParam === void 0) { useCapturingParam = true; }
+    if (allowDuplicates === void 0) { allowDuplicates = false; }
+    if (isPrepend === void 0) { isPrepend = false; }
+    if (metaCreator === void 0) { metaCreator = defaultListenerMetaCreator; }
+    var addFnSymbol = zoneSymbol(addFnName);
+    var removeFnSymbol = zoneSymbol(removeFnName);
+    var defaultUseCapturing = useCapturingParam ? false : undefined;
+    function scheduleEventListener(eventTask) {
+        var meta = eventTask.data;
+        attachRegisteredEvent(meta.target, eventTask, isPrepend);
+        return meta.invokeAddFunc(addFnSymbol, eventTask);
+    }
+    function cancelEventListener(eventTask) {
+        var meta = eventTask.data;
+        findExistingRegisteredTask(meta.target, eventTask.invoke, meta.eventName, meta.useCapturing, true);
+        return meta.invokeRemoveFunc(removeFnSymbol, eventTask);
+    }
+    return function zoneAwareAddListener(self, args) {
+        var data = metaCreator(self, args);
+        data.useCapturing = data.useCapturing || defaultUseCapturing;
+        // - Inside a Web Worker, `this` is undefined, the context is `global`
+        // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
+        // see https://github.com/angular/zone.js/issues/190
+        var delegate = null;
+        if (typeof data.handler == 'function') {
+            delegate = data.handler;
+        }
+        else if (data.handler && data.handler.handleEvent) {
+            delegate = function (event) { return data.handler.handleEvent(event); };
+        }
+        var validZoneHandler = false;
+        try {
+            // In cross site contexts (such as WebDriver frameworks like Selenium),
+            // accessing the handler object here will cause an exception to be thrown which
+            // will fail tests prematurely.
+            validZoneHandler = data.handler && data.handler.toString() === '[object FunctionWrapper]';
+        }
+        catch (error) {
+            // Returning nothing here is fine, because objects in a cross-site context are unusable
+            return;
+        }
+        // Ignore special listeners of IE11 & Edge dev tools, see
+        // https://github.com/angular/zone.js/issues/150
+        if (!delegate || validZoneHandler) {
+            return data.invokeAddFunc(addFnSymbol, data.handler);
+        }
+        if (!allowDuplicates) {
+            var eventTask = findExistingRegisteredTask(data.target, data.handler, data.eventName, data.useCapturing, false);
+            if (eventTask) {
+                // we already registered, so this will have noop.
+                return data.invokeAddFunc(addFnSymbol, eventTask);
+            }
+        }
+        var zone = Zone.current;
+        var source = data.target.constructor['name'] + '.' + addFnName + ':' + data.eventName;
+        zone.scheduleEventTask(source, delegate, data, scheduleEventListener, cancelEventListener);
+    };
+}
+function makeZoneAwareRemoveListener(fnName, useCapturingParam, metaCreator) {
+    if (useCapturingParam === void 0) { useCapturingParam = true; }
+    if (metaCreator === void 0) { metaCreator = defaultListenerMetaCreator; }
+    var symbol = zoneSymbol(fnName);
+    var defaultUseCapturing = useCapturingParam ? false : undefined;
+    return function zoneAwareRemoveListener(self, args) {
+        var data = metaCreator(self, args);
+        data.useCapturing = data.useCapturing || defaultUseCapturing;
+        // - Inside a Web Worker, `this` is undefined, the context is `global`
+        // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
+        // see https://github.com/angular/zone.js/issues/190
+        var eventTask = findExistingRegisteredTask(data.target, data.handler, data.eventName, data.useCapturing, true);
+        if (eventTask) {
+            eventTask.zone.cancelTask(eventTask);
+        }
+        else {
+            data.invokeRemoveFunc(symbol, data.handler);
+        }
+    };
+}
+
+
+var zoneAwareAddEventListener = makeZoneAwareAddListener(ADD_EVENT_LISTENER, REMOVE_EVENT_LISTENER);
+var zoneAwareRemoveEventListener = makeZoneAwareRemoveListener(REMOVE_EVENT_LISTENER);
+function patchEventTargetMethods(obj, addFnName, removeFnName, metaCreator) {
+    if (addFnName === void 0) { addFnName = ADD_EVENT_LISTENER; }
+    if (removeFnName === void 0) { removeFnName = REMOVE_EVENT_LISTENER; }
+    if (metaCreator === void 0) { metaCreator = defaultListenerMetaCreator; }
+    if (obj && obj[addFnName]) {
+        patchMethod(obj, addFnName, function () { return makeZoneAwareAddListener(addFnName, removeFnName, true, false, false, metaCreator); });
+        patchMethod(obj, removeFnName, function () { return makeZoneAwareRemoveListener(removeFnName, true, metaCreator); });
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+>>>>>>> origin/master
 var originalInstanceKey = zoneSymbol('originalInstance');
 // wrap some native API on `window`
 function patchClass(className) {
@@ -3427,8 +3581,16 @@ if (_global['PromiseRejectionEvent']) {
 
 })));
 
+<<<<<<< HEAD
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19), __webpack_require__(54)))
+
+/***/ })
+
+},[141]);
+=======
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21), __webpack_require__(59)))
 
 /***/ })
 
 },[151]);
+>>>>>>> origin/master
