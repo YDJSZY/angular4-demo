@@ -115,13 +115,10 @@ export class EditModalComponent implements OnInit{
             this.toasterService.pop('error', '', '表单填写有误');
             return;
         }
-        console.log(form)
-        this.saveForm.emit(form)
+        this.saveForm.emit(form.value)
     }
 
     validateForm(form){
-        var errorList = [],required = false,toasterMessage = [];
-        this.validatePass = false;
         for(var control in form.controls){
             if(!form.controls[control].valid){
                 var result = this.runValidate(control)
@@ -149,8 +146,7 @@ export class EditModalComponent implements OnInit{
     }
 
     uiSelected(e,control) {
-        control.setErrors(null);
-        console.log(control)
+
     }
 }
 

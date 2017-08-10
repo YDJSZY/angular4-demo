@@ -72,12 +72,12 @@ module.exports = {
     },
     plugins: [
         new ProgressBarPlugin(),
-        /*new webpack.optimize.UglifyJsPlugin({
+        new webpack.optimize.UglifyJsPlugin({
             comments: false,
             compress: {
                 warnings: false
             }
-        }),*/
+        }),
         /*new webpack.NoEmitOnErrorsPlugin(),
         new DefinePlugin({
             'ENV': '"prod"'

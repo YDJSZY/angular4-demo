@@ -69,8 +69,6 @@ var dataFields = {
             "required":true,
             "model":"editingObject.myDate",
             "inputType":"date",
-            /*"format":"yyyy-mm-dd hh:mm:ss",
-            "minView":"0",*/
             "validators":[{
                 "name":"required",
                 "required":"required",

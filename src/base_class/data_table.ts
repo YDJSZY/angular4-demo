@@ -111,14 +111,13 @@ export class DataTable{
     }
 
     edit(obj){
-        //console.log(obj);
         for(var control in obj){
             if(!this.tableForm.controls.hasOwnProperty(control)) continue;
             //console.log(this.tableForm.controls[control])
             this.tableForm.controls[control].setValue(obj[control]);
         }
         $("#editModal").modal("show");
-        //console.log(this.tableForm.controls)
+        console.log(this.tableForm.controls)
     }
 
     beforeSave(data) {

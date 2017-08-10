@@ -18,7 +18,6 @@ export class HomeComponent extends DataTable implements OnInit{
         this.fieldShow = dataFields.fieldShow;
         this.baseUrl = "../../data.json";
         this.http = http;
-        this.datePickerConfig = {format:"YYYY-MM-DD hh:mm:ss",showSeconds:true,drops:"up"};
     }
 
     ngOnInit() {
