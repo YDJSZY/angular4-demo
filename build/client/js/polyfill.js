@@ -1,47 +1,6 @@
-webpackJsonp([5],{
+webpackJsonp([4],{
 
-<<<<<<< HEAD
-/***/ 149:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(76);
-module.exports = __webpack_require__(75);
-
-
-/***/ }),
-
-/***/ 21:
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 59:
-=======
 /***/ 153:
->>>>>>> origin/master
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -228,11 +187,7 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 75:
-=======
-/***/ 370:
->>>>>>> origin/master
+/***/ 369:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {/*! *****************************************************************************
@@ -1364,11 +1319,7 @@ var Reflect;
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 76:
-=======
-/***/ 371:
->>>>>>> origin/master
+/***/ 370:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {/**
@@ -3471,17 +3422,13 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 750:
+/***/ 748:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(371);
-module.exports = __webpack_require__(370);
+__webpack_require__(370);
+module.exports = __webpack_require__(369);
 
 
 /***/ })
 
-<<<<<<< HEAD
-},[149]);
-=======
-},[750]);
->>>>>>> origin/master
+},[748]);

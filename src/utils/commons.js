@@ -224,28 +224,7 @@ $.extend(DateRangeSelector.prototype, {
         var html = formatString(this.template, {"options": options});
         this.target.html(html);
         var dateRangeSelector = $("select", this.target);
-        var dateRangeBegin = $("input.dateRangeBegin", this.target);
-        var dateRangeEnd = $("input.dateRangeEnd", this.target);
-        var button = $("button", this.target);
         dateRangeSelector.on("change", this.__doChangeName.bind(this));
-        button.on("click", this.responseDoChange.bind(this));
-        dateRangeBegin.on("change", this._doChange.bind(this));//给开始日期的input绑定change事件
-        dateRangeEnd.on("change", this._doChange.bind(this));
-        dateRangeBegin.val(formatDate(this.beginDate));
-        dateRangeEnd.val(formatDate(this.endDate));
-        button.hide();
-        dateRangeBegin.prop("disabled", true);
-        dateRangeEnd.prop("disabled", true);
-        if(this.dateRangeName == "不限"){
-            $('.txtSetDate').each(function (index, item) {
-                $(item).hide()
-            })
-        }
-        if (this.dateRangeName == "自定义") {
-            dateRangeBegin.prop("disabled", false);
-            dateRangeEnd.prop("disabled", false);
-            button.show();
-        }
         return this.target;
     },
 
@@ -364,31 +343,6 @@ $.extend(DateRangeSelector.prototype, {
         }
         if(!this.target) { // XXX 这句话不是应该写到前面去吗？
             return;
-        }
-
-        var dateRangeBegin = $("input.dateRangeBegin", this.target);
-        var dateRangeEnd = $("input.dateRangeEnd", this.target);
-        var button = $("button", this.target);
-        //根据begin/end填充两个文本框的值。
-        dateRangeBegin.val(formatDate(this.beginDate));
-        dateRangeEnd.val(formatDate(this.endDate));
-        $('.txtSetDate').each(function (index, item) {
-            $(item).show()
-        })
-        if (this.dateRangeName == "自定义") {
-            dateRangeBegin.prop("disabled", false);
-            dateRangeEnd.prop("disabled", false);
-            button.show();
-        } else {
-            dateRangeBegin.prop("disabled", true);
-            dateRangeEnd.prop("disabled", true);
-            this.target.trigger("dateRangeChanged", [this.beginDate, this.endDate,this.dateRangeName]);
-            button.hide();
-        }
-        if(this.dateRangeName == "不限"){
-            $('.txtSetDate').each(function (index, item) {
-                $(item).hide()
-            })
         }
     },
 

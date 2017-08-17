@@ -4,6 +4,7 @@
 import { Component,OnInit,OnChanges,Input,Output,ElementRef,EventEmitter,ViewChild,AfterViewInit,DoCheck} from '@angular/core';
 import {ToasterModule, ToasterService, ToasterConfig} from 'angular2-toaster';
 const UiPagination = require("../utils/ui-pagination");
+const DateRange = require("../utils/dateRange");
 
 @Component({
     selector: 'field-check-box',
@@ -163,11 +164,32 @@ dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dat
 dateRangeSelectorTemplate += "<button type='button' class='btn btn-info' style='display:none;margin-left: 1px'>转到</button>";
 @Component({
     selector: 'daterange',
-    template:'<span></span>'
+    template:`<span>
+                    <div nz-form-item style="margin-right: 5px;">
+                        <div nz-form-control>
+                            <select class='custom-select' #dateRangeSelect id='dateSelect'></select>
+                        </div>
+                    </div>
+                    <div nz-form-item style="margin-right: 5px">
+                    <div nz-form-control>
+                        <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
+                    </div>
+                </div>
+                <div nz-form-item>
+                    <p nz-form-split style="margin-top: 5px">-</p>
+                </div>
+                <div nz-form-item style="margin-left: -12px">
+                    <div nz-form-control>
+                        <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
+                    </div>
+                </div>
+            </span>`
 })
 export class DateRangeComponent implements OnInit{
     @Input() dateRangeConfig
     @Output() dateChangeFunc = new EventEmitter<any>();
+    @ViewChild("dateRangeSelect")
+    dateRangeSelectEle:ElementRef
     constructor(el:ElementRef){
         this.el = el;
     }
@@ -179,24 +201,16 @@ export class DateRangeComponent implements OnInit{
             minView:2,
             dateRangeName:"今天"
         }
-        cfg = Object.assign(cfg,this.dateRangeConfig || {});
+        /*cfg = Object.assign(cfg,this.dateRangeConfig || {});
         var func = function (event, begin, end, dateRangeName) {
             self.dateChangeFunc.emit({beginDate:begin,endDate:end,dateRangeName:dateRangeName},true);
         }
         var ctl = $(this.el.nativeElement).dateRange(func.bind(this),cfg).get(0);
-        this.dateChangeFunc.emit(ctl);
-        $('input.txtSetDate').each(function (index, item) {
-            $(item).datetimepicker({
-                format: "yyyy-mm-dd",
-                weekStart: 1,
-                todayBtn:  1,
-                autoclose: 1,
-                todayHighlight: 1,
-                startView: 2,
-                forceParse: 0,
-                showMeridian: 1,
-                minView:2,
-            });
-        });
+        this.dateChangeFunc.emit(ctl);*/
+    }
+
+    ngAfterViewInit(){
+        var dateRange = new DateRange(this.dateRangeSelectEle.nativeElement)
+        console.log(dateRange)
     }
 }

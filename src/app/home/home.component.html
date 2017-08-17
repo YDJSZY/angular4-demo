@@ -24,8 +24,8 @@
     <ng-template #body>
         <div class="row" style="margin:-24px;margin-bottom: 0;padding: 15px;">
             <form nz-form [nzLayout]="'inline'">
-                    <!--<daterange [dateRangeConfig]="dateRangeConfig" (dateChangeFunc)="dateChangeFunc($event)"></daterange>-->
-                <div nz-form-item style="margin-right: 5px">
+                <daterange [dateRangeConfig]="dateRangeConfig" (dateChangeFunc)="dateChangeFunc($event)"></daterange>
+                <!--<div nz-form-item style="margin-right: 5px">
                     <div nz-form-control>
                         <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
                     </div>
@@ -37,7 +37,7 @@
                     <div nz-form-control>
                         <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
                     </div>
-                </div>
+                </div>-->
                 <div nz-form-item>
                     <div nz-form-control>
                         <nz-input [nzPlaceHolder]="'搜索'" [nzSize]="'large'">
@@ -74,7 +74,7 @@
                 </div>
             </form>
         </div>
-        <nz-table #nzTable [nzIsPagination]="false">
+        <nz-table #nzTable [nzIsPagination]="false" [nzSize]="'middle'" [nzBordered]="true" [nzCustomNoResult]="true">
             <thead nz-thead>
             <tr>
                 <ng-container *ngFor="let th of dataFields">
@@ -91,7 +91,7 @@
                 <tr *ngIf="objectList && objectList.length === 0" nz-tbody-tr>
                     <td nz-td colspan="30">
                         <div class="alert alert-info">
-                            <h4><i class="icon fa fa-warning"></i>没有数据</h4>
+                            <h4><i class="icon fa fa-warning"></i>没有数据拉</h4>
                         </div>
                     </td>
                 </tr>

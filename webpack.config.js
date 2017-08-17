@@ -12,7 +12,7 @@ module.exports = {
         bootstrap: [__dirname + '/src/bootstrap.ts'],
         angular: ['@angular/core', '@angular/platform-browser', '@angular/common', '@angular/router', '@angular/http', '@angular/forms', '@ntesmail/shark-angular2'],
         polyfill: ['zone.js/dist/zone', 'reflect-metadata'],
-        thirdparty: [/*'./node_modules/bootstrap/dist/js/bootstrap.min.js',*/'./src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js','./src/utils/commons.js'],
+        thirdparty: [/*'./node_modules/bootstrap/dist/js/bootstrap.min.js',*//*'./src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js',*/'./src/utils/commons.js'],
         app_css:plugins.css
         
     },
