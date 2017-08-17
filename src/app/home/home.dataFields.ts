@@ -99,6 +99,7 @@ var dataFields = {
             "model":"editingObject.hobby",
             "inputType":"select",
             "placeholder":"必选",
+            "defaultValue":[{id: '2', text: '音乐'}],
             "multiple":false,
             "source":"selectData",
             "required":true,

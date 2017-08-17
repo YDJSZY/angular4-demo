@@ -9,7 +9,6 @@ export class DataTable{
     dataFields:Object
     fieldShow:Object
     toasterconfig: ToasterConfig
-    http:HttpService
     currentRepeatObj:Object
     loadObjectParams:Object
     paginationMessage:Object
@@ -107,7 +106,7 @@ export class DataTable{
 
     createTable(){
         this.tableForm ? this.tableForm.reset() : this.createTableForm();
-        $("#editModal").modal("show");
+        this.tableForm.currentTimestamp = new Date().getTime();
     }
 
     edit(obj){
@@ -116,8 +115,7 @@ export class DataTable{
             //console.log(this.tableForm.controls[control])
             this.tableForm.controls[control].setValue(obj[control]);
         }
-        $("#editModal").modal("show");
-        console.log(this.tableForm.controls)
+        this.tableForm.currentTimestamp = new Date().getTime();
     }
 
     beforeSave(data) {
@@ -145,6 +143,5 @@ export class DataTable{
 
     run(){
         this.loadFirstPage();
-        this.createTableForm();
     }
 }

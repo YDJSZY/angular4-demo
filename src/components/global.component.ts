@@ -96,18 +96,24 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
     selector: 'edit-modal',
     templateUrl: './edit-modal.html'
 })
-export class EditModalComponent implements OnInit{
+export class EditModalComponent implements OnInit,OnChanges{
     @Input() dataFields
     @Input() editForm
+    @Input() currentTimestamp
     @Input() selectSources
     @Output() saveForm = new EventEmitter<any>();
     private toasterService: ToasterService;
-    constructor(toasterService: ToasterService){
+    constructor(toasterService: ToasterService,el:ElementRef){
         this.toasterService = toasterService;
+        this.el = el;
     }
 
     ngOnInit() {
 
+    }
+
+    ngOnChanges(change:currentTimestamp){
+        if(this.currentTimestamp) $("#editModal").modal("show")
     }
 
     onSubmit(form){
@@ -146,11 +152,12 @@ export class EditModalComponent implements OnInit{
     }
 
     uiSelected(e,control) {
-
+        control.selectValue = e.id;
+        console.log(control)
     }
 }
 
-var dateRangeSelectorTemplate = "<select class='form-control' id='dateSelect'>{options}</select>";
+var dateRangeSelectorTemplate = "<select class='custom-select' id='dateSelect'>{options}</select>";
 dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dateRangeBegin txtSetDate' name='begin_date' type='text' disabled='disabled'/>-";
 dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dateRangeEnd txtSetDate' name='end_date' type='text' disabled='disabled'/>";
 dateRangeSelectorTemplate += "<button type='button' class='btn btn-info' style='display:none;margin-left: 1px'>转到</button>";
@@ -172,7 +179,7 @@ export class DateRangeComponent implements OnInit{
             minView:2,
             dateRangeName:"今天"
         }
-        cfg = Object.assign(cfg,this.config || {});
+        cfg = Object.assign(cfg,this.dateRangeConfig || {});
         var func = function (event, begin, end, dateRangeName) {
             self.dateChangeFunc.emit({beginDate:begin,endDate:end,dateRangeName:dateRangeName},true);
         }

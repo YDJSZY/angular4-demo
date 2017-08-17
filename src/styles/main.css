@@ -154,10 +154,6 @@ section.content.ng-leave{ animation: rotateFall 0.5s both ease-in; z-index: 9999
     border-radius: 10px;
 }
 
-.content{
-    padding: 15px;
-}
-
 .mySelectBox{
     position: relative;
 }
@@ -192,12 +188,13 @@ dd,dt{
     height:30px;
 }
 .selectPanel dl,.permission dl{
-    height:10px;
+    height:30px;
     width:180px;
     line-height: 18px;
 }
 .selectPanel dt,.permission dt{
     padding-top: 8px;
+    margin-left: 5px;
 }
 .selectPanel dl dd span,.permission dl dd span{
     display: inline-block;
@@ -783,6 +780,8 @@ ul.ui_pagination{
     color:#fff;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    width: 30px;
+    font-size: 14px;
 }
 /*分页*/
 .system-configure .list-group-item{

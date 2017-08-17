@@ -1,92 +1,80 @@
-<div class="app app-header-fixed" id="app">
-    <div class="app-header navbar">
-        <div class="navbar-header bg-dark">
-            <button class="pull-right visible-xs dk" data-toggle="class:show" data-target=".navbar-collapse">
-                <i class="glyphicon glyphicon-cog"></i>
-            </button>
-            <button class="pull-right visible-xs" data-toggle="class:off-screen" data-target=".app-aside" ui-scroll="app">
-                <i class="glyphicon glyphicon-align-justify"></i>
-            </button>
-            <a href="#/" class="navbar-brand text-lt">
-                <span class="hidden-folded">快云小说管理平台</span>
-            </a>
-        </div>
-        <div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only">
-            <div class="nav navbar-nav hidden-xs">
-                <a href="" class="btn no-shadow navbar-btn" data-toggle="class:app-aside-folded" data-target=".app">
-                    <i class="fa fa-dedent fa-fw text"></i>
-                    <i class="fa fa-indent fa-fw text-active"></i>
-                </a>
+<nz-root>
+   <!-- <div class="app" id="app">
+        <div class="app-header" style="height: 50px;background: #ffffff;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);">
+            <div class="app-title" style="width: 200px;text-align: center;background: #108ee9;color: #ffffff;height: 50px;line-height: 50px">
+                <span style="color: #ffffff;font-size: 19px;font-weight: 400;">快云科技</span>
             </div>
-            <ul class="nav navbar-nav hidden-sm">
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
-                        <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                            <img src="../../src/images/b20.jpg" alt="...">
-                            <i class="on md b-white bottom"></i>
-                        </span>
-                        <span class="hidden-sm hidden-md">admin</span> <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu animated fadeInRight w">
-                        <li>
-                            <a ui-sref="profile">个人信息</a>
+        </div>
+        <div class="app-aside-navbar" style="position:fixed;height: 100%;background: #404040;">
+            <ul nz-menu [nzMode]="'inline'" style="width: 200px;" [nzTheme]="'dark'">
+                <li nz-submenu [(nzOpen)]="isOpenThree" (nzOpenChange)="openChange('three')">
+                    <span title style="font-size: 14px;"><i class="anticon anticon-setting"></i> 首页展示</span>
+                    <ul>
+                        <li nz-menu-item>
+                            <a routerLink="/main" routerLinkActive="active" style="font-size: 14px">
+                                <i class="fa fa-angle-right"></i>
+                                <span>主页</span>
+                            </a>
                         </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="/accounts/logout/">退出</a>
+                        <li nz-menu-item>
+                            <a routerLink="/home" routerLinkActive="active" style="font-size: 14px;">
+                                <i class="fa fa-angle-right"></i>
+                                <span>首页</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
-    </div>
-    <div class="app-aside hidden-xs bg-dark">
-        <div class="aside-wrap">
-            <div class="navi-wrap">
-                <nav ui-nav class="navi">
-                    <ul class="nav">
-                        <li class="main-menu">
-                            <a href class="auto">
-                                <span class="pull-right text-muted">
-                                    <i class="fa fa-fw fa-angle-right text"></i>
-                                    <i class="fa fa-fw fa-angle-down text-active"></i>
-                                </span>
-                                <i class="fa fa-money"></i>
-                                <span class="font-bold">财务管理</span>
-                            </a>
-                            <ul class="nav nav-sub dk">
-                                <li>
-                                    <a routerLink="/main" routerLinkActive="active">
-                                        <i class="fa fa-angle-right pull-left"></i>
-                                        <span>main</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="/home" routerLinkActive="active">
-                                        <i class="fa fa-angle-right pull-left"></i>
-                                        <span>home</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+        <div class="app-content" style="margin-left: 200px;">
+            <div ui-butterbar></div>
+            <a href class="off-screen-toggle hide" data-toggle="class:off-screen" data-target=".app-aside" ></a>
+            <div class="app-content-body ainmate-scale-up">
+                <router-outlet></router-outlet>
             </div>
         </div>
-    </div>
-    <div class="app-content">
-        <div ui-butterbar></div>
-        <a href class="off-screen-toggle hide" data-toggle="class:off-screen" data-target=".app-aside" ></a>
-        <div class="app-content-body ainmate-scale-up">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-    <div class="app-footer wrapper b-t bg-light">
-        <span>
-            <strong>版本所有&copy; 2014-2016 <a href="http://www.979797.com/">厦门快云信息科技有限公司</a>.</strong>
-        </span>
-    </div>
-</div>
-<toaster-container></toaster-container>
+
+    </div>-->
+    <nz-layout style="height: 100%">
+        <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzCollapsedWidth]="0" [nzBreakpoint]="'lg'">
+            <div class="app-title" style="text-align: center;background: #108ee9;color: #ffffff;height: 50px;line-height: 50px">
+                <span style="color: #ffffff;font-size: 19px;font-weight: 400" *ngIf="!isCollapsed">快云科技</span>
+                <img src="../../src/images/logo.png" *ngIf="isCollapsed" style="width: 40px;height: 40px">
+            </div>
+            <ul nz-menu [nzMode]="isCollapsed?'vertical':'inline'" [nzTheme]="'dark'">
+                <li nz-submenu>
+                    <span title style="font-size: 14px;">
+                        <i class="anticon anticon-setting"></i>
+                        <span class="nav-text">首页展示</span>
+                    </span>
+                    <ul>
+                        <li nz-menu-item>
+                            <a routerLink="/main" routerLinkActive="active" style="font-size: 14px">
+                                <i class="fa fa-angle-right"></i>
+                                <span>主页</span>
+                            </a>
+                        </li>
+                        <li nz-menu-item>
+                            <a routerLink="/home" routerLinkActive="active" style="font-size: 14px;">
+                                <i class="fa fa-angle-right"></i>
+                                <span>首页</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nz-sider>
+        <nz-layout>
+            <nz-header class="app-header" style="height: 50px;background: #ffffff;line-height: 50px;padding: 0;">
+                <i class="anticon trigger" style="margin-left: 15px;color: #000;" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+            </nz-header>
+            <nz-content style="padding: 15px;">
+                <section class="content">
+                    <router-outlet></router-outlet>
+                </section>
+            </nz-content>
+            <nz-footer class="nz-footer">Ant Design ©2017 Implement By Angular</nz-footer>
+        </nz-layout>
+    </nz-layout>
+    <toaster-container></toaster-container>
+</nz-root>
