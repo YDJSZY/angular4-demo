@@ -9,7 +9,7 @@ var plugins = {
     ],
     css:[
         './node_modules/font-awesome/css/font-awesome.min.css',
-        './node_modules/bootstrap/dist/css/bootstrap.min.css',
+       /* './node_modules/bootstrap/dist/css/bootstrap.min.css',*/
         './src/styles/app.css',
         './src/packages/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
         './node_modules/angular2-toaster/toaster.css',

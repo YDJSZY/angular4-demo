@@ -43,7 +43,7 @@ class InitDirective{
 @Directive({
     selector:'[datepicker]'
 })
-class DatepickerDirective implements OnChanges{
+class DatepickerDirective implements OnInit, OnChanges{
     @Input() dateModel:any
     @Input() dateFormat:any
     @Input() minView:any;/*它之所以称为输入属性，是因为数据流是从绑定表达式流向指令内部的。 如果没有这个元数据，Angular就会拒绝绑定*/
@@ -52,7 +52,7 @@ class DatepickerDirective implements OnChanges{
     }
 
     ngOnChanges(changes:dateModel.value) {
-        console.log(this.dateModel.value)
+        if(!this.dateModel.value) return;
         $(this.el.nativeElement).datetimepicker('update', this.dateModel.value);
     }
 

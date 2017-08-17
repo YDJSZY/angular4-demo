@@ -18,10 +18,10 @@
                                                 <label [for]="'id_'+field.fieldName" class="col-sm-3 col-md-3 col-xs-3 control-label">{{field.name}}</label>
                                                 <div class="col-sm-8 col-md-8 col-xs-8">
                                                     <input type="text" [id]="'id'+field.fieldName" [name]="field.fieldName" [placeholder]="field.placeholder || ''" class="form-control" [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}" [formControl]="editForm.controls[field.fieldName]">
-                                                    <md-error *ngFor="let error of field.validators">
+                                                    <span *ngFor="let error of field.validators" class="form-error">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
-                                                    </md-error>
-                                                    <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
+                                                    </span>
+                                                    <span align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -30,10 +30,10 @@
                                                 <label [for]="'id_'+field.fieldName" class="col-sm-3 col-md-3 col-xs-3 control-label">{{field.name}}</label>
                                                 <div class="col-sm-8 col-md-8 col-xs-8">
                                                     <input type="number" [id]="'id'+field.fieldName" [name]="field.fieldName" [placeholder]="field.placeholder || ''" class="form-control" [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}" [formControl]="editForm.controls[field.fieldName]">
-                                                    <md-error *ngFor="let error of field.validators">
+                                                    <span *ngFor="let error of field.validators" class="form-error">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
-                                                    </md-error>
-                                                    <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
+                                                    </span>
+                                                    <span align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -42,10 +42,10 @@
                                                 <label [for]="'id_'+field.fieldName" class="col-sm-3 col-md-3 col-xs-3 control-label">{{field.name}}</label>
                                                 <div class="col-sm-8 col-md-8 col-xs-8">
                                                     <textarea [id]="'id'+field.fieldName" [name]="field.fieldName" [placeholder]="field.placeholder || ''" class="form-control" [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}" [formControl]="editForm.controls[field.fieldName]"></textarea>
-                                                    <md-error *ngFor="let error of field.validators">
+                                                    <span *ngFor="let error of field.validators" class="form-error">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
-                                                    </md-error>
-                                                    <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
+                                                    </span>
+                                                    <span align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -54,10 +54,10 @@
                                                 <label [for]="'id_'+field.fieldName" class="col-sm-3 col-md-3 col-xs-3 control-label">{{field.name}}</label>
                                                 <div class="col-sm-8 col-md-8 col-xs-8">
                                                     <input type="password" [id]="'id'+field.fieldName" [name]="field.fieldName" [placeholder]="field.placeholder || ''" class="form-control" [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}" [formControl]="editForm.controls[field.fieldName]">
-                                                    <md-error *ngFor="let error of field.validators">
+                                                    <span *ngFor="let error of field.validators" class="form-error">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
-                                                    </md-error>
-                                                    <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
+                                                    </span>
+                                                    <span align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,10 +73,10 @@
                                                                [formControl]="editForm.controls[field.fieldName]"
                                                                [id]="'id_'+field.fieldName" [name]="field.fieldName">
                                                     </ng-select>
-                                                    <md-error *ngFor="let error of field.validators">
+                                                    <span *ngFor="let error of field.validators" class="form-error">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
-                                                    </md-error>
-                                                    <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
+                                                    </span>
+                                                    <span align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,13 +90,14 @@
                                                         </span>
                                                         <input datepicker [id]="'id_'+field.fieldName" [name]="field.fieldName" [placeholder]="field.placeholder || ''" class="form-control input-append date form_datetime"
                                                                [ngClass]="{'warning-border':field.required && !editForm.value[field.fieldName]}"
-                                                               [dateFormat]="field.format || 'yyyy-mm-dd'" [minView]="field.minView || '2'"
-                                                               [dateModel]="editForm.controls[field.fieldName]">
+                                                               [dateFormat]="field.format || ''" [minView]="field.minView || ''"
+                                                               [dateModel]="editForm.controls[field.fieldName]"
+                                                               [formControl]="editForm.controls[field.fieldName]">
                                                     </div>
-                                                    <md-error *ngFor="let error of field.validators">
+                                                    <span *ngFor="let error of field.validators" class="form-error">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName) && error.name!='required'">{{error.description}}</strong>
-                                                    </md-error>
-                                                    <md-hint align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></md-hint>
+                                                    </span>
+                                                    <span align="start" *ngIf="field.hint"><strong>{{field.hint}}</strong></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,10 +106,10 @@
                                                 <label [for]="'id_'+field.fieldName" class="col-sm-3 col-md-3 col-xs-3 control-label">{{field.name}}</label>
                                                 <div class="col-sm-8 col-md-8 col-xs-8">
                                                     <ui-switch [formControl]="editForm.controls[field.fieldName]"></ui-switch>
-                                                    <md-error *ngFor="let error of field.validators">
+                                                    <span *ngFor="let error of field.validators" class="form-error">
                                                         <strong *ngIf="editForm.hasError(error.name,field.fieldName)">{{error.description}}</strong>
-                                                    </md-error>
-                                                    <md-hint align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></md-hint>
+                                                    </span>
+                                                    <span align="start" *ngIf="field.hint" style="display: block"><strong>{{field.hint}}</strong></span>
                                                 </div>
                                             </div>
                                         </div>

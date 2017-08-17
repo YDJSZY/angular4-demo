@@ -12,7 +12,7 @@ module.exports = {
         bootstrap: [__dirname + '/src/bootstrap.ts'],
         angular: ['@angular/core', '@angular/platform-browser', '@angular/common', '@angular/router', '@angular/http', '@angular/forms', '@ntesmail/shark-angular2'],
         polyfill: ['zone.js/dist/zone', 'reflect-metadata'],
-        thirdparty: ['./node_modules/bootstrap/dist/js/bootstrap.min.js','./src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js','./src/utils/commons.js'],
+        thirdparty: [/*'./node_modules/bootstrap/dist/js/bootstrap.min.js',*/'./src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js','./src/utils/commons.js'],
         app_css:plugins.css
         
     },
@@ -46,12 +46,6 @@ module.exports = {
                 loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
             }, {
                 test: /\.scss$/,
-                exclude: [
-                    path.join(__dirname, 'src')
-                ],
-                loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' })
-            }, {
-                test: /\.scss$/,
                 include: [
                     path.join(__dirname, 'src')
                 ],
@@ -60,9 +54,6 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
-            }, {
-                test: /\.ejs$/,
-                loader: 'ejs-loader'
             },
             { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=[path][name].[ext]'}
         ]
@@ -102,7 +93,9 @@ module.exports = {
             echarts: 'echarts'*/
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['bootstrap', 'angular', 'polyfill', 'thirdparty']
+            names: ['bootstrap', 'angular', 'polyfill', 'thirdparty','manifest'],
+            allChunks: true,  // chunks是需要提取的模块
+            minChunks: Infinity  //公共模块最小被引用的次数
         }),
         new ngtools.AotPlugin({
             skipCodeGeneration: false,   //默认false. false：使用AoT ; true：不使用AoT 

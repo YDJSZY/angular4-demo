@@ -1,84 +1,122 @@
-<section class="content">
-    <div class="panel panel-default">
+
+
+    <!--<div class="panel panel-default">
         <div class="panel-heading">
             <h5>
                 <i class="fa fa-reorder"></i>
                 home!!!
             </h5>
         </div>
-        <div class="panel-body" style="padding-top: 0">
-            <div class="row" style="margin-bottom: 15px">
-                <form class="form-inline top-handle" style="margin:0">
-                    <div class="form-group">
-                        <daterange [dateRangeConfig]="dateRangeConfig" (dateChangeFunc)="dateChangeFunc($event)"></daterange>
+        <div class="panel-body" style="padding-top: 0;padding-bottom: 0">
+
+        </div>
+        <div class="panel-footer">
+            <pagination [paginationMessage]="paginationMessage" [currentTimestamp]="paginationMessage.currentTimestamp" (loadData)="loadData($event)"></pagination>
+        </div>
+    </div>-->
+<nz-card>
+    <ng-template #title>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>首页</nz-breadcrumb-item>
+            <nz-breadcrumb-item>home</nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+    <ng-template #body>
+        <div class="row" style="margin:-24px;margin-bottom: 0;padding: 15px;">
+            <form nz-form [nzLayout]="'inline'">
+                    <!--<daterange [dateRangeConfig]="dateRangeConfig" (dateChangeFunc)="dateChangeFunc($event)"></daterange>-->
+                <div nz-form-item style="margin-right: 5px">
+                    <div nz-form-control>
+                        <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
                     </div>
-                    <div class="input-group">
-                        <input type="text" class="form-control text-search" id="text-search" placeholder="名称">
+                </div>
+                <div nz-form-item>
+                    <p nz-form-split style="margin-top: 5px">-</p>
+                </div>
+                <div nz-form-item style="margin-left: -12px">
+                    <div nz-form-control>
+                        <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
+                    </div>
+                </div>
+                <div nz-form-item>
+                    <div nz-form-control>
+                        <nz-input [nzPlaceHolder]="'搜索'" [nzSize]="'large'">
+                            <ng-template #prefix>
+                                <i class="anticon anticon-search"></i>
+                            </ng-template>
+                        </nz-input>
+                    </div>
+                </div>
+                <div nz-form-item>
+                    <div nz-form-control>
+                        <button nz-button [nzType]="'primary'">
+                            <span>Search</span>
+                        </button>
+                    </div>
+                </div>
+                <!--<div class="input-group">
+                    <input type="text" class="form-control text-search" id="text-search" placeholder="名称">
                         <span class="input-group-btn">
                             <button class="btn btn-default" (click)="quickSearch()">
                                 <i class="fa fa-search"></i>
                             </button>
                         </span>
-                    </div>
-                    <!--  <ng-select model="is_test_account" source="constants.Site" placeholder="站点"></ng-select>-->
-                    <div class="form-group">
-                        <field-check-box [datafields]="dataFields" [fieldshow]="fieldShow"></field-check-box>
-                    </div>
-                    <div class="form-group pull-right">
-                        <button class="btn btn-primary" (click)="createTable()">
-                            <i class="fa fa-plus-circle"></i>新增
+                </div>-->
+                <!--<div class="form-group">
+                    <field-check-box [datafields]="dataFields" [fieldshow]="fieldShow"></field-check-box>
+                </div>-->
+                <div nz-form-item class="pull-right">
+                    <div nz-form-control>
+                        <button nz-button [nzType]="'primary'" (click)="createTable()">
+                            <span>新增</span>
                         </button>
                     </div>
-                </form>
-            </div>
-            <table class="table table-hover table-striped table-bordered">
-                <thead>
-                <tr>
-                    <ng-container *ngFor="let th of dataFields">
-                        <ng-container *ngIf="th.use && fieldShow[th.fieldName]">
-                            <th >
-                                {{th.name}}
-                            </th>
-                        </ng-container>
+                </div>
+            </form>
+        </div>
+        <nz-table #nzTable [nzIsPagination]="false">
+            <thead nz-thead>
+            <tr>
+                <ng-container *ngFor="let th of dataFields">
+                    <ng-container *ngIf="th.use && fieldShow[th.fieldName]">
+                        <th nz-th>
+                            {{th.name}}
+                        </th>
                     </ng-container>
-                    <th id="handle">操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngIf="objectList && objectList.length == 0">
-                    <td colspan="30">
+                </ng-container>
+                <th nz-th id="handle">操作</th>
+            </tr>
+            </thead>
+            <tbody nz-tbody>
+                <tr *ngIf="objectList && objectList.length === 0" nz-tbody-tr>
+                    <td nz-td colspan="30">
                         <div class="alert alert-info">
                             <h4><i class="icon fa fa-warning"></i>没有数据</h4>
                         </div>
                     </td>
                 </tr>
                 <ng-container *ngFor="let obj of objectList;trackBy:trackByFn">
-                    <tr>
+                    <tr nz-tbody-tr>
                         <ng-container *ngFor="let item of dataFields">
                             <ng-container *ngIf="item.use && fieldShow[item.fieldName]" init [init]="renderData" [params]="[item,obj]" #results="andy">
-                                <td [innerHtml]="results.newData | safeHtml">
+                                <td nz-td [innerHtml]="results.newData | safeHtml">
                                 </td>
                             </ng-container>
                         </ng-container>
-                        <td class="handle">
-                            <button class="btn btn-primary btn-xs" (click)="edit(obj)">编辑</button>
-                            <button class="btn btn-primary btn-xs" (click)="toggleDetail(obj)">详情</button>
+                        <td class="handle" nz-td>
+                            <button nz-button [nzType]="'primary'" (click)="edit(obj)">编辑</button>
+                            <button nz-button [nzType]="'default'" (click)="toggleDetail(obj)">详情</button>
                         </td>
                     </tr>
-                    <tr *ngIf="obj.showDetail">
-                        <td colspan="4">
-                            <span>hello</span>
+                    <tr *ngIf="obj.showDetail" nz-tbody-tr>
+                        <td colspan="4" nz-td>
+                            <span>hello1</span>
                         </td>
                     </tr>
                 </ng-container>
-                </tbody>
-            </table>
-        </div>
-        <div class="panel-footer">
-            <dp-date-picker [(ngModel)]="selectedDate" [placeholder]="'日期'" [mode]="'daytime'" [config]="datePickerConfig"></dp-date-picker>
-            <pagination [paginationMessage]="paginationMessage" [currentTimestamp]="paginationMessage.currentTimestamp" (loadData)="loadData($event)"></pagination>
-        </div>
-    </div>
-</section>
+            </tbody>
+        </nz-table>
+    </ng-template>
+</nz-card>
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
-<edit-modal [editForm]="tableForm" [dataFields]="dataFields" [selectSources]="selectSources" (saveForm)="saveForm($event)"></edit-modal>
+<edit-modal [editForm]="tableForm" [currentTimestamp]="tableForm.currentTimestamp" *ngIf="tableForm" [dataFields]="dataFields" [selectSources]="selectSources" (saveForm)="saveForm($event)"></edit-modal>

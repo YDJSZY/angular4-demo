@@ -154,10 +154,6 @@ section.content.ng-leave{ animation: rotateFall 0.5s both ease-in; z-index: 9999
     border-radius: 10px;
 }
 
-.content{
-    padding: 15px;
-}
-
 .mySelectBox{
     position: relative;
 }
@@ -192,12 +188,13 @@ dd,dt{
     height:30px;
 }
 .selectPanel dl,.permission dl{
-    height:10px;
+    height:30px;
     width:180px;
     line-height: 18px;
 }
 .selectPanel dt,.permission dt{
     padding-top: 8px;
+    margin-left: 5px;
 }
 .selectPanel dl dd span,.permission dl dd span{
     display: inline-block;
@@ -783,6 +780,8 @@ ul.ui_pagination{
     color:#fff;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    width: 30px;
+    font-size: 14px;
 }
 /*分页*/
 .system-configure .list-group-item{
@@ -871,37 +870,16 @@ ul.ui_pagination{
     }
 }
 
-.block-title,.system-name{
-    display:-webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp:1;
-    -webkit-box-orient:vertical;
-}
-
-li.more-handle-li a{
-    display: block;
-    padding: 5px 15px;
-    clear: both;
-    font-weight: 400;
-    line-height: 1.42857143;
-    color: #333;
-    white-space: nowrap;
-}
-
-li.more-handle-li a:hover,
-li.more-handle-li a:focus {
-    color: #262626;
-    text-decoration: none;
-    background-color: #f5f5f5;
-}
-
 .cdk-overlay-container{
     z-index: 10000;
 }
 
 .edit-input{
     height:60px;
+}
+
+.form-error{
+    color: #f05050;
 }
 
 .mat-focused .mat-input-placeholder.mat-float, .mat-input-placeholder.mat-float:not(.mat-empty){
