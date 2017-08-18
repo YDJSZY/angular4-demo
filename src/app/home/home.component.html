@@ -24,20 +24,7 @@
     <ng-template #body>
         <div class="row" style="margin:-24px;margin-bottom: 0;padding: 15px;">
             <form nz-form [nzLayout]="'inline'">
-                <daterange [dateRangeConfig]="dateRangeConfig" (dateChangeFunc)="dateChangeFunc($event)"></daterange>
-                <!--<div nz-form-item style="margin-right: 5px">
-                    <div nz-form-control>
-                        <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
-                    </div>
-                </div>
-                <div nz-form-item>
-                    <p nz-form-split style="margin-top: 5px">-</p>
-                </div>
-                <div nz-form-item style="margin-left: -12px">
-                    <div nz-form-control>
-                        <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
-                    </div>
-                </div>-->
+                <daterange [dateRangeConfig]="dateRangeConfig" [dateRange]="loadObjectParams" (dateChangeFunc)="dateChangeFunc($event)"></daterange>
                 <div nz-form-item>
                     <div nz-form-control>
                         <nz-input [nzPlaceHolder]="'搜索'" [nzSize]="'large'">
@@ -49,7 +36,7 @@
                 </div>
                 <div nz-form-item>
                     <div nz-form-control>
-                        <button nz-button [nzType]="'primary'">
+                        <button nz-button [nzType]="'primary'" (click)="quickSearch()">
                             <span>Search</span>
                         </button>
                     </div>

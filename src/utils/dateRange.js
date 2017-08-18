@@ -313,7 +313,7 @@
         };
     };
 
-    function DateRange(targetElement) {
+    function DateRange(targetElement,dateRangeName) {
         this.namedDateRanges = [
             "今天",
             "昨天",
@@ -332,25 +332,34 @@
             "自定义"
         ];
         this.targetElement = $(targetElement);
+        this.dateRangeName = dateRangeName;
         this.render();
     }
     
     DateRange.prototype = {
         render: function () {
+            var dateRangeName = this.dateRangeName;
             var fragment = document.createDocumentFragment();
             for(var i = 0,l = this.namedDateRanges.length; i < l; i++){
                 var ops = document.createElement("option");
                 ops.setAttribute("value",this.namedDateRanges[i]);
                 ops.innerHTML = this.namedDateRanges[i];
+                if(dateRangeName && dateRangeName === this.namedDateRanges[i]){
+                    ops.setAttribute("selected",true);
+                }
                 fragment.appendChild(ops);
             }
             this.targetElement.append(fragment);
-            this.targetElement.on("change", this.doChangeName);
+            this.targetElement.on("change", this.doChangeName.bind(this.targetElement));
+            var dateRangeName = $(this.targetElement).val();
+            var t = dateNameToRange(dateRangeName);
+            this.currentDateRange = {begin_time:t[0],end_time:t[1],dateRangeName:dateRangeName}
         },
 
         doChangeName: function () {
-            var t = dateNameToRange($(this).val());
-            console.log(t);
+            var dateRangeName = $(this).val();
+            var t = dateNameToRange(dateRangeName);
+            $(this).trigger("dataRangeChange",[{begin_time:t[0],end_time:t[1],dateRangeName:dateRangeName}]);
         }
     };
 

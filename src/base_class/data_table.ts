@@ -135,7 +135,9 @@ export class DataTable{
         console.log(params)
     }
 
-    quickSearch(){}
+    quickSearch(){
+        console.log(this.loadObjectParams)
+    }
 
     dateChangeFunc(date){
         //console.log(date)

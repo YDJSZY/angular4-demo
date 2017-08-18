@@ -158,10 +158,6 @@ export class EditModalComponent implements OnInit,OnChanges{
     }
 }
 
-var dateRangeSelectorTemplate = "<select class='custom-select' id='dateSelect'>{options}</select>";
-dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dateRangeBegin txtSetDate' name='begin_date' type='text' disabled='disabled'/>-";
-dateRangeSelectorTemplate += "<input style='width:120px' class='form-control dateRangeEnd txtSetDate' name='end_date' type='text' disabled='disabled'/>";
-dateRangeSelectorTemplate += "<button type='button' class='btn btn-info' style='display:none;margin-left: 1px'>转到</button>";
 @Component({
     selector: 'daterange',
     template:`<span>
@@ -172,7 +168,7 @@ dateRangeSelectorTemplate += "<button type='button' class='btn btn-info' style='
                     </div>
                     <div nz-form-item style="margin-right: 5px">
                     <div nz-form-control>
-                        <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
+                        <nz-datepicker [nzSize]="'large'" [ngModel]="dateRange.begin_time" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
                     </div>
                 </div>
                 <div nz-form-item>
@@ -180,12 +176,13 @@ dateRangeSelectorTemplate += "<button type='button' class='btn btn-info' style='
                 </div>
                 <div nz-form-item style="margin-left: -12px">
                     <div nz-form-control>
-                        <nz-datepicker [nzSize]="'large'" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
+                        <nz-datepicker [nzSize]="'large'" [ngModel]="dateRange.end_time" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
                     </div>
                 </div>
             </span>`
 })
-export class DateRangeComponent implements OnInit{
+export class DateRangeComponent implements OnInit,AfterViewInit{
+    @Input() dateRange
     @Input() dateRangeConfig
     @Output() dateChangeFunc = new EventEmitter<any>();
     @ViewChild("dateRangeSelect")
@@ -197,20 +194,23 @@ export class DateRangeComponent implements OnInit{
     ngOnInit() {
         var self = this;
         var cfg = {
-            template:dateRangeSelectorTemplate,
             minView:2,
             dateRangeName:"今天"
         }
-        /*cfg = Object.assign(cfg,this.dateRangeConfig || {});
-        var func = function (event, begin, end, dateRangeName) {
-            self.dateChangeFunc.emit({beginDate:begin,endDate:end,dateRangeName:dateRangeName},true);
-        }
-        var ctl = $(this.el.nativeElement).dateRange(func.bind(this),cfg).get(0);
-        this.dateChangeFunc.emit(ctl);*/
     }
 
     ngAfterViewInit(){
-        var dateRange = new DateRange(this.dateRangeSelectEle.nativeElement)
-        console.log(dateRange)
+        var dateRange = new DateRange(this.dateRangeSelectEle.nativeElement,"昨天");
+        setTimeout(function (){
+            this.renderDatePicker(dateRange.currentDateRange)
+        }.bind(this))
+        dateRange.targetElement.on("dataRangeChange",function (event,dateRange){
+            this.renderDatePicker(dateRange);
+        }.bind(this))
+    }
+
+    renderDatePicker(dateRange) {
+        this.dateRange.begin_time = new Date(dateRange.begin_time).getTime();
+        this.dateRange.end_time = new Date(dateRange.end_time).getTime();
     }
 }
