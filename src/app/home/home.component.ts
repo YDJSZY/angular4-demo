@@ -1,4 +1,4 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit} from '@angular/core';
 import {dataFields} from './home.dataFields';
 import 'rxjs/add/operator/debounceTime';
 import { DataTable } from '../../base_class/data_table';
@@ -8,7 +8,7 @@ import { HttpService } from '../../service/httpService';
     templateUrl: './home.component.html',
     providers:[HttpService],
 })
-export class HomeComponent extends DataTable implements OnInit{
+export class HomeComponent extends DataTable implements OnInit,AfterViewInit{
     dateRangeConfig:Object={}
     baseUrl:String
     constructor(public http:HttpService){
@@ -20,10 +20,13 @@ export class HomeComponent extends DataTable implements OnInit{
     }
 
     ngOnInit() {
-        this.run();
         /*this.term.valueChanges.debounceTime(2000).subscribe(function (term){
                 console.log(term)
             })*/
+    }
+
+    ngAfterViewInit() {
+        this.run();
     }
     
 };

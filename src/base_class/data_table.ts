@@ -46,18 +46,18 @@ export class DataTable{
     }//载入第一页
 
     loadObjects (params,reset) {
+        console.log(params)
         this.loadObjectParams = Object.assign(this.loadObjectParams,params || {});
         var promise = this.http.getData({
             "url": this.baseUrl,//this.makeUrl(this.baseUrl),
             "params": this.loadObjectParams
-        });/*.then(function (response) {
-            this.parseResponse(response);
-            if(reset) this.paginationMessage.currentTimestamp = new Date().getTime();
-        }.bind(this))*/
+        });
         promise.then(function (res) {
             if(res.status == 200) return res
         }).then(function (res) {
             this.parseResponse(res.json())
+        }.bind(this)).then(function (res) {
+            if(reset) this.paginationMessage.currentTimestamp = new Date().getTime();
         }.bind(this)).catch(function (error) {
             console.debug(error);
         })

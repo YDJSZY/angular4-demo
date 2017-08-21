@@ -1,8 +1,8 @@
 <div class="mySelectBox">
     <div class="openBtn">
-        <button class="btn" (click)="openbindclick($event)"><i class="fa fa-eye"></i></button>
+        <button nz-button [nzType]="'primary'" (click)="openbindclick($event)"><i class="fa fa-eye"></i></button>
     </div>
-    <div class="selectPanel" tabindex="1" id="selectPanel" (click)="selectField($event)" [ngClass]="{'show':showPanel}">
+    <div class="selectPanel" tabindex="1" id="selectPanel" (click)="selectField($event)" *ngIf="showPanel">
         <ng-container *ngFor="let item of datafields">
             <ng-container *ngIf="item.use">
                 <dl (click)="selectField($event,item.fieldName)" class="field_dl">

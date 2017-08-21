@@ -24,7 +24,6 @@ export class FieldCheckBoxComponent implements OnInit {
             var event = e || window.event;
             event.stopPropagation() || event.cancelBubble;
             self.showPanel = false;
-            //$(element).find(".selectPanel").hide();
         };
     }
     
@@ -60,6 +59,7 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
 
     everyPageSize(){
         this.params.page_size = this.paginationMessage.page_size;
+        this.params.page = 1;
         this.loadData.emit(this.params);
     }
     
@@ -201,16 +201,17 @@ export class DateRangeComponent implements OnInit,AfterViewInit{
 
     ngAfterViewInit(){
         var dateRange = new DateRange(this.dateRangeSelectEle.nativeElement,"昨天");
-        setTimeout(function (){
+        //setTimeout(function (){
             this.renderDatePicker(dateRange.currentDateRange)
-        }.bind(this))
+        //}.bind(this))
         dateRange.targetElement.on("dataRangeChange",function (event,dateRange){
-            this.renderDatePicker(dateRange);
+            this.renderDatePicker(dateRange,true);
         }.bind(this))
     }
 
-    renderDatePicker(dateRange) {
+    renderDatePicker(dateRange,emitEvent) {
         this.dateRange.begin_time = new Date(dateRange.begin_time).getTime();
         this.dateRange.end_time = new Date(dateRange.end_time).getTime();
+        if(emitEvent) this.dateChangeFunc.emit();
     }
 }
