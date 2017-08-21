@@ -103,6 +103,7 @@ export class EditModalComponent implements OnInit,OnChanges{
     @Input() currentTimestamp
     @Input() selectSources
     @Output() saveForm = new EventEmitter<any>();
+    isVisible:boolean=false
     private toasterService: ToasterService;
     constructor(toasterService: ToasterService,el:ElementRef){
         this.toasterService = toasterService;
@@ -114,7 +115,17 @@ export class EditModalComponent implements OnInit,OnChanges{
     }
 
     ngOnChanges(change:currentTimestamp){
-        if(this.currentTimestamp) $("#editModal").modal("show")
+        if(this.currentTimestamp) this.isVisible = true;
+    }
+
+    handleOk(e) {
+        console.log('点击了确定')
+        this.isVisible = false;
+    }
+
+    handleCancel(e) {
+        console.log(e);
+        this.isVisible = false;
     }
 
     onSubmit(form){

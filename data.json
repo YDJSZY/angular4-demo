@@ -8,6 +8,7 @@
           "id":1,
           "username":"luwenwei",
           "password":123456,
+          "people":12,
           "myDate":"2017-08-06",
           "description":"很好",
           "hobby":[1],

@@ -60,6 +60,22 @@ var dataFields = {
             }
         },
         {
+            "name": "人数",
+            "fieldName": "people",
+            "show": true,
+            "use": true,
+            "edit":true,
+            "model":"editingObject.people",
+            "inputType":"number",
+            "required": true,
+            "placeholder":"必填",
+            "validators":[{
+                "name":"required",
+                "required":"required",
+                "description":"必填"
+            }]
+        },
+        {
             "name": "选择日期",
             "fieldName": "myDate",
             "show": true,
@@ -145,7 +161,8 @@ var dataFields = {
         myDate:true,
         confirm:true,
         enabled:true,
-        description:true
+        description:true,
+        people:true
     }
 }
 
