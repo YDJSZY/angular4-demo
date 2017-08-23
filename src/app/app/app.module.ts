@@ -10,6 +10,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from "@angular/common/http";
 import 'hammerjs';
 // 定义常量 路由
 const appRoutes: Routes = [
@@ -29,22 +31,11 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [BrowserModule,ToasterModule,BrowserAnimationsModule, SharkModule,FormsModule,NgZorroAntdModule.forRoot(), RouterModule.forRoot(appRoutes, { useHash: true })],
+    imports: [BrowserModule,HttpModule,HttpClientModule,ToasterModule,BrowserAnimationsModule, SharkModule,FormsModule,NgZorroAntdModule.forRoot(), RouterModule.forRoot(appRoutes, { useHash: true })],
     declarations: [AppComponent],
     bootstrap: [AppComponent],
     providers:[ToasterService]
 })
 export class AppModule {
     constructor(public appRef: ApplicationRef) { }
-    hmrOnInit(store: any) {
-    }
-    hmrOnDestroy(store: any) {
-        let cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement)
-        store.disposeOldHosts = createNewHosts(cmpLocation)
-        removeNgStyles()
-    }
-    hmrAfterDestroy(store: any) {
-        store.disposeOldHosts()
-        delete store.disposeOldHosts
-    }
 }

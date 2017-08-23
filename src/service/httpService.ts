@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-@Injectable()
+@Injectable()//标识一个类可以被注入器实例化
 export class HttpService {
     constructor(private http:Http){
     }

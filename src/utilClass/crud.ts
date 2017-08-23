@@ -20,12 +20,12 @@ export class DataTable{
         this.loadObjectParams = {"page":1, "page_size":20, "ordering":"", "search":"", "begin_time":"", "end_time":""};
         this.paginationMessage = {"totalRecords":null,"totalPages":1,"currentPage":1,"page_size":20,"pageReady":false,"currentTimestamp":null};
         this.selectSources = {
-            selectData:[{id: '1', text: '篮球'},{id: '2', text: '音乐'},{id: '3', text: '跑步'}],
+            selectData:[{code: '1', description: '篮球'},{code: '2', description: '音乐'},{code: '3', description: '跑步'}],
             translate:function (source,name) {
                 if(this[name]) return this[name];
                 var array = [];
                 for(var item of source){
-                    array.push({id:item.code,text:item.description})
+                    array.push({code:item.code,description:item.description})
                 }
                 return this[name] = array;
             }
@@ -107,15 +107,17 @@ export class DataTable{
     createTable(){
         this.tableForm ? this.tableForm.reset() : this.createTableForm();
         this.tableForm.currentTimestamp = new Date().getTime();
+        this.tableForm.title = "新增";
     }
 
     edit(obj){
+        this.tableForm ? this.tableForm.reset() : this.createTableForm();
         for(var control in obj){
             if(!this.tableForm.controls.hasOwnProperty(control)) continue;
-            //console.log(this.tableForm.controls[control])
             this.tableForm.controls[control].setValue(obj[control]);
         }
         this.tableForm.currentTimestamp = new Date().getTime();
+        this.tableForm.title = "编辑";
     }
 
     beforeSave(data) {
@@ -141,6 +143,11 @@ export class DataTable{
 
     dateChangeFunc(date){
         //console.log(date)
+    }
+
+    sort (event,field) {
+        var o = this.tableSort.beginSort(event.target,field);
+        this.loadObjects({ordering:o});
     }
 
     run(){

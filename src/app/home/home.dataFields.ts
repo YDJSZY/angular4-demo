@@ -14,6 +14,7 @@ var dataFields = {
             "name": "用户名",
             "fieldName": "username",
             "show": true,
+            "sort": true,
             "use": true,
             "edit":true,
             "model":"editingObject.username",
@@ -83,6 +84,8 @@ var dataFields = {
             "edit":true,
             "placeholder":"必选",
             "required":true,
+           /* "format":"YYYY-MM-DD HH:mm:ss",
+            "showTime":true,*/
             "model":"editingObject.myDate",
             "inputType":"date",
             "validators":[{
@@ -90,18 +93,6 @@ var dataFields = {
                 "required":"required",
                 "description":"必选"
             }],
-            "render":function (value) {
-                return value;
-            }
-        },
-        {
-            "name": "描述",
-            "fieldName": "description",
-            "show": true,
-            "use": true,
-            "edit":true,
-            "model":"editingObject.description",
-            "inputType":"textarea",
             "render":function (value) {
                 return value;
             }
@@ -115,9 +106,8 @@ var dataFields = {
             "model":"editingObject.hobby",
             "inputType":"select",
             "placeholder":"必选",
-            "defaultValue":[{id: '2', text: '音乐'}],
-            "multiple":false,
             "source":"selectData",
+            "mode":"multiple",
             "required":true,
             "validators":[{
                 "name":"required",
@@ -148,6 +138,18 @@ var dataFields = {
             "edit":true,
             "model":"editingObject.enabled",
             "inputType":"switch",
+            "render":function (value) {
+                return value;
+            }
+        },
+        {
+            "name": "描述",
+            "fieldName": "description",
+            "show": true,
+            "use": true,
+            "edit":true,
+            "model":"editingObject.description",
+            "inputType":"textarea",
             "render":function (value) {
                 return value;
             }

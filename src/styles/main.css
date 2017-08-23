@@ -102,14 +102,6 @@
     padding: 8px 8px 8px 23px;
 }
 
-form.top-handle{
-    padding:0 15px;
-}
-
-form.top-handle .form-group,form.top-handle .input-group{
-    margin-top: 15px;
-}
-
 /* ngview 的动画效果 */
 /*@keyframes rotateFall {
     0%      { transform: rotateZ(0deg); }
@@ -928,6 +920,10 @@ ul.ui_pagination li:last-child{
 
 .card-footer{
     margin: 15px 0;
+}
+
+.filter-form .ant-form-item{
+    margin-top: 15px;
 }
 
 

@@ -6,8 +6,8 @@
         </nz-breadcrumb>
     </ng-template>
     <ng-template #body>
-        <div class="row" style="margin:-24px;margin-bottom: 0;padding: 15px;">
-            <form nz-form [nzLayout]="'inline'">
+        <div class="row" style="margin:-24px;margin-bottom: 0;padding: 0 0 15px 15px;">
+            <form nz-form [nzLayout]="'inline'" class="filter-form">
                 <daterange [dateRangeConfig]="dateRangeConfig" [dateRange]="loadObjectParams" (dateChangeFunc)="loadFirstPage()"></daterange>
                 <div nz-form-item>
                     <div nz-form-control>
@@ -37,13 +37,14 @@
                 </div>
             </form>
         </div>
-        <nz-table #nzTable [nzIsPagination]="false" [nzShowFooter]="true" [nzSize]="'middle'" [nzBordered]="true" [nzCustomNoResult]="true">
+        <nz-table #nzTable id="homeTable" [nzIsPagination]="false" [nzShowFooter]="true" [nzSize]="'middle'" [nzBordered]="true" [nzCustomNoResult]="true">
             <thead nz-thead>
             <tr>
                 <ng-container *ngFor="let th of dataFields">
                     <ng-container *ngIf="th.use && fieldShow[th.fieldName]">
-                        <th nz-th>
+                        <th nz-th [attr.fieldName]="th.fieldName">
                             {{th.name}}
+                            <i class="fa fa-sort sort" [attr.sortName]="th.sortName || th.fieldName" (click)="sort($event,th.sortName || th.fieldName)" *ngIf="th.sort"></i>
                         </th>
                     </ng-container>
                 </ng-container>

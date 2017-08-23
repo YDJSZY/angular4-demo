@@ -11,7 +11,7 @@
           "people":12,
           "myDate":"2017-08-06",
           "description":"很好",
-          "hobby":[1],
+          "hobby":"2",
           "confirm":true,
           "enabled":false
         }

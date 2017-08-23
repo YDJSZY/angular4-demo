@@ -115,25 +115,33 @@ export class EditModalComponent implements OnInit,OnChanges{
     }
 
     ngOnChanges(change:currentTimestamp){
-        if(this.currentTimestamp) this.isVisible = true;
+        if(this.currentTimestamp){
+            this.translateForm();
+            this.isVisible = true;
+        }
     }
 
-    handleOk(e) {
-        console.log('点击了确定')
-        this.isVisible = false;
+    translateForm() {
+        for(var field of this.dataFields){
+            if(field.inputType=="date"){
+                var value = this.editForm.controls[field.fieldName].value;
+                if(!value) continue;
+                this.editForm.controls[field.fieldName].setValue(new Date(value))
+            }
+        }
     }
 
     handleCancel(e) {
-        console.log(e);
         this.isVisible = false;
     }
 
-    onSubmit(form){
-        if(!this.validateForm(form)){
+    onSubmit(){
+        if(!this.validateForm(this.editForm)){
             this.toasterService.pop('error', '', '表单填写有误');
             return;
         }
-        this.saveForm.emit(form.value)
+        this.saveForm.emit(this.editForm.value);
+        this.isVisible = false;
     }
 
     validateForm(form){

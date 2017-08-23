@@ -1,15 +1,27 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
-
+import { HttpService } from '../../service/httpService';
+import 'rxjs/add/operator/toPromise';
+import { GlobalService } from '../../service/globalService';
 @Component({
     selector: 'app',
     templateUrl:'./app.html',
+    providers:[HttpService,GlobalService],
     styles:[]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
     isCollapsed:boolean = false;
-    constructor(){
+    constructor(private http:HttpService,private globalService:GlobalService){
+        this.http = http;
+        this.globalService = globalService;
+    }
 
+    ngOnInit() {
+        var promise = this.http.getData({url:"../../package.json"});
+        promise.then(function (res) {
+            this.globalService.setMyInfo(res.json());
+            console.log(this.globalService)
+        }.bind(this))
     }
 
     openChange(value) {

@@ -1,40 +1,4 @@
 <nz-root>
-   <!-- <div class="app" id="app">
-        <div class="app-header" style="height: 50px;background: #ffffff;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);">
-            <div class="app-title" style="width: 200px;text-align: center;background: #108ee9;color: #ffffff;height: 50px;line-height: 50px">
-                <span style="color: #ffffff;font-size: 19px;font-weight: 400;">快云科技</span>
-            </div>
-        </div>
-        <div class="app-aside-navbar" style="position:fixed;height: 100%;background: #404040;">
-            <ul nz-menu [nzMode]="'inline'" style="width: 200px;" [nzTheme]="'dark'">
-                <li nz-submenu [(nzOpen)]="isOpenThree" (nzOpenChange)="openChange('three')">
-                    <span title style="font-size: 14px;"><i class="anticon anticon-setting"></i> 首页展示</span>
-                    <ul>
-                        <li nz-menu-item>
-                            <a routerLink="/main" routerLinkActive="active" style="font-size: 14px">
-                                <i class="fa fa-angle-right"></i>
-                                <span>主页</span>
-                            </a>
-                        </li>
-                        <li nz-menu-item>
-                            <a routerLink="/home" routerLinkActive="active" style="font-size: 14px;">
-                                <i class="fa fa-angle-right"></i>
-                                <span>首页</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="app-content" style="margin-left: 200px;">
-            <div ui-butterbar></div>
-            <a href class="off-screen-toggle hide" data-toggle="class:off-screen" data-target=".app-aside" ></a>
-            <div class="app-content-body ainmate-scale-up">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-
-    </div>-->
     <nz-layout style="height: 100%">
         <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzCollapsedWidth]="0" [nzBreakpoint]="'lg'">
             <div class="app-title" style="text-align: center;background: #108ee9;color: #ffffff;height: 50px;line-height: 50px">
