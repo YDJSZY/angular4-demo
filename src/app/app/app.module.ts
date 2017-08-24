@@ -7,11 +7,12 @@ import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from './app.component';
 import { ApplicationRef } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from "@angular/common/http";
+import { CoreModule } from 'core.module';
+import { GlobalService } from '../../service/globalService';
 import 'hammerjs';
 // 定义常量 路由
 const appRoutes: Routes = [
@@ -34,7 +35,7 @@ const appRoutes: Routes = [
     imports: [BrowserModule,HttpModule,HttpClientModule,ToasterModule,BrowserAnimationsModule, SharkModule,FormsModule,NgZorroAntdModule.forRoot(), RouterModule.forRoot(appRoutes, { useHash: true })],
     declarations: [AppComponent],
     bootstrap: [AppComponent],
-    providers:[ToasterService]
+    providers:[ToasterService,GlobalService]
 })
 export class AppModule {
     constructor(public appRef: ApplicationRef) { }

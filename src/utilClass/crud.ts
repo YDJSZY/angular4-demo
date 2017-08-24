@@ -46,16 +46,16 @@ export class DataTable{
     }//载入第一页
 
     loadObjects (params,reset) {
-        console.log(params)
         this.loadObjectParams = Object.assign(this.loadObjectParams,params || {});
+        this.translateDatePicker();
         var promise = this.http.getData({
             "url": this.baseUrl,//this.makeUrl(this.baseUrl),
             "params": this.loadObjectParams
         });
         promise.then(function (res) {
-            if(res.status == 200) return res
+            if(res.status == 200) return res;
         }).then(function (res) {
-            this.parseResponse(res.json())
+            return this.parseResponse(res.json());
         }.bind(this)).then(function (res) {
             if(reset) this.paginationMessage.currentTimestamp = new Date().getTime();
         }.bind(this)).catch(function (error) {
@@ -64,6 +64,7 @@ export class DataTable{
     }//载入资源
 
     parseResponse (response) {
+        //return this.dataStore = response;
         this.objectList = response.results;
         this.paginationMessage["totalRecords"] = response.count;
         this.paginationMessage["totalPages"] = response.num_pages;
@@ -125,8 +126,11 @@ export class DataTable{
     }
 
     saveForm(data){
-        this.beforeSave(data);
-        console.log(data)
+        var data = this.beforeSave(data);
+        var promise = this.http.postData({url:this.baseUrl,data:data});
+        promise.then(function (res) {
+            console.log(res)
+        })
     }
 
     toggleDetail(obj){
@@ -138,12 +142,22 @@ export class DataTable{
     }
 
     quickSearch(){
-        console.log(this.loadObjectParams)
+        this.loadFirstPage();
     }
 
-    dateChangeFunc(date){
-        //console.log(date)
-    }
+    translateDatePicker (date,loadObject) {
+        var begin_time = new Date(this.loadObjectParams.begin_time).getTime();
+        var end_time = new Date(this.loadObjectParams.end_time).getTime();
+        if(begin_time > end_time){
+            var t = end_time;
+            end_time = begin_time+23*60*60*1000+59*60*1000+59*1000+999;
+            begin_time = t-23*60*60*1000-59*60*1000-59*1000-999;
+        }
+        this.loadObjectParams.begin_time = begin_time;
+        this.loadObjectParams.end_time = end_time;
+        /*this.currRouteStorage.dateRangeName = date.dateRangeName;//当前页面的日期选择
+        this.setLocalStorage(this.storage);*/
+    }//处理发送给后端的日期格式
 
     sort (event,field) {
         var o = this.tableSort.beginSort(event.target,field);

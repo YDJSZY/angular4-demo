@@ -313,7 +313,7 @@
         };
     };
 
-    function DateRange(targetElement,dateRangeName) {
+    function DateRange(targetElement,config) {
         this.namedDateRanges = [
             "今天",
             "昨天",
@@ -332,7 +332,8 @@
             "自定义"
         ];
         this.targetElement = $(targetElement);
-        this.dateRangeName = dateRangeName;
+        this.dateRangeName = config.dateRangeName;
+        console.log(config)
         this.render();
     }
     

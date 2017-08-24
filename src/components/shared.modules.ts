@@ -1,7 +1,7 @@
 /**
  * Created by luwenwei on 17/7/23.
  */
-import { NgModule,NO_ERRORS_SCHEMA} from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { FieldCheckBoxComponent,PaginationComponent,EditModalComponent,DateRangeComponent } from './global.component';

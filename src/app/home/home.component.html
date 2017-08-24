@@ -11,7 +11,7 @@
                 <daterange [dateRangeConfig]="dateRangeConfig" [dateRange]="loadObjectParams" (dateChangeFunc)="loadFirstPage()"></daterange>
                 <div nz-form-item>
                     <div nz-form-control>
-                        <nz-input [nzPlaceHolder]="'搜索'" [nzSize]="'large'">
+                        <nz-input [nzPlaceHolder]="'搜索'" [nzSize]="'large'" [ngModelOptions]="{standalone: true}" [(ngModel)]="loadObjectParams.search">
                             <ng-template #prefix>
                                 <i class="anticon anticon-search"></i>
                             </ng-template>

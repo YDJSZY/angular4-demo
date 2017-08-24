@@ -15,6 +15,6 @@ export class HttpService {
     }
 
     postData(options){
-        return this.http.post(options.url,{data:options.data})
+        return this.http.post(options.url,{data:options.data}).toPromise()
     }
 }

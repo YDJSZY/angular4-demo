@@ -6,7 +6,7 @@ import { GlobalService } from '../../service/globalService';
 @Component({
     selector: 'app',
     templateUrl:'./app.html',
-    providers:[HttpService,GlobalService],
+    providers:[HttpService],
     styles:[]
 })
 export class AppComponent implements OnInit{
@@ -20,7 +20,6 @@ export class AppComponent implements OnInit{
         var promise = this.http.getData({url:"../../package.json"});
         promise.then(function (res) {
             this.globalService.setMyInfo(res.json());
-            console.log(this.globalService)
         }.bind(this))
     }
 

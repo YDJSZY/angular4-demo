@@ -48,7 +48,7 @@ export class FieldCheckBoxComponent implements OnInit {
 })
 
 export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
-    @Input() paginationMessage={totalRecords:0,totalPages:0,currentPage:0,page_size:20}
+    @Input() paginationMessage={totalRecords:0,totalPages:1,currentPage:1,page_size:20}
     @Input() currentTimestamp
     @Output() loadData = new EventEmitter<any>();
     @ViewChild("pagination")
@@ -187,7 +187,7 @@ export class EditModalComponent implements OnInit,OnChanges{
                     </div>
                     <div nz-form-item style="margin-right: 5px">
                     <div nz-form-control>
-                        <nz-datepicker [nzSize]="'large'" [ngModel]="dateRange.begin_time" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
+                        <nz-datepicker [nzSize]="'large'" [(ngModel)]="dateRange.begin_time" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
                     </div>
                 </div>
                 <div nz-form-item>
@@ -195,7 +195,7 @@ export class EditModalComponent implements OnInit,OnChanges{
                 </div>
                 <div nz-form-item style="margin-left: -12px">
                     <div nz-form-control>
-                        <nz-datepicker [nzSize]="'large'" [ngModel]="dateRange.end_time" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
+                        <nz-datepicker [nzSize]="'large'" [(ngModel)]="dateRange.end_time" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
                     </div>
                 </div>
             </span>`
@@ -206,26 +206,27 @@ export class DateRangeComponent implements OnInit,AfterViewInit{
     @Output() dateChangeFunc = new EventEmitter<any>();
     @ViewChild("dateRangeSelect")
     dateRangeSelectEle:ElementRef
+    config:Object
     constructor(el:ElementRef){
         this.el = el;
-    }
-
-    ngOnInit() {
-        var self = this;
-        var cfg = {
+        this.config = {
             minView:2,
             dateRangeName:"今天"
         }
     }
 
+    ngOnInit() {
+        var self = this;
+    }
+
     ngAfterViewInit(){
-        var dateRange = new DateRange(this.dateRangeSelectEle.nativeElement,"昨天");
+        var dateRange = new DateRange(this.dateRangeSelectEle.nativeElement,Object.assign(this.config,this.dateRangeConfig));
         //setTimeout(function (){
             this.renderDatePicker(dateRange.currentDateRange)
         //}.bind(this))
         dateRange.targetElement.on("dataRangeChange",function (event,dateRange){
             this.renderDatePicker(dateRange,true);
-        }.bind(this))
+        }.bind(this));
     }
 
     renderDatePicker(dateRange,emitEvent) {
