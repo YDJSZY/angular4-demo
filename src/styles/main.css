@@ -900,6 +900,12 @@ ul.ui_pagination li:last-child{
     }
 }
 
+@media screen and (max-width: 1200px) {
+    .nz-footer{
+        margin-left:0;
+    }
+}
+
 .cdk-overlay-container{
     z-index: 10000;
 }
@@ -924,6 +930,14 @@ ul.ui_pagination li:last-child{
 
 .filter-form .ant-form-item{
     margin-top: 15px;
+}
+
+.data-table .ant-table-wrapper{
+    margin: 0 -10px -10px;
+}
+
+.data-table .ant-table-placeholder{
+    display: none;
 }
 
 
