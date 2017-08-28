@@ -2,12 +2,6 @@
 # yarn lockfile v1
 
 
-"@angular/animations@^4.0.0":
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.3.4.tgz#02c726b3b70ae3d2e155704c8c60e9baf01547ef"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/animations@^4.3.4":
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.3.5.tgz#85aa454c887cc7cce11637ea5f6e9afad88490e1"
@@ -17,12 +11,6 @@
 "@angular/cdk@^2.0.0-beta.8":
   version "2.0.0-beta.8"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-2.0.0-beta.8.tgz#71961c851dfbeb19e085e898bf5e4461408f8b57"
-  dependencies:
-    tslib "^1.7.1"
-
-"@angular/common@^4.0.0":
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.3.4.tgz#98fb7d6e8da633ba56844d5c00986ca407aea950"
   dependencies:
     tslib "^1.7.1"
 
@@ -46,21 +34,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/core@^4.0.0":
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.3.4.tgz#42dd8046600f5a080a4e1212116b12fe97bcfcb4"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/core@^4.3.4":
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.3.5.tgz#bd1efdbf1ebcfb9c27a238e2aa4c48159b0895bb"
-  dependencies:
-    tslib "^1.7.1"
-
-"@angular/forms@^4.0.0":
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-4.3.4.tgz#57fa07b7bf9103f1b948fbfe4cfed314092c9e96"
   dependencies:
     tslib "^1.7.1"
 
@@ -76,21 +52,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/material@^2.0.0-beta.8":
-  version "2.0.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.8.tgz#a92852abc9261aea26c2401f576645470be2cf38"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/platform-browser-dynamic@^4.3.4":
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.3.5.tgz#4a697b3b0aec805b33884fd4a9b3473065bab1e0"
-  dependencies:
-    tslib "^1.7.1"
-
-"@angular/platform-browser@^4.0.0":
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.3.4.tgz#dede8ff31441a2452f202ed798a0822ebc5a9153"
   dependencies:
     tslib "^1.7.1"
 
@@ -2108,7 +2072,7 @@ mixin-object@^2.0.1:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.17.1, moment@^2.18.1:
+moment@^2.18.1:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
@@ -2134,29 +2098,12 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-ng-zorro-antd@^0.5.0-rc.0:
-  version "0.5.0-rc.0"
-  resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-0.5.0-rc.0.tgz#1f82814c1554e898bf6910018f91c8ed7866d94c"
+ng-zorro-antd@^0.5.0-rc.3:
+  version "0.5.0-rc.3"
+  resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-0.5.0-rc.3.tgz#d57e892bfa412f9c1f01c4d5321fba00377b08c7"
   dependencies:
-    "@angular/animations" "^4.0.0"
     "@angular/cdk" "^2.0.0-beta.8"
-    "@angular/common" "^4.0.0"
-    "@angular/core" "^4.0.0"
-    "@angular/forms" "^4.0.0"
-    "@angular/platform-browser" "^4.0.0"
     moment "^2.18.1"
-    rxjs "^5.0.1"
-    zone.js "^0.8.14"
-
-ng2-date-picker@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/ng2-date-picker/-/ng2-date-picker-2.3.1.tgz#58c4a845c6da793535bbef393cb7748576b6c7bc"
-  dependencies:
-    moment "^2.17.1"
-
-ng2-select@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ng2-select/-/ng2-select-1.2.0.tgz#5c90618bffbe32acc5ee1c128c88547059b4f11c"
 
 no-case@^2.2.0:
   version "2.3.1"
@@ -3038,7 +2985,7 @@ ripemd160@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-1.0.1.tgz#93a4bbd4942bc574b69a8fa57c71de10ecca7d6e"
 
-rxjs@^5.0.1, rxjs@^5.2.0:
+rxjs@^5.2.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.3.0.tgz#d88ccbdd46af290cbdb97d5d8055e52453fabe2d"
   dependencies:
@@ -3704,10 +3651,6 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
-
-zone.js@^0.8.14:
-  version "0.8.16"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.16.tgz#ac31b6c418f88c0f918ad6acd8a402aca9313abb"
 
 zone.js@^0.8.5:
   version "0.8.5"
