@@ -1,9 +1,14 @@
 /**
  * Created by luwenwe on 2017/8/23.
  */
+declare var $:any
 export class TableSort {
-    constructor(sortData,table,initSort){
-        this.sortData = sortData;
+    dataFields:Array<any>
+    sortData:Object
+    tbElement:any
+    initSort:String
+    constructor(dataFields,table,initSort?){
+        this.dataFields = dataFields;
         this.tbElement = table;
         this.initSort = initSort;
         this.setSortData();
@@ -11,7 +16,7 @@ export class TableSort {
 
     setSortData() {
         var sortObj = {}
-        for(var field of this.sortData){
+        for(var field of this.dataFields){
             if(field.sort) {
                 sortObj[field.fieldName] = true;
             }

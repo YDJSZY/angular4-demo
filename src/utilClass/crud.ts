@@ -3,20 +3,21 @@
  */
 import { FormControl,Validators,FormGroup,FormBuilder } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
-import { ToasterConfig } from 'angular2-toaster';
 export class DataTable{
     objectList:any[]
-    dataFields:Object
+    dataFields:Array<any>
     fieldShow:Object
-    toasterconfig: ToasterConfig
     currentRepeatObj:Object
-    loadObjectParams:Object
+    loadObjectParams:any
     paginationMessage:Object
     selectSources:Object
-    tableForm: FormGroup
-    constructor(public toasterconfig:ToasterConfig,public fb:FormBuilder){
+    tableForm: any
+    baseUrl:String
+    http:any
+    tableSort:any
+    fb:FormBuilder
+    constructor(){
         this.fb = new FormBuilder();
-        this.toasterconfig = new ToasterConfig({animation: 'fade'});
         this.loadObjectParams = {"page":1, "page_size":20, "ordering":"", "search":"", "begin_time":"", "end_time":""};
         this.paginationMessage = {"totalRecords":null,"totalPages":1,"currentPage":1,"page_size":20,"pageReady":false,"currentTimestamp":null};
         this.selectSources = {
@@ -40,12 +41,12 @@ export class DataTable{
         }
     }
 
-    loadFirstPage (params) {
+    loadFirstPage (params?: Object) {
         params = Object.assign({page:1},params || {});
         this.loadObjects(params,true);
     }//载入第一页
 
-    loadObjects (params,reset) {
+    loadObjects (params?: Object,reset?: boolean) {
         this.loadObjectParams = Object.assign(this.loadObjectParams,params || {});
         this.translateDatePicker();
         var promise = this.http.getData({
@@ -145,7 +146,7 @@ export class DataTable{
         this.loadFirstPage();
     }
 
-    translateDatePicker (date,loadObject) {
+    translateDatePicker (date?: any,loadObject?: boolean) {
         var begin_time = new Date(this.loadObjectParams.begin_time).getTime();
         var end_time = new Date(this.loadObjectParams.end_time).getTime();
         if(begin_time > end_time){

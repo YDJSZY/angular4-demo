@@ -1,8 +1,8 @@
 /**
  * Created by luwenwe on 2017/7/17.
  */
-import {Directive, ElementRef, HostListener, Input, OnInit, OnChanges} from "@angular/core";
-
+import {Directive, ElementRef, HostListener, Input, OnInit, OnChanges, SimpleChange} from "@angular/core";
+declare var $:any
 @Directive({
     selector:'[beauty]'
 })
@@ -51,7 +51,7 @@ class DatepickerDirective implements OnInit, OnChanges{
         this.el = el;
     }
 
-    ngOnChanges(changes:dateModel.value) {
+    ngOnChanges(changes:{[propName: string]: SimpleChange}) {
         if(!this.dateModel.value) return;
         $(this.el.nativeElement).datetimepicker('update', this.dateModel.value);
     }

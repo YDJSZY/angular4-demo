@@ -40,7 +40,7 @@
                 <div nz-form-item style="vertical-align: text-top">
                     <field-check-box [datafields]="dataFields" [fieldshow]="fieldShow"></field-check-box>
                 </div>
-                <div nz-form-item class="pull-right">
+                <div nz-form-item style="float: right">
                     <div nz-form-control>
                         <button nz-button [nzType]="'primary'" (click)="createTable()">
                             <span>新增</span>
@@ -98,5 +98,4 @@
         </nz-table>
     </ng-template>
 </nz-card>
-<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
 <edit-modal [editForm]="tableForm" [currentTimestamp]="tableForm.currentTimestamp" *ngIf="tableForm" [dataFields]="dataFields" [selectSources]="selectSources" (saveForm)="saveForm($event)"></edit-modal>

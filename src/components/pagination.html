@@ -1,5 +1,5 @@
 <ng-container>
-    <div class="pull-left">
+    <div style="float:left">
         <span>一共{{paginationMessage.totalRecords}}条数据，分为{{paginationMessage.totalPages }}页，当前{{paginationMessage.currentPage}}页。</span>
         <span style="display: inline-block;width: 60px;">
             <select class="custom-select" style="width: 60px;" (change)="everyPageSize()" [(ngModel)]="paginationMessage.page_size">
@@ -10,7 +10,7 @@
             </select>
         </span>
     </div>
-    <div class="pull-right">
+    <div style="float:right">
         <span #pagination></span>
     </div>
     <div style="clear: both"></div>

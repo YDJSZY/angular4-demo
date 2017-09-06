@@ -15,7 +15,7 @@ export class GlobalService{
         this.myInfo = myInfo;
     }
     
-    updateMyInfo(prop:String,value:any){
+    updateMyInfo(prop:any,value:any){
         this.myInfo[prop] = value;
     }
 
@@ -23,7 +23,7 @@ export class GlobalService{
         this.constants = constants;
     }
 
-    updateConstants(prop:String,value:any){
+    updateConstants(prop:any,value:any){
         this.constants[prop] = value;
     }
 }

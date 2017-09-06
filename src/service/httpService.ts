@@ -10,11 +10,11 @@ export class HttpService {
     constructor(private http:Http){
     }
 
-    getData(options){
+    getData(options:any){
         return this.http.get(options.url,{params:options.params}).toPromise()
     }
 
-    postData(options){
+    postData(options:any){
         return this.http.post(options.url,{data:options.data}).toPromise()
     }
 }

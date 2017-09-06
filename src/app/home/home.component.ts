@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit} from '@angular/core';
+import { FormControl,Validators,FormGroup,FormBuilder } from '@angular/forms';
 import {dataFields} from './home.dataFields';
 import 'rxjs/add/operator/debounceTime';
 import { DataTable } from '../../utilClass/crud';
@@ -18,7 +19,7 @@ export class HomeComponent extends DataTable implements OnInit,AfterViewInit{
         this.dataFields = dataFields.fields;
         this.fieldShow = dataFields.fieldShow;
         this.dateRangeConfig = {dateRangeName:"本周"};
-        this.baseUrl = "../../data.json";
+        this.baseUrl = "../src/data.json";
         this.http = http;
         this.globalService = globalService;
         this.tableSort = new TableSort(this.dataFields,"#homeTable");
@@ -34,5 +35,21 @@ export class HomeComponent extends DataTable implements OnInit,AfterViewInit{
     ngAfterViewInit() {
         this.run();
     }
-    
+
 };
+/*declare var $:any
+@Component({
+  selector: 'home',
+  templateUrl: './home.component.html',
+  //providers:[HttpService],
+})
+export class HomeComponent implements OnInit{
+    constructor() {
+
+    }
+
+    ngOnInit() {
+
+    }
+
+}*/

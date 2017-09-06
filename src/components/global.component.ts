@@ -1,11 +1,11 @@
 /**
  * Created by luwenwe on 2017/7/12.
  */
-import { Component,OnInit,OnChanges,Input,Output,ElementRef,EventEmitter,ViewChild,AfterViewInit,DoCheck} from '@angular/core';
-import {ToasterModule, ToasterService, ToasterConfig} from 'angular2-toaster';
+import { Component,OnInit,OnChanges,Input,Output,ElementRef,EventEmitter,ViewChild,AfterViewInit,SimpleChange} from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd';
 const UiPagination = require("../utils/ui-pagination");
 const DateRange = require("../utils/dateRange");
-
+declare var $:any
 @Component({
     selector: 'field-check-box',
     templateUrl: './field-check-box.html',
@@ -15,7 +15,6 @@ export class FieldCheckBoxComponent implements OnInit {
     @Input() fieldshow:any
     showPanel:boolean=false
     constructor(){
-        
     }
 
     ngOnInit() {
@@ -26,12 +25,12 @@ export class FieldCheckBoxComponent implements OnInit {
             self.showPanel = false;
         };
     }
-    
+
     openbindclick(e){
         var event = e || window.event;
         event.stopPropagation() || event.cancelBubble;
         this.showPanel = !this.showPanel;
-        
+
     }
 
     selectField(e,name){
@@ -49,12 +48,15 @@ export class FieldCheckBoxComponent implements OnInit {
 
 export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
     @Input() paginationMessage={totalRecords:0,totalPages:1,currentPage:1,page_size:20}
-    @Input() currentTimestamp
+    @Input() currentTimestamp:number
     @Output() loadData = new EventEmitter<any>();
     @ViewChild("pagination")
     paginationEle:ElementRef
-    params:Object={}
+    params:{page_size:number,page:number}
+    uiPagination:any
     constructor() {
+        this.currentTimestamp = 0;
+        this.params = {page_size:20,page:1}
     }
 
     everyPageSize(){
@@ -62,8 +64,8 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
         this.params.page = 1;
         this.loadData.emit(this.params);
     }
-    
-    ngOnChanges(changes:currentTimestamp){
+
+    ngOnChanges(changes:{[propName: string]: SimpleChange}){
         if(!this.currentTimestamp) return;
         this.uiPagination.totalPage = this.paginationMessage.totalPages;
         this.uiPagination.currentPage = 1;
@@ -89,7 +91,7 @@ export class PaginationComponent implements OnInit,AfterViewInit,OnChanges {
     }
 
     ngDoCheck(){
-        
+
     }
 }
 
@@ -104,9 +106,8 @@ export class EditModalComponent implements OnInit,OnChanges{
     @Input() selectSources
     @Output() saveForm = new EventEmitter<any>();
     isVisible:boolean=false
-    private toasterService: ToasterService;
-    constructor(toasterService: ToasterService,el:ElementRef){
-        this.toasterService = toasterService;
+    el:ElementRef
+    constructor(el:ElementRef,private _message: NzMessageService){
         this.el = el;
     }
 
@@ -114,7 +115,7 @@ export class EditModalComponent implements OnInit,OnChanges{
 
     }
 
-    ngOnChanges(change:currentTimestamp){
+    ngOnChanges(change:{[propName: string]: SimpleChange}){
         if(this.currentTimestamp){
             this.translateForm();
             this.isVisible = true;
@@ -135,9 +136,9 @@ export class EditModalComponent implements OnInit,OnChanges{
         this.isVisible = false;
     }
 
-    onSubmit(){
+    onSubmit(event?:any){
         if(!this.validateForm(this.editForm)){
-            this.toasterService.pop('error', '', '表单填写有误');
+            this._message.create('error', '表单填写有误', {nzDuration: 5000});
             return;
         }
         this.saveForm.emit(this.editForm.value);
@@ -207,6 +208,7 @@ export class DateRangeComponent implements OnInit,AfterViewInit{
     @ViewChild("dateRangeSelect")
     dateRangeSelectEle:ElementRef
     config:Object
+    el:ElementRef
     constructor(el:ElementRef){
         this.el = el;
         this.config = {
@@ -229,7 +231,7 @@ export class DateRangeComponent implements OnInit,AfterViewInit{
         }.bind(this));
     }
 
-    renderDatePicker(dateRange,emitEvent) {
+    renderDatePicker(dateRange:any,emitEvent?: boolean) {
         this.dateRange.begin_time = new Date(dateRange.begin_time).getTime();
         this.dateRange.end_time = new Date(dateRange.end_time).getTime();
         if(emitEvent) this.dateChangeFunc.emit();
